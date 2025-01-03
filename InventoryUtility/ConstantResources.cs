@@ -19,6 +19,8 @@
 
         #region Constant Values
         public const string InventoryDbConnection = "InventoryDbConnection";
+        public const string ConnectionStrings = "ConnectionStrings:InventoryDbConnection";
+        public const string DataSource = "Data Source=SANJAY-NIGAM\\SQLEXPRESS;Initial Catalog=IASMS;Integrated Security=true;TrustServerCertificate=True;";
         public const string ProductId = "ProductId";
         public const string ProductName = "ProductName";
         public const string Quantity = "Quantity";
