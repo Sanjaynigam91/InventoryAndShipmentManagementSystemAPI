@@ -60,7 +60,10 @@ namespace InventoryBAL.Implementation
             productLogger.LogInformation("GetAllProducts,Bussiness operation execution process completed at {'" + DateTime.Now + "'}");
             return response;
         }
-
+        /// <summary>
+        /// Used to Get All Shipments 
+        /// </summary>
+        /// <returns></returns>
         public List<ProductShipmentResponse> GetAllShipmentDetails()
         {
             productLogger.LogInformation("GetAllShipmentDetails,Bussiness operation execution process started at {'" + DateTime.Now + "'}");
