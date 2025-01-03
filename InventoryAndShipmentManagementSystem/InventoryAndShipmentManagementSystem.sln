@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InventoryDTO", "..\Inventor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InventoryUtility", "..\InventoryUtility\InventoryUtility.csproj", "{70107959-B74F-44FB-A2CD-3D3B0FCA8FBB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryAndManagementSystemTest", "..\InventoryAndManagementSystemTest\InventoryAndManagementSystemTest.csproj", "{CF152AC0-E5E9-45F0-8B3C-913D4CF1D041}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InventoryAndManagementSystemTest", "..\InventoryAndManagementSystemTest\InventoryAndManagementSystemTest.csproj", "{CF152AC0-E5E9-45F0-8B3C-913D4CF1D041}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
