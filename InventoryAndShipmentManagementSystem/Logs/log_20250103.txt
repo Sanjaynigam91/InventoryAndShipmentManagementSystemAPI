@@ -653,3 +653,148 @@
 2025-01-03 09:28:51 - GetProductById, Repository operation execution process completed at {'03-01-2025 09:28:51'} for the product Id {'61'}
 2025-01-03 09:28:51 - GetProductById, Bussiness operation execution process completed at {'03-01-2025 09:28:51'} for product Id {'61'}
 2025-01-03 09:28:51 - GetProductById, API execution process completed at {'03-01-2025 09:28:51'} with status {'InventoryDTO.APIResponseModel`1[System.Object]'} of product Id {'61'}
+2025-01-03 10:14:07 - GetAllShipments, API execution process started at {'03-01-2025 10:14:07'}
+2025-01-03 10:14:07 - GetAllShipmentDetails,Bussiness operation execution process started at {'03-01-2025 10:14:07'}
+2025-01-03 10:14:07 - GetAllShipmentDetails, Repository operation execution process started at {'03-01-2025 10:14:07'}
+2025-01-03 10:14:08 - Data base connection open at {'03-01-2025 10:14:08'} for GetAllShipmentDetails repository logic.
+2025-01-03 10:14:08 - Getting data base connection at {'03-01-2025 10:14:08'}
+2025-01-03 10:14:08 - {'Usp_GetAllProducts'} getting called at {'03-01-2025 10:14:08'}
+2025-01-03 10:14:08 - Data base connection closed at {'03-01-2025 10:14:08'} for GetAllShipmentDetails repository logic.
+2025-01-03 10:14:08 - GetAllShipmentDetails, Repository operation execution process completed at {'03-01-2025 10:14:08'}  with total product count {'12'}
+2025-01-03 10:14:08 - GetAllShipmentDetails,Bussiness operation execution process completed at {'03-01-2025 10:14:08'}
+2025-01-03 10:14:08 - GetAllShipments, API execution process completed at {'03-01-2025 10:14:08'} with status {'True'}
+2025-01-03 10:14:21 - GetAllProducts, API execution process started at {'03-01-2025 10:14:21'}
+2025-01-03 10:14:21 - GetAllProducts,Bussiness operation execution process started at {'03-01-2025 10:14:21'}
+2025-01-03 10:14:21 - GetAllProducts, Repository operation execution process started at {'03-01-2025 10:14:21'}
+2025-01-03 10:14:21 - Data base connection open at {'03-01-2025 10:14:21'} for GetAllProducts repository logic.
+2025-01-03 10:14:21 - Getting data base connection at {'03-01-2025 10:14:21'}
+2025-01-03 10:14:21 - {'Usp_GetAllProducts'} getting called at {'03-01-2025 10:14:21'}
+2025-01-03 10:14:21 - Data base connection closed at {'03-01-2025 10:14:21'} for GetAllProducts repository logic.
+2025-01-03 10:14:21 - GetAllProducts, Repository operation execution process completed at {'03-01-2025 10:14:21'}  with total product count {'9'}
+2025-01-03 10:14:21 - GetAllProducts,Bussiness operation execution process completed at {'03-01-2025 10:14:21'}
+2025-01-03 10:14:21 - GetAllProducts, API execution process completed at {'03-01-2025 10:14:21'} with status {'True'}
+2025-01-03 10:24:12 - GetAllProducts, API execution process started at {'03-01-2025 10:24:12'}
+2025-01-03 10:24:12 - GetAllProducts,Bussiness operation execution process started at {'03-01-2025 10:24:12'}
+2025-01-03 10:24:12 - GetAllProducts, Repository operation execution process started at {'03-01-2025 10:24:12'}
+2025-01-03 10:24:13 - Data base connection open at {'03-01-2025 10:24:13'} for GetAllProducts repository logic.
+2025-01-03 10:24:13 - Getting data base connection at {'03-01-2025 10:24:13'}
+2025-01-03 10:24:13 - {'Usp_GetAllProducts'} getting called at {'03-01-2025 10:24:13'}
+2025-01-03 10:24:13 - Data base connection closed at {'03-01-2025 10:24:13'} for GetAllProducts repository logic.
+2025-01-03 10:24:13 - GetAllProducts, Repository operation execution process completed at {'03-01-2025 10:24:13'}  with total product count {'9'}
+2025-01-03 10:24:13 - GetAllProducts,Bussiness operation execution process completed at {'03-01-2025 10:24:13'}
+2025-01-03 10:24:13 - GetAllProducts, API execution process completed at {'03-01-2025 10:24:13'} with status {'True'}
+2025-01-03 10:27:13 - GetAllShipments, API execution process started at {'03-01-2025 10:27:13'}
+2025-01-03 10:27:13 - GetAllShipmentDetails,Bussiness operation execution process started at {'03-01-2025 10:27:13'}
+2025-01-03 10:27:13 - GetAllShipmentDetails, Repository operation execution process started at {'03-01-2025 10:27:13'}
+2025-01-03 10:27:13 - Data base connection open at {'03-01-2025 10:27:13'} for GetAllShipmentDetails repository logic.
+2025-01-03 10:27:13 - Getting data base connection at {'03-01-2025 10:27:13'}
+2025-01-03 10:27:13 - {'Usp_GetAllProducts'} getting called at {'03-01-2025 10:27:13'}
+2025-01-03 10:27:13 - Data base connection closed at {'03-01-2025 10:27:13'} for GetAllShipmentDetails repository logic.
+2025-01-03 10:27:13 - GetAllShipmentDetails, Repository operation execution process completed at {'03-01-2025 10:27:13'}  with total product count {'12'}
+2025-01-03 10:27:13 - GetAllShipmentDetails,Bussiness operation execution process completed at {'03-01-2025 10:27:13'}
+2025-01-03 10:27:13 - GetAllShipments, API execution process completed at {'03-01-2025 10:27:13'} with status {'True'}
+2025-01-03 10:28:40 - GetProductById, API execution process started at {'03-01-2025 10:28:40'} for the product Id {'14'}
+2025-01-03 10:28:40 - GetProductById, Bussiness operation execution process started at {'03-01-2025 10:28:40'} for product Id {'14'}
+2025-01-03 10:28:40 - GetProductById, Repository operation execution process started at {'03-01-2025 10:28:40'} for the product Id {'14'}
+2025-01-03 10:28:40 - Checking Product Id, Product Id must be greater than zero {'14'}
+2025-01-03 10:28:40 - Data base connection open at {'03-01-2025 10:28:40'} for GetProductById repository logic.
+2025-01-03 10:28:40 - Getting data base connection at {'03-01-2025 10:28:40'}
+2025-01-03 10:28:40 - {'Usp_Get_Product_DetailsById'} getting called at {'03-01-2025 10:28:40'}
+2025-01-03 10:28:41 - Data base connection closed at {'03-01-2025 10:28:41'} for GetProductById repository logic.
+2025-01-03 10:28:41 - GetProductById, Repository operation execution process completed at {'03-01-2025 10:28:41'} for the product Id {'14'}
+2025-01-03 10:28:41 - GetProductById, Bussiness operation execution process completed at {'03-01-2025 10:28:41'} for product Id {'14'}
+2025-01-03 10:28:41 - GetProductById, API execution process completed at {'03-01-2025 10:28:41'} with status {'InventoryDTO.APIResponseModel`1[System.Object]'} of product Id {'14'}
+2025-01-03 10:28:44 - GetProductById, API execution process started at {'03-01-2025 10:28:44'} for the product Id {'61'}
+2025-01-03 10:28:44 - GetProductById, Bussiness operation execution process started at {'03-01-2025 10:28:44'} for product Id {'61'}
+2025-01-03 10:28:44 - GetProductById, Repository operation execution process started at {'03-01-2025 10:28:44'} for the product Id {'61'}
+2025-01-03 10:28:44 - Checking Product Id, Product Id must be greater than zero {'61'}
+2025-01-03 10:28:44 - Data base connection open at {'03-01-2025 10:28:44'} for GetProductById repository logic.
+2025-01-03 10:28:44 - Getting data base connection at {'03-01-2025 10:28:44'}
+2025-01-03 10:28:44 - {'Usp_Get_Product_DetailsById'} getting called at {'03-01-2025 10:28:44'}
+2025-01-03 10:28:44 - Data base connection closed at {'03-01-2025 10:28:44'} for GetProductById repository logic.
+2025-01-03 10:28:44 - GetProductById, Repository operation execution process completed at {'03-01-2025 10:28:44'} for the product Id {'61'}
+2025-01-03 10:28:44 - GetProductById, Bussiness operation execution process completed at {'03-01-2025 10:28:44'} for product Id {'61'}
+2025-01-03 10:28:44 - GetProductById, API execution process completed at {'03-01-2025 10:28:44'} with status {'InventoryDTO.APIResponseModel`1[System.Object]'} of product Id {'61'}
+2025-01-03 10:28:49 - UpdateProduct, API execution process started at {'03-01-2025 10:28:49'} of the product Id {'61'}
+2025-01-03 10:28:49 - UpdateProductDetails, Bussiness operation execution process started at {'03-01-2025 10:28:49'}
+2025-01-03 10:28:49 - UpdateProductDetails, Repository operation execution process started at {'03-01-2025 10:28:49'}
+2025-01-03 10:28:49 - Checking Product Id, Product Id must be greater than zero {'61'}
+2025-01-03 10:28:49 - Getting data base connection at {'03-01-2025 10:28:49'}
+2025-01-03 10:28:49 - {'Usp_Update_Product_Details'} getting called at {'03-01-2025 10:28:49'}
+2025-01-03 10:28:49 - Data base connection open at {'03-01-2025 10:28:49'} for UpdateProductDetails repository logic.
+2025-01-03 10:28:49 - Data base connection closed at {'03-01-2025 10:28:49'} for UpdateProductDetails repository logic
+2025-01-03 10:28:49 - UpdateProductDetails, Repository operation execution process completed at {'03-01-2025 10:28:49'} with status code {'200'}
+2025-01-03 10:28:49 - UpdateProductDetails, Bussiness operation execution process completed at {'03-01-2025 10:28:49'}
+2025-01-03 10:28:49 - UpdateProduct, API execution process completed at {'03-01-2025 10:28:49'} with status {'True'}
+2025-01-03 10:28:51 - GetAllProducts, API execution process started at {'03-01-2025 10:28:51'}
+2025-01-03 10:28:51 - GetAllProducts,Bussiness operation execution process started at {'03-01-2025 10:28:51'}
+2025-01-03 10:28:51 - GetAllProducts, Repository operation execution process started at {'03-01-2025 10:28:51'}
+2025-01-03 10:28:51 - Data base connection open at {'03-01-2025 10:28:51'} for GetAllProducts repository logic.
+2025-01-03 10:28:51 - Getting data base connection at {'03-01-2025 10:28:51'}
+2025-01-03 10:28:51 - {'Usp_GetAllProducts'} getting called at {'03-01-2025 10:28:51'}
+2025-01-03 10:28:51 - Data base connection closed at {'03-01-2025 10:28:51'} for GetAllProducts repository logic.
+2025-01-03 10:28:51 - GetAllProducts, Repository operation execution process completed at {'03-01-2025 10:28:51'}  with total product count {'9'}
+2025-01-03 10:28:51 - GetAllProducts,Bussiness operation execution process completed at {'03-01-2025 10:28:51'}
+2025-01-03 10:28:51 - GetAllProducts, API execution process completed at {'03-01-2025 10:28:51'} with status {'True'}
+2025-01-03 10:29:12 - AddNewProduct, API execution process started at {'03-01-2025 10:29:12'}
+2025-01-03 10:29:12 - SaveProductDetails, Bussiness operation execution process started at {'03-01-2025 10:29:12'}
+2025-01-03 10:29:12 - SaveProductDetails, Repository operation execution process started at {'03-01-2025 10:29:12'}
+2025-01-03 10:29:12 - Getting data base connection at {'03-01-2025 10:29:12'}
+2025-01-03 10:29:12 - {'Usp_Save_Product_Details'} getting called at {'03-01-2025 10:29:12'}
+2025-01-03 10:29:12 - Data base connection open at {'03-01-2025 10:29:12'} for SaveProductDetails repository logic.
+2025-01-03 10:29:12 - Data base connection closed at {'03-01-2025 10:29:12'} for SaveProductDetails repository logic
+2025-01-03 10:29:12 - SaveProductDetails, Repository operation execution process completed at {'03-01-2025 10:29:12'} with status code {'200'}
+2025-01-03 10:29:12 - SaveProductDetails, Bussiness operation execution process completed at {'03-01-2025 10:29:12'}
+2025-01-03 10:29:12 - AddNewProduct, API execution process completed at {'03-01-2025 10:29:12'} with status {'True'}
+2025-01-03 10:29:13 - GetAllProducts, API execution process started at {'03-01-2025 10:29:13'}
+2025-01-03 10:29:13 - GetAllProducts,Bussiness operation execution process started at {'03-01-2025 10:29:13'}
+2025-01-03 10:29:13 - GetAllProducts, Repository operation execution process started at {'03-01-2025 10:29:13'}
+2025-01-03 10:29:13 - Data base connection open at {'03-01-2025 10:29:13'} for GetAllProducts repository logic.
+2025-01-03 10:29:13 - Getting data base connection at {'03-01-2025 10:29:13'}
+2025-01-03 10:29:13 - {'Usp_GetAllProducts'} getting called at {'03-01-2025 10:29:13'}
+2025-01-03 10:29:13 - Data base connection closed at {'03-01-2025 10:29:13'} for GetAllProducts repository logic.
+2025-01-03 10:29:13 - GetAllProducts, Repository operation execution process completed at {'03-01-2025 10:29:13'}  with total product count {'10'}
+2025-01-03 10:29:13 - GetAllProducts,Bussiness operation execution process completed at {'03-01-2025 10:29:13'}
+2025-01-03 10:29:13 - GetAllProducts, API execution process completed at {'03-01-2025 10:29:13'} with status {'True'}
+2025-01-03 10:29:18 - GetProductById, API execution process started at {'03-01-2025 10:29:18'} for the product Id {'75'}
+2025-01-03 10:29:18 - GetProductById, Bussiness operation execution process started at {'03-01-2025 10:29:18'} for product Id {'75'}
+2025-01-03 10:29:18 - GetProductById, Repository operation execution process started at {'03-01-2025 10:29:18'} for the product Id {'75'}
+2025-01-03 10:29:18 - Checking Product Id, Product Id must be greater than zero {'75'}
+2025-01-03 10:29:18 - Data base connection open at {'03-01-2025 10:29:18'} for GetProductById repository logic.
+2025-01-03 10:29:18 - Getting data base connection at {'03-01-2025 10:29:18'}
+2025-01-03 10:29:18 - {'Usp_Get_Product_DetailsById'} getting called at {'03-01-2025 10:29:18'}
+2025-01-03 10:29:18 - Data base connection closed at {'03-01-2025 10:29:18'} for GetProductById repository logic.
+2025-01-03 10:29:18 - GetProductById, Repository operation execution process completed at {'03-01-2025 10:29:18'} for the product Id {'75'}
+2025-01-03 10:29:18 - GetProductById, Bussiness operation execution process completed at {'03-01-2025 10:29:18'} for product Id {'75'}
+2025-01-03 10:29:18 - GetProductById, API execution process completed at {'03-01-2025 10:29:18'} with status {'InventoryDTO.APIResponseModel`1[System.Object]'} of product Id {'75'}
+2025-01-03 10:29:33 - DeleteProduct, API execution process started at {'03-01-2025 10:29:33'} of the product Id {'69'}
+2025-01-03 10:29:33 - DeleteProduct, Bussiness operation execution process started at {'03-01-2025 10:29:33'} for product Id {'69'}
+2025-01-03 10:29:33 - DeleteProduct, Repository operation execution process started at {'03-01-2025 10:29:33'} for product Id {'69'}
+2025-01-03 10:29:33 - Checking Product Id, Product Id must be greater than zero {'69'}
+2025-01-03 10:29:33 - Getting data base connection at {'03-01-2025 10:29:33'}
+2025-01-03 10:29:33 - {'Usp_Delete_Product'} getting called at {'03-01-2025 10:29:33'}
+2025-01-03 10:29:33 - Data base connection open at {'03-01-2025 10:29:33'} for DeleteProduct repository logic.
+2025-01-03 10:29:33 - Data base connection closed at {'03-01-2025 10:29:33'} for DeleteProduct repository logic
+2025-01-03 10:29:33 - DeleteProduct, Repository operation execution process completed at {'03-01-2025 10:29:33'} for product Id {'69'} with status code {'200'} for DeleteProduct repository logic
+2025-01-03 10:29:33 - DeleteProduct, Bussiness operation execution process completed at {'03-01-2025 10:29:33'} for product Id {'69'}
+2025-01-03 10:29:33 - DeleteProduct, API execution process completed at {'03-01-2025 10:29:33'} with status {'True'} for product Id {'69'}
+2025-01-03 10:29:34 - GetAllProducts, API execution process started at {'03-01-2025 10:29:34'}
+2025-01-03 10:29:34 - GetAllProducts,Bussiness operation execution process started at {'03-01-2025 10:29:34'}
+2025-01-03 10:29:34 - GetAllProducts, Repository operation execution process started at {'03-01-2025 10:29:34'}
+2025-01-03 10:29:34 - Data base connection open at {'03-01-2025 10:29:34'} for GetAllProducts repository logic.
+2025-01-03 10:29:34 - Getting data base connection at {'03-01-2025 10:29:34'}
+2025-01-03 10:29:34 - {'Usp_GetAllProducts'} getting called at {'03-01-2025 10:29:34'}
+2025-01-03 10:29:34 - Data base connection closed at {'03-01-2025 10:29:34'} for GetAllProducts repository logic.
+2025-01-03 10:29:34 - GetAllProducts, Repository operation execution process completed at {'03-01-2025 10:29:34'}  with total product count {'9'}
+2025-01-03 10:29:34 - GetAllProducts,Bussiness operation execution process completed at {'03-01-2025 10:29:34'}
+2025-01-03 10:29:34 - GetAllProducts, API execution process completed at {'03-01-2025 10:29:34'} with status {'True'}
+2025-01-03 10:29:46 - GetAllShipments, API execution process started at {'03-01-2025 10:29:46'}
+2025-01-03 10:29:46 - GetAllShipmentDetails,Bussiness operation execution process started at {'03-01-2025 10:29:46'}
+2025-01-03 10:29:46 - GetAllShipmentDetails, Repository operation execution process started at {'03-01-2025 10:29:46'}
+2025-01-03 10:29:46 - Data base connection open at {'03-01-2025 10:29:46'} for GetAllShipmentDetails repository logic.
+2025-01-03 10:29:46 - Getting data base connection at {'03-01-2025 10:29:46'}
+2025-01-03 10:29:46 - {'Usp_GetAllProducts'} getting called at {'03-01-2025 10:29:46'}
+2025-01-03 10:29:46 - Data base connection closed at {'03-01-2025 10:29:46'} for GetAllShipmentDetails repository logic.
+2025-01-03 10:29:46 - GetAllShipmentDetails, Repository operation execution process completed at {'03-01-2025 10:29:46'}  with total product count {'12'}
+2025-01-03 10:29:46 - GetAllShipmentDetails,Bussiness operation execution process completed at {'03-01-2025 10:29:46'}
+2025-01-03 10:29:46 - GetAllShipments, API execution process completed at {'03-01-2025 10:29:46'} with status {'True'}
