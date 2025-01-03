@@ -33,7 +33,7 @@ namespace InventoryAndShipmentManagementTest
             // Setting up mock configuration
             var inMemorySettings = new Dictionary<string, string>
              {
-                {"ConnectionStrings:InventoryDbConnection", "Data Source=SANJAY-NIGAM\\SQLEXPRESS;Initial Catalog=IASMS;Integrated Security=true;TrustServerCertificate=True;"}
+                {ConstantResources.ConnectionStrings, ConstantResources.DataSource}
              };
 
             var configuration = new ConfigurationBuilder()
