@@ -9,13 +9,11 @@ namespace InventoryBAL.Implementation
 {
     public class ProductBAL : IProduct
     {
-        private readonly IConfiguration config;
         private readonly IProductRepository productRepo;
         private readonly ProductLogger productLogger;
 
-        public ProductBAL(IConfiguration configuration, IProductRepository productRepository)
+        public ProductBAL(IProductRepository productRepository)
         {
-            config = configuration;
             productRepo = productRepository;
             productLogger = new ProductLogger();
         }

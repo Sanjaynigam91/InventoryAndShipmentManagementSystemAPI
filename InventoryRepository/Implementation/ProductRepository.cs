@@ -8,8 +8,7 @@ using InventoryDTO;
 using InventoryUtility;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Logging;
-using Azure;
+
 
 
 
@@ -17,13 +16,11 @@ namespace InventoryRepository.Implementation
 {
     public class ProductRepository : IProductRepository
     {
-        private IConfiguration config;
         private InventoryDbContext invDbContext;
         private readonly ProductLogger productLogger;
 
-        public ProductRepository(IConfiguration configuration, InventoryDbContext dbContext)
+        public ProductRepository(InventoryDbContext dbContext)
         {
-            config = configuration;
             invDbContext = dbContext;
             productLogger = new ProductLogger();
         }
