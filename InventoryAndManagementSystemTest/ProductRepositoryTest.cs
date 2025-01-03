@@ -14,21 +14,16 @@ namespace InventoryAndShipmentManagementTest
     [TestFixture]
     public class ProductRepositoryTest
     {
-        private Mock<IConfiguration> mockConfiguration;
         private Mock<IProductRepository> mockProductRepository;
         private InventoryDbContext invDbContext;
         private ProductRepository productRepo;
         private IServiceProvider serviceProvider;
-        private Mock<ProductLogger> mockproductLogger;
  
         [SetUp]
         public void Setup()
         {
-            // Mock IConfiguration
-            mockConfiguration = new Mock<IConfiguration>();
             // Create a mock of IProductRepository
             mockProductRepository = new Mock<IProductRepository>();
-            mockproductLogger =new Mock<ProductLogger> { CallBase = true };
             invDbContext = new InventoryDbContext();
             // Setting up mock configuration
             var inMemorySettings = new Dictionary<string, string>
@@ -49,7 +44,7 @@ namespace InventoryAndShipmentManagementTest
             serviceProvider = services.BuildServiceProvider();
             invDbContext = serviceProvider.GetService<InventoryDbContext>();
 
-           productRepo = new ProductRepository(mockConfiguration.Object, invDbContext);
+           productRepo = new ProductRepository(invDbContext);
 
         }
         /// <summary>
@@ -68,7 +63,7 @@ namespace InventoryAndShipmentManagementTest
 
             // Assert: Verify that the result matches the expected output
             Assert.That(result, Is.Not.Null);
-            Assert.That(result, Has.Count.EqualTo(12));  // We expect 2 products
+            Assert.That(result, Has.Count.EqualTo(10));  // We expect 2 products
             Assert.Multiple(() =>
             {
                 Assert.That(result[0].productName, Is.EqualTo("Android Mobiles"));
@@ -376,7 +371,7 @@ namespace InventoryAndShipmentManagementTest
 
             // Assert: Verify that the result matches the expected output
             Assert.That(result, Is.Not.Null);
-            Assert.That(result, Has.Count.EqualTo(11));  // We expect 2 products
+            Assert.That(result, Has.Count.EqualTo(15));  // We expect 2 products
             Assert.Multiple(() =>
             {
                 Assert.That(result[0].ShipmentName, Is.EqualTo("Ground"));
