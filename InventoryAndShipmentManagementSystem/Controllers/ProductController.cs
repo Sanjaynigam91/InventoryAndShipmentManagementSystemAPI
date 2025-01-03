@@ -10,13 +10,11 @@ namespace InventoryAndShipmentManagementSystem.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        private readonly IConfiguration config;
-        private IProduct _product;
+        private IProduct products;
         private readonly ProductLogger productLogger;
-        public ProductController(IConfiguration configuration, IProduct product)
+        public ProductController(IProduct product)
         {
-            config = configuration;
-            _product = product;
+            products = product;
             productLogger = new ProductLogger();
         }
         /// <summary>
@@ -31,7 +29,7 @@ namespace InventoryAndShipmentManagementSystem.Controllers
         {
             productLogger.LogInformation("AddNewProduct, API execution process started at {'" + DateTime.Now + "'}");
             APIResponseModel<object> responseModel = new APIResponseModel<object>();
-            var result = _product.SaveProductDetails(productRequest);
+            var result = products.SaveProductDetails(productRequest);
             if (result.Status && result.StatusCode == 200)
             {
                 responseModel.Status = true;
@@ -64,7 +62,7 @@ namespace InventoryAndShipmentManagementSystem.Controllers
         {
             productLogger.LogInformation("UpdateProduct, API execution process started at {'" + DateTime.Now + "'} of the product Id {'" + productRequest.ProductId + "'}");
             APIResponseModel<object> responseModel = new APIResponseModel<object>();
-            var result = _product.UpdateProductDetails(productRequest);
+            var result = products.UpdateProductDetails(productRequest);
             if (result.Status && result.StatusCode == 200)
             {
                 responseModel.Status = true;
@@ -96,7 +94,7 @@ namespace InventoryAndShipmentManagementSystem.Controllers
         {
             productLogger.LogInformation("GetProductById, API execution process started at {'" + DateTime.Now + "'} for the product Id {'" + productId + "'}");
             APIResponseModel<object> responseModel = new APIResponseModel<object>();
-            var result = _product.GetProductById(productId);
+            var result = products.GetProductById(productId);
             if (result != null)
             {
                 responseModel.Status = true;
@@ -131,7 +129,7 @@ namespace InventoryAndShipmentManagementSystem.Controllers
 
             productLogger.LogInformation("GetAllProducts, API execution process started at {'" + DateTime.Now + "'}");
             APIResponseModel<object> responseModel = new APIResponseModel<object>();
-            var result = _product.GetAllProducts();
+            var result = products.GetAllProducts();
             if (result.Count > 0)
             {
                 responseModel.Status = true;
@@ -165,7 +163,7 @@ namespace InventoryAndShipmentManagementSystem.Controllers
         {
             productLogger.LogInformation("DeleteProduct, API execution process started at {'" + DateTime.Now + "'} of the product Id {'" + productId + "'}");
             APIResponseModel<object> responseModel = new APIResponseModel<object>();
-            var result = _product.DeleteProductDetails(productId);
+            var result = products.DeleteProductDetails(productId);
             if (result.Status && result.StatusCode == 200)
             {
                 responseModel.Status = true;
@@ -199,7 +197,7 @@ namespace InventoryAndShipmentManagementSystem.Controllers
         {
             productLogger.LogInformation("AssignToShipment, API execution process started at {'" + DateTime.Now + "'}");
             APIResponseModel<object> responseModel = new APIResponseModel<object>();
-            var result = _product.ProductAssignToShipment(shipmentRequest);
+            var result = products.ProductAssignToShipment(shipmentRequest);
             if (result.Status && result.StatusCode == 200)
             {
                 responseModel.Status = true;
@@ -233,7 +231,7 @@ namespace InventoryAndShipmentManagementSystem.Controllers
 
             productLogger.LogInformation("GetAllShipments, API execution process started at {'" + DateTime.Now + "'}");
             APIResponseModel<object> responseModel = new APIResponseModel<object>();
-            var result = _product.GetAllShipmentDetails();
+            var result = products.GetAllShipmentDetails();
             if (result.Count > 0)
             {
                 responseModel.Status = true;
