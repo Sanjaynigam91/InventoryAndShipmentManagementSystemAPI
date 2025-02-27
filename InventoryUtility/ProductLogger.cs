@@ -1,6 +1,8 @@
-﻿namespace InventoryUtility
+﻿using InventoryUtility.Interface;
+
+namespace InventoryUtility
 {
-    public class ProductLogger
+    public class ProductLoggers: IProductLoggers
     {
         // Define the log folder path (ensure it's accessible and correct)
         string logFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Logs");

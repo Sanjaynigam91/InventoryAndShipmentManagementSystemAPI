@@ -8,6 +8,7 @@ using InventoryDTO;
 using InventoryUtility;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Data.SqlClient;
+using InventoryUtility.Interface;
 
 
 
@@ -16,13 +17,13 @@ namespace InventoryRepository.Implementation
 {
     public class ProductRepository : IProductRepository
     {
-        private InventoryDbContext invDbContext;
-        private readonly ProductLogger productLogger;
+        private readonly InventoryDbContext invDbContext;
+        private readonly IProductLoggers productLoggers;
 
-        public ProductRepository(InventoryDbContext dbContext)
+        public ProductRepository(InventoryDbContext dbContext, IProductLoggers productLogger)
         {
             invDbContext = dbContext;
-            productLogger = new ProductLogger();
+            productLoggers = productLogger;
         }
         /// <summary>
         /// Used to Delete Product Details By Id
@@ -31,7 +32,7 @@ namespace InventoryRepository.Implementation
         /// <returns></returns>
         public APIResponseModel<object> DeleteProductDetails(int productId)
         {
-            productLogger.LogInformation("DeleteProduct, Repository operation execution process started at {'" + DateTime.Now + "'} for product Id {'" + productId + "'}");
+            productLoggers.LogInformation("DeleteProduct, Repository operation execution process started at {'" + DateTime.Now + "'} for product Id {'" + productId + "'}");
             var response = new APIResponseModel<object>
             {
                 StatusCode = 404,
@@ -40,13 +41,13 @@ namespace InventoryRepository.Implementation
             };
             try
             {
-                productLogger.LogInformation("Checking Product Id, Product Id must be greater than zero {'" + productId + "'}");
+                productLoggers.LogInformation("Checking Product Id, Product Id must be greater than zero {'" + productId + "'}");
                 if (productId > 0)
                 {
                     var command = invDbContext.Database.GetDbConnection().CreateCommand();
-                    productLogger.LogInformation("Getting data base connection at {'" + DateTime.Now + "'}");
+                    productLoggers.LogInformation("Getting data base connection at {'" + DateTime.Now + "'}");
                     command.CommandText = ConstantResources.UspDeleteProduct;
-                    productLogger.LogInformation("{'" + ConstantResources.UspDeleteProduct + "'} getting called at {'" + DateTime.Now + "'}");
+                    productLoggers.LogInformation("{'" + ConstantResources.UspDeleteProduct + "'} getting called at {'" + DateTime.Now + "'}");
                     command.CommandType = CommandType.StoredProcedure;
 
                     command.Parameters.Add(new SqlParameter(ConstantResources.ParamProductId, productId));
@@ -69,7 +70,7 @@ namespace InventoryRepository.Implementation
                     command.Parameters.Add(outputErrorParm);
                     command.Parameters.Add(outputErrorMessageParm);
                     invDbContext.Database.GetDbConnection().Open();
-                    productLogger.LogInformation("Data base connection open at {'" + DateTime.Now + "'} for DeleteProduct repository logic.");
+                    productLoggers.LogInformation("Data base connection open at {'" + DateTime.Now + "'} for DeleteProduct repository logic.");
                     command.ExecuteScalar();
                     OutputParameterModel parameterModel = new OutputParameterModel
                     {
@@ -94,7 +95,7 @@ namespace InventoryRepository.Implementation
                 }
                 else
                 {
-                    productLogger.LogInformation("Product Id must be greater than zero {'" + productId + "'}");
+                    productLoggers.LogInformation("Product Id must be greater than zero {'" + productId + "'}");
                     throw new ArgumentException("Product Id must be greater than zero.");
 
                 }
@@ -102,14 +103,14 @@ namespace InventoryRepository.Implementation
             catch (Exception ex)
             {
                 response.ResponseMessage = ex.Message;
-                productLogger.LogInformation("{'" + ex + "'},An error occurred while deleting product with Product Id {'" + productId + "'}");
+                productLoggers.LogInformation("{'" + ex + "'},An error occurred while deleting product with Product Id {'" + productId + "'}");
             }
             finally
             {
                 invDbContext.Database.GetDbConnection().Close();
-                productLogger.LogInformation("Data base connection closed at {'" + DateTime.Now + "'} for DeleteProduct repository logic");
+                productLoggers.LogInformation("Data base connection closed at {'" + DateTime.Now + "'} for DeleteProduct repository logic");
             }
-            productLogger.LogInformation("DeleteProduct, Repository operation execution process completed at {'" + DateTime.Now + "'} for product Id {'" + productId + "'} with status code {'" + response.StatusCode + "'} for DeleteProduct repository logic");
+            productLoggers.LogInformation("DeleteProduct, Repository operation execution process completed at {'" + DateTime.Now + "'} for product Id {'" + productId + "'} with status code {'" + response.StatusCode + "'} for DeleteProduct repository logic");
             return response;
         }
         /// <summary>
@@ -119,17 +120,17 @@ namespace InventoryRepository.Implementation
         /// <exception cref="NotImplementedException"></exception>
         public List<ProductResponse> GetAllProducts()
         {
-            productLogger.LogInformation("GetAllProducts, Repository operation execution process started at {'" + DateTime.Now + "'}");
+            productLoggers.LogInformation("GetAllProducts, Repository operation execution process started at {'" + DateTime.Now + "'}");
             List<ProductResponse> response = new List<ProductResponse>();
             try
             {
                 if (invDbContext.Database.GetDbConnection().State == ConnectionState.Closed)
                     invDbContext.Database.OpenConnection();
-                productLogger.LogInformation("Data base connection open at {'" + DateTime.Now + "'} for GetAllProducts repository logic.");
+                productLoggers.LogInformation("Data base connection open at {'" + DateTime.Now + "'} for GetAllProducts repository logic.");
                 var cmd = invDbContext.Database.GetDbConnection().CreateCommand();
-                productLogger.LogInformation("Getting data base connection at {'" + DateTime.Now + "'}");
+                productLoggers.LogInformation("Getting data base connection at {'" + DateTime.Now + "'}");
                 cmd.CommandText = ConstantResources.UspGetAllProducts;
-                productLogger.LogInformation("{'" + ConstantResources.UspGetAllProducts + "'} getting called at {'" + DateTime.Now + "'}");
+                productLoggers.LogInformation("{'" + ConstantResources.UspGetAllProducts + "'} getting called at {'" + DateTime.Now + "'}");
                 cmd.CommandType = CommandType.StoredProcedure;
                 DbDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
@@ -146,15 +147,15 @@ namespace InventoryRepository.Implementation
             }
             catch (Exception ex)
             {
-                productLogger.LogInformation("{'" + ex + "'},An error occurred products while fetching all productd details in Product Repository under GetAllProducts method at {'" + DateTime.Now + "'}");
+                productLoggers.LogInformation("{'" + ex + "'},An error occurred products while fetching all productd details in Product Repository under GetAllProducts method at {'" + DateTime.Now + "'}");
                 throw new Exception("An error occurred while retrieving products.", ex);
             }
             finally
             {
                 invDbContext.Database.GetDbConnection().Close();
-                productLogger.LogInformation("Data base connection closed at {'" + DateTime.Now + "'} for GetAllProducts repository logic.");
+                productLoggers.LogInformation("Data base connection closed at {'" + DateTime.Now + "'} for GetAllProducts repository logic.");
             }
-            productLogger.LogInformation("GetAllProducts, Repository operation execution process completed at {'" + DateTime.Now + "'}  with total product count {'" + response.Count() + "'}");
+            productLoggers.LogInformation("GetAllProducts, Repository operation execution process completed at {'" + DateTime.Now + "'}  with total product count {'" + response.Count() + "'}");
             return response;
         }
         /// <summary>
@@ -163,20 +164,20 @@ namespace InventoryRepository.Implementation
         /// <returns></returns>
         public ProductResponse GetProductById(int productId)
         {
-            productLogger.LogInformation("GetProductById, Repository operation execution process started at {'" + DateTime.Now + "'} for the product Id {'" + productId + "'}");
+            productLoggers.LogInformation("GetProductById, Repository operation execution process started at {'" + DateTime.Now + "'} for the product Id {'" + productId + "'}");
             ProductResponse productResponse = new ProductResponse();
             try
             {
-                productLogger.LogInformation("Checking Product Id, Product Id must be greater than zero {'" + productId + "'}");
+                productLoggers.LogInformation("Checking Product Id, Product Id must be greater than zero {'" + productId + "'}");
                 if (productId >= 0)
                 {
                     if (invDbContext.Database.GetDbConnection().State == ConnectionState.Closed)
                         invDbContext.Database.OpenConnection();
-                    productLogger.LogInformation("Data base connection open at {'" + DateTime.Now + "'} for GetProductById repository logic.");
+                    productLoggers.LogInformation("Data base connection open at {'" + DateTime.Now + "'} for GetProductById repository logic.");
                     var cmd = invDbContext.Database.GetDbConnection().CreateCommand();
-                    productLogger.LogInformation("Getting data base connection at {'" + DateTime.Now + "'}");
+                    productLoggers.LogInformation("Getting data base connection at {'" + DateTime.Now + "'}");
                     cmd.CommandText = ConstantResources.UspGetProductDetailsById;
-                    productLogger.LogInformation("{'" + ConstantResources.UspGetProductDetailsById + "'} getting called at {'" + DateTime.Now + "'}");
+                    productLoggers.LogInformation("{'" + ConstantResources.UspGetProductDetailsById + "'} getting called at {'" + DateTime.Now + "'}");
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(new SqlParameter(ConstantResources.ParamProductId, productId));
                     DbDataReader reader = cmd.ExecuteReader();
@@ -193,22 +194,22 @@ namespace InventoryRepository.Implementation
                 }
                 else
                 {
-                    productLogger.LogInformation("Product Id must be greater than zero {'" + productId + "'}");
+                    productLoggers.LogInformation("Product Id must be greater than zero {'" + productId + "'}");
                     throw new ArgumentException("Product Id must be greater than zero.");
                 }
 
             }
             catch (Exception ex)
             {
-                productLogger.LogInformation("{'" + ex + "'},An error occurred products while fetching product details by product Id {'" + productId + "'} in Product Repository under GetProductById method at {'" + DateTime.Now + "'}");
+                productLoggers.LogInformation("{'" + ex + "'},An error occurred products while fetching product details by product Id {'" + productId + "'} in Product Repository under GetProductById method at {'" + DateTime.Now + "'}");
                 throw new Exception("An error occurred while retrieving products.", ex);
             }
             finally
             {
                 invDbContext.Database.GetDbConnection().Close();
-                productLogger.LogInformation("Data base connection closed at {'" + DateTime.Now + "'} for GetProductById repository logic.");
+                productLoggers.LogInformation("Data base connection closed at {'" + DateTime.Now + "'} for GetProductById repository logic.");
             }
-            productLogger.LogInformation("GetProductById, Repository operation execution process completed at {'" + DateTime.Now + "'} for the product Id {'" + productId + "'}");
+            productLoggers.LogInformation("GetProductById, Repository operation execution process completed at {'" + DateTime.Now + "'} for the product Id {'" + productId + "'}");
             return productResponse;
         }
         /// <summary>
@@ -219,7 +220,7 @@ namespace InventoryRepository.Implementation
         /// <exception cref="NotImplementedException"></exception>
         public APIResponseModel<object> SaveProductDetails(ProductRequest productRequest)
         {
-            productLogger.LogInformation("SaveProductDetails, Repository operation execution process started at {'" + DateTime.Now + "'}");
+            productLoggers.LogInformation("SaveProductDetails, Repository operation execution process started at {'" + DateTime.Now + "'}");
             var response = new APIResponseModel<object>
             {
                 StatusCode = 404,
@@ -231,9 +232,9 @@ namespace InventoryRepository.Implementation
                 if (!string.IsNullOrEmpty(productRequest.ToString()))
                 {
                     var command = invDbContext.Database.GetDbConnection().CreateCommand();
-                    productLogger.LogInformation("Getting data base connection at {'" + DateTime.Now + "'}");
+                    productLoggers.LogInformation("Getting data base connection at {'" + DateTime.Now + "'}");
                     command.CommandText = ConstantResources.UspSaveProductDetails;
-                    productLogger.LogInformation("{'" + ConstantResources.UspSaveProductDetails + "'} getting called at {'" + DateTime.Now + "'}");
+                    productLoggers.LogInformation("{'" + ConstantResources.UspSaveProductDetails + "'} getting called at {'" + DateTime.Now + "'}");
                     command.CommandType = CommandType.StoredProcedure;
 
                     command.Parameters.Add(new SqlParameter(ConstantResources.ParamProductName, productRequest.ProductName));
@@ -259,7 +260,7 @@ namespace InventoryRepository.Implementation
                     command.Parameters.Add(outputErrorParm);
                     command.Parameters.Add(outputErrorMessageParm);
                     invDbContext.Database.GetDbConnection().Open();
-                    productLogger.LogInformation("Data base connection open at {'" + DateTime.Now + "'} for SaveProductDetails repository logic.");
+                    productLoggers.LogInformation("Data base connection open at {'" + DateTime.Now + "'} for SaveProductDetails repository logic.");
                     command.ExecuteScalar();
                     OutputParameterModel parameterModel = new OutputParameterModel
                     {
@@ -286,15 +287,15 @@ namespace InventoryRepository.Implementation
             catch (Exception ex)
             {
                 response.ResponseMessage = ex.Message;
-                productLogger.LogInformation("{'" + ex + "'},An error occurred while saving product details");
+                productLoggers.LogInformation("{'" + ex + "'},An error occurred while saving product details");
 
             }
             finally
             {
                 invDbContext.Database.GetDbConnection().Close();
-                productLogger.LogInformation("Data base connection closed at {'" + DateTime.Now + "'} for SaveProductDetails repository logic");
+                productLoggers.LogInformation("Data base connection closed at {'" + DateTime.Now + "'} for SaveProductDetails repository logic");
             }
-            productLogger.LogInformation("SaveProductDetails, Repository operation execution process completed at {'" + DateTime.Now + "'} with status code {'" + response.StatusCode + "'}");
+            productLoggers.LogInformation("SaveProductDetails, Repository operation execution process completed at {'" + DateTime.Now + "'} with status code {'" + response.StatusCode + "'}");
             return response;
         }
         /// <summary>
@@ -305,7 +306,7 @@ namespace InventoryRepository.Implementation
         /// <exception cref="NotImplementedException"></exception>
         public APIResponseModel<object> UpdateProductDetails(ProductRequest productRequest)
         {
-            productLogger.LogInformation("UpdateProductDetails, Repository operation execution process started at {'" + DateTime.Now + "'}");
+            productLoggers.LogInformation("UpdateProductDetails, Repository operation execution process started at {'" + DateTime.Now + "'}");
             var response = new APIResponseModel<object>
             {
                 StatusCode = 404,
@@ -314,15 +315,15 @@ namespace InventoryRepository.Implementation
             };
             try
             {
-                productLogger.LogInformation("Checking Product Id, Product Id must be greater than zero {'" + productRequest.ProductId + "'}");
+                productLoggers.LogInformation("Checking Product Id, Product Id must be greater than zero {'" + productRequest.ProductId + "'}");
                 if (productRequest.ProductId > 0)
                 {
                     if (!string.IsNullOrEmpty(productRequest.ToString()))
                     {
                         var command = invDbContext.Database.GetDbConnection().CreateCommand();
-                        productLogger.LogInformation("Getting data base connection at {'" + DateTime.Now + "'}");
+                        productLoggers.LogInformation("Getting data base connection at {'" + DateTime.Now + "'}");
                         command.CommandText = ConstantResources.UspUpdateProductDetails;
-                        productLogger.LogInformation("{'" + ConstantResources.UspUpdateProductDetails + "'} getting called at {'" + DateTime.Now + "'}");
+                        productLoggers.LogInformation("{'" + ConstantResources.UspUpdateProductDetails + "'} getting called at {'" + DateTime.Now + "'}");
                         command.CommandType = CommandType.StoredProcedure;
 
                         command.Parameters.Add(new SqlParameter(ConstantResources.ParamProductId, productRequest.ProductId));
@@ -349,7 +350,7 @@ namespace InventoryRepository.Implementation
                         command.Parameters.Add(outputErrorParm);
                         command.Parameters.Add(outputErrorMessageParm);
                         invDbContext.Database.GetDbConnection().Open();
-                        productLogger.LogInformation("Data base connection open at {'" + DateTime.Now + "'} for UpdateProductDetails repository logic.");
+                        productLoggers.LogInformation("Data base connection open at {'" + DateTime.Now + "'} for UpdateProductDetails repository logic.");
                         command.ExecuteScalar();
                         OutputParameterModel parameterModel = new OutputParameterModel
                         {
@@ -375,7 +376,7 @@ namespace InventoryRepository.Implementation
                 }
                 else
                 {
-                    productLogger.LogInformation("Product Id must be greater than zero {'" + productRequest.ProductId + "'}");
+                    productLoggers.LogInformation("Product Id must be greater than zero {'" + productRequest.ProductId + "'}");
                     throw new ArgumentException("Product Id must be greater than zero.");
                 }
 
@@ -383,14 +384,14 @@ namespace InventoryRepository.Implementation
             catch (Exception ex)
             {
                 response.ResponseMessage = ex.Message;
-                productLogger.LogInformation("{'" + ex + "'},An error occurred while updating product details");
+                productLoggers.LogInformation("{'" + ex + "'},An error occurred while updating product details");
             }
             finally
             {
                 invDbContext.Database.GetDbConnection().Close();
-                productLogger.LogInformation("Data base connection closed at {'" + DateTime.Now + "'} for UpdateProductDetails repository logic");
+                productLoggers.LogInformation("Data base connection closed at {'" + DateTime.Now + "'} for UpdateProductDetails repository logic");
             }
-            productLogger.LogInformation("UpdateProductDetails, Repository operation execution process completed at {'" + DateTime.Now + "'} with status code {'" + response.StatusCode + "'}");
+            productLoggers.LogInformation("UpdateProductDetails, Repository operation execution process completed at {'" + DateTime.Now + "'} with status code {'" + response.StatusCode + "'}");
             return response;
         }
         /// <summary>
@@ -400,7 +401,7 @@ namespace InventoryRepository.Implementation
         /// <returns></returns>
         public APIResponseModel<object> ProductAssignToShipment(ShipmentRequest shipmentRequest)
         {
-            productLogger.LogInformation("ProductAssignToShipment, Repository operation execution process started at {'" + DateTime.Now + "'}");
+            productLoggers.LogInformation("ProductAssignToShipment, Repository operation execution process started at {'" + DateTime.Now + "'}");
             var response = new APIResponseModel<object>
             {
                 StatusCode = 404,
@@ -412,9 +413,9 @@ namespace InventoryRepository.Implementation
                 if (!string.IsNullOrEmpty(shipmentRequest.ToString()))
                 {
                     var command = invDbContext.Database.GetDbConnection().CreateCommand();
-                    productLogger.LogInformation("Getting data base connection at {'" + DateTime.Now + "'}");
+                    productLoggers.LogInformation("Getting data base connection at {'" + DateTime.Now + "'}");
                     command.CommandText = ConstantResources.UspAssignProductToShipment;
-                    productLogger.LogInformation("{'" + ConstantResources.UspSaveProductDetails + "'} getting called at {'" + DateTime.Now + "'}");
+                    productLoggers.LogInformation("{'" + ConstantResources.UspSaveProductDetails + "'} getting called at {'" + DateTime.Now + "'}");
                     command.CommandType = CommandType.StoredProcedure;
 
                     command.Parameters.Add(new SqlParameter(ConstantResources.ParamProductId, shipmentRequest.ProductId));
@@ -439,7 +440,7 @@ namespace InventoryRepository.Implementation
                     command.Parameters.Add(outputErrorParm);
                     command.Parameters.Add(outputErrorMessageParm);
                     invDbContext.Database.GetDbConnection().Open();
-                    productLogger.LogInformation("Data base connection open at {'" + DateTime.Now + "'} for ProductAssignToShipment repository logic.");
+                    productLoggers.LogInformation("Data base connection open at {'" + DateTime.Now + "'} for ProductAssignToShipment repository logic.");
                     command.ExecuteScalar();
                     OutputParameterModel parameterModel = new OutputParameterModel
                     {
@@ -466,15 +467,15 @@ namespace InventoryRepository.Implementation
             catch (Exception ex)
             {
                 response.ResponseMessage = ex.Message;
-                productLogger.LogInformation("{'" + ex + "'},An error occurred while {'" + shipmentRequest.ProductId + "'} product assign to shipment");
+                productLoggers.LogInformation("{'" + ex + "'},An error occurred while {'" + shipmentRequest.ProductId + "'} product assign to shipment");
 
             }
             finally
             {
                 invDbContext.Database.GetDbConnection().Close();
-                productLogger.LogInformation("Data base connection closed at {'" + DateTime.Now + "'} for ProductAssignToShipment repository logic");
+                productLoggers.LogInformation("Data base connection closed at {'" + DateTime.Now + "'} for ProductAssignToShipment repository logic");
             }
-            productLogger.LogInformation("ProductAssignToShipment, Repository operation execution process completed at {'" + DateTime.Now + "'} with status code {'" + response.StatusCode + "'}");
+            productLoggers.LogInformation("ProductAssignToShipment, Repository operation execution process completed at {'" + DateTime.Now + "'} with status code {'" + response.StatusCode + "'}");
             return response;
         }
         /// <summary>
@@ -483,17 +484,17 @@ namespace InventoryRepository.Implementation
         /// <returns></returns>
         public List<ProductShipmentResponse> GetAllShipmentDetails()
         {
-            productLogger.LogInformation("GetAllShipmentDetails, Repository operation execution process started at {'" + DateTime.Now + "'}");
+            productLoggers.LogInformation("GetAllShipmentDetails, Repository operation execution process started at {'" + DateTime.Now + "'}");
             List<ProductShipmentResponse> response = new List<ProductShipmentResponse>();
             try
             {
                 if (invDbContext.Database.GetDbConnection().State == ConnectionState.Closed)
                     invDbContext.Database.OpenConnection();
-                productLogger.LogInformation("Data base connection open at {'" + DateTime.Now + "'} for GetAllShipmentDetails repository logic.");
+                productLoggers.LogInformation("Data base connection open at {'" + DateTime.Now + "'} for GetAllShipmentDetails repository logic.");
                 var cmd = invDbContext.Database.GetDbConnection().CreateCommand();
-                productLogger.LogInformation("Getting data base connection at {'" + DateTime.Now + "'}");
+                productLoggers.LogInformation("Getting data base connection at {'" + DateTime.Now + "'}");
                 cmd.CommandText = ConstantResources.UspGetProductShipmentDetails;
-                productLogger.LogInformation("{'" + ConstantResources.UspGetAllProducts + "'} getting called at {'" + DateTime.Now + "'}");
+                productLoggers.LogInformation("{'" + ConstantResources.UspGetAllProducts + "'} getting called at {'" + DateTime.Now + "'}");
                 cmd.CommandType = CommandType.StoredProcedure;
                 DbDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
@@ -510,15 +511,15 @@ namespace InventoryRepository.Implementation
             }
             catch (Exception ex)
             {
-                productLogger.LogInformation("{'" + ex + "'},An error occurred products while fetching all productd details in Product Repository under GetAllShipmentDetails method at {'" + DateTime.Now + "'}");
+                productLoggers.LogInformation("{'" + ex + "'},An error occurred products while fetching all productd details in Product Repository under GetAllShipmentDetails method at {'" + DateTime.Now + "'}");
                 throw new Exception("An error occurred while retrieving all shipments details.", ex);
             }
             finally
             {
                 invDbContext.Database.GetDbConnection().Close();
-                productLogger.LogInformation("Data base connection closed at {'" + DateTime.Now + "'} for GetAllShipmentDetails repository logic.");
+                productLoggers.LogInformation("Data base connection closed at {'" + DateTime.Now + "'} for GetAllShipmentDetails repository logic.");
             }
-            productLogger.LogInformation("GetAllShipmentDetails, Repository operation execution process completed at {'" + DateTime.Now + "'}  with total product count {'" + response.Count() + "'}");
+            productLoggers.LogInformation("GetAllShipmentDetails, Repository operation execution process completed at {'" + DateTime.Now + "'}  with total product count {'" + response.Count() + "'}");
             return response;
         }
     }

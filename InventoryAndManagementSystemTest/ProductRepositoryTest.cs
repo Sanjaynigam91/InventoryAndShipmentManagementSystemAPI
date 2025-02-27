@@ -2,6 +2,7 @@
 using InventoryRepository.Implementation;
 using InventoryRepository.Interface;
 using InventoryUtility;
+using InventoryUtility.Interface;
 using LISCareDataAccess.InventoryDbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -18,6 +19,7 @@ namespace InventoryAndShipmentManagementTest
         private InventoryDbContext invDbContext;
         private ProductRepository productRepo;
         private IServiceProvider serviceProvider;
+        private IProductLoggers productLoggers;
  
         [SetUp]
         public void Setup()
@@ -43,8 +45,9 @@ namespace InventoryAndShipmentManagementTest
 
             serviceProvider = services.BuildServiceProvider();
             invDbContext = serviceProvider.GetService<InventoryDbContext>();
+            productLoggers = serviceProvider.GetService<IProductLoggers>();
 
-           productRepo = new ProductRepository(invDbContext);
+           productRepo = new ProductRepository(invDbContext, productLoggers);
 
         }
         /// <summary>
