@@ -85,10 +85,10 @@ namespace InventoryBAL.Implementation
         /// </summary>
         /// <param name="productId"></param>
         /// <returns></returns>
-        public ProductResponse GetProductById(int productId)
+        public APIResponseModel<object> GetProductById(int productId)
         {
             productLoggers.LogInformation("GetProductById, Bussiness operation execution process started at {'" + DateTime.Now + "'} for product Id {'" + productId + "'}");
-            var response = new ProductResponse();
+            var response = new APIResponseModel<object>();
             try
             {
                 response = productRepo.GetProductById(productId);

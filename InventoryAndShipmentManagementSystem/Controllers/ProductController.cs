@@ -76,27 +76,18 @@ namespace InventoryAndShipmentManagementSystem.Controllers
         public IActionResult GetProductById(int productId)
         {
             productLoggers.LogInformation("GetProductById, API execution process started at {'" + DateTime.Now + "'} for the product Id {'" + productId + "'}");
-            APIResponseModel<object> responseModel = new APIResponseModel<object>();
             var result = products.GetProductById(productId);
-            if (result != null)
+            if (result.Status && result.StatusCode==(int)HttpStatusCode.OK)
             {
-                responseModel.Status = true;
-                responseModel.StatusCode = 200;
-                responseModel.ResponseMessage = ConstantResources.Success;
-                responseModel.Data = result;
                 productLoggers.LogInformation("GetProductById, API execution process completed at {'" + DateTime.Now + "'} " +
-                    "with status {'" + responseModel + "'} of product Id {'" + productId + "'}");
-                return Ok(responseModel);
+                    "with status {'" + result.Status + "'} of product Id {'" + productId + "'}");
+                return Ok(result);
             }
             else
-            {
-                responseModel.Status = false;
-                responseModel.StatusCode = 400;
-                responseModel.ResponseMessage = "No Record found!";
-                responseModel.Data = result;
+            {  
                 productLoggers.LogInformation("GetProductById, API execution process completed at {'" + DateTime.Now + "'} " +
-                    "with status {'" + responseModel + "'} of product Id {'" + productId + "'}");
-                return NotFound(responseModel);
+                    "with status {'" + result.Status + "'} of product Id {'" + productId + "'}");
+                return NotFound(result);
             }
 
         }

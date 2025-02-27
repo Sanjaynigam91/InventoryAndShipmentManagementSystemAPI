@@ -162,14 +162,20 @@ namespace InventoryRepository.Implementation
         /// Used for Get All Product By Id
         /// </summary>
         /// <returns></returns>
-        public ProductResponse GetProductById(int productId)
+        public APIResponseModel<object> GetProductById(int productId)
         {
             productLoggers.LogInformation("GetProductById, Repository operation execution process started at {'" + DateTime.Now + "'} for the product Id {'" + productId + "'}");
+            var response = new APIResponseModel<object>
+            {
+                StatusCode = (int)HttpStatusCode.BadRequest,
+                Status = false,
+                ResponseMessage = ConstantResources.InValidProductId
+            };
             ProductResponse productResponse = new ProductResponse();
             try
             {
                 productLoggers.LogInformation("Checking Product Id, Product Id must be greater than zero {'" + productId + "'}");
-                if (productId >= 0)
+                if (productId > 0)
                 {
                     if (invDbContext.Database.GetDbConnection().State == ConnectionState.Closed)
                         invDbContext.Database.OpenConnection();
@@ -191,11 +197,18 @@ namespace InventoryRepository.Implementation
                         productResponse.createdDate = reader[ConstantResources.CreatedDate] != DBNull.Value ? Convert.ToDateTime(reader[ConstantResources.CreatedDate]) : DateTime.Now;
                         productResponse.createdBy = reader[ConstantResources.CreatedBy] != DBNull.Value ? Convert.ToString(reader[ConstantResources.CreatedBy]) : string.Empty;
                     }
+                    response.Status = true;
+                    response.StatusCode = (int)HttpStatusCode.OK;
+                    response.ResponseMessage = ConstantResources.Success;
+                    response.Data = productResponse;
                 }
                 else
                 {
                     productLoggers.LogInformation("Product Id must be greater than zero {'" + productId + "'}");
-                    throw new ArgumentException("Product Id must be greater than zero.");
+                    response.StatusCode = (int)HttpStatusCode.NotFound;
+                    response.Status = false;
+                    response.ResponseMessage = ConstantResources.InValidProductId;
+                    response.Data = string.Empty;
                 }
 
             }
@@ -210,7 +223,8 @@ namespace InventoryRepository.Implementation
                 productLoggers.LogInformation("Data base connection closed at {'" + DateTime.Now + "'} for GetProductById repository logic.");
             }
             productLoggers.LogInformation("GetProductById, Repository operation execution process completed at {'" + DateTime.Now + "'} for the product Id {'" + productId + "'}");
-            return productResponse;
+
+            return response;
         }
         /// <summary>
         /// Used for Save Product Details
@@ -281,7 +295,7 @@ namespace InventoryRepository.Implementation
                         response.Status = true;
                         response.StatusCode = (int)HttpStatusCode.OK;
                         response.ResponseMessage = parameterModel.ErrorMessage;
-                        response.Data=string.Empty;
+                        response.Data = string.Empty;
                     }
                     else
                     {
