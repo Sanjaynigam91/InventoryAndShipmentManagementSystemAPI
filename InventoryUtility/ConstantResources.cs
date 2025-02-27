@@ -61,7 +61,7 @@
         #endregion
 
         #region API Response
-        public readonly static string Failed = "Invalid product request";
+        public readonly static string InValidRequest = "Invalid product request";
         public readonly static string Success = "Success";
         public readonly static string InvaidUser = "Invalid User";
         #endregion

@@ -30,27 +30,18 @@ namespace InventoryAndShipmentManagementSystem.Controllers
         public IActionResult CreateNewProduct(ProductRequest productRequest)
         {
             productLoggers.LogInformation("AddNewProduct, API execution process started at {'" + DateTime.Now + "'}");
-            APIResponseModel<object> responseModel = new APIResponseModel<object>();
             var result = products.SaveProductDetails(productRequest);
-            if (result.Status && result.StatusCode == 200)
+            if (result.Status && result.StatusCode == (int)HttpStatusCode.OK)
             {
-                responseModel.Status = true;
-                responseModel.StatusCode = 200;
-                responseModel.ResponseMessage = result.ResponseMessage;
-                responseModel.Data = string.Empty;
-                productLoggers.LogInformation("AddNewProduct, API execution process completed at {'" + DateTime.Now + "'} with status {'" + responseModel.Status + "'}");
-                return Ok(responseModel);
+
+                productLoggers.LogInformation("AddNewProduct, API execution process completed at {'" + DateTime.Now + "'} with status {'" + result.Status + "'}");
+                return Ok(result);
             }
             else
             {
-                responseModel.Status = false;
-                responseModel.StatusCode = 400;
-                responseModel.ResponseMessage = "No Record found!";
-                responseModel.Data = result;
-                productLoggers.LogInformation("AddNewProduct, API execution process completed at {'" + DateTime.Now + "'} with status {'" + responseModel.Status + "'}");
-                return NotFound(responseModel);
+                productLoggers.LogInformation("AddNewProduct, API execution process completed at {'" + DateTime.Now + "'} with status {'" + result.Status + "'}");
+                return BadRequest(result);
             }
-
         }
         /// <summary>
         /// API for to update product details
@@ -65,10 +56,10 @@ namespace InventoryAndShipmentManagementSystem.Controllers
             productLoggers.LogInformation("UpdateProduct, API execution process started at {'" + DateTime.Now + "'} of the product Id {'" + productRequest.ProductId + "'}");
             APIResponseModel<object> responseModel = new APIResponseModel<object>();
             var result = products.UpdateProductDetails(productRequest);
-            if (result.Status && result.StatusCode == 200)
+            if (result.Status && result.StatusCode == (int)HttpStatusCode.OK)
             {
-                responseModel.Status = true;
-                responseModel.StatusCode = 200;
+                responseModel.Status = result.Status;
+                responseModel.StatusCode = result.StatusCode;
                 responseModel.ResponseMessage = result.ResponseMessage;
                 responseModel.Data = string.Empty;
                 productLoggers.LogInformation("UpdateProduct, API execution process completed at {'" + DateTime.Now + "'} with status {'" + responseModel.Status + "'}");
@@ -172,7 +163,7 @@ namespace InventoryAndShipmentManagementSystem.Controllers
                 responseModel.StatusCode = Convert.ToInt32(HttpStatusCode.OK);
                 responseModel.ResponseMessage = result.ResponseMessage;
                 responseModel.Data = string.Empty;
-                productLoggers.LogInformation("DeleteProduct, API execution process completed at {'" + DateTime.Now + "'} with status {'" + responseModel.Status + "'} for product Id {'"+ productId + "'}");
+                productLoggers.LogInformation("DeleteProduct, API execution process completed at {'" + DateTime.Now + "'} with status {'" + responseModel.Status + "'} for product Id {'" + productId + "'}");
                 return Ok(responseModel);
             }
             else
@@ -181,7 +172,7 @@ namespace InventoryAndShipmentManagementSystem.Controllers
                 responseModel.StatusCode = 400;
                 responseModel.ResponseMessage = "No Record found!";
                 responseModel.Data = result;
-                productLoggers.LogInformation("DeleteProduct, API execution process completed at {'" + DateTime.Now + "'} with status {'" + responseModel.Status + "'} for product Id {'"+ productId + "'}");
+                productLoggers.LogInformation("DeleteProduct, API execution process completed at {'" + DateTime.Now + "'} with status {'" + responseModel.Status + "'} for product Id {'" + productId + "'}");
                 return NotFound(responseModel);
             }
 

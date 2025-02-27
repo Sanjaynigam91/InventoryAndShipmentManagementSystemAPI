@@ -37,7 +37,7 @@ namespace InventoryRepository.Implementation
             {
                 StatusCode = 404,
                 Status = false,
-                ResponseMessage = ConstantResources.Failed
+                ResponseMessage = ConstantResources.InValidRequest
             };
             try
             {
@@ -89,7 +89,7 @@ namespace InventoryRepository.Implementation
                     {
                         response.StatusCode = (int)HttpStatusCode.NotFound;
                         response.Status = false;
-                        response.ResponseMessage = ConstantResources.Failed;
+                        response.ResponseMessage = ConstantResources.InValidRequest;
 
                     }
                 }
@@ -223,13 +223,20 @@ namespace InventoryRepository.Implementation
             productLoggers.LogInformation("SaveProductDetails, Repository operation execution process started at {'" + DateTime.Now + "'}");
             var response = new APIResponseModel<object>
             {
-                StatusCode = 404,
+                StatusCode = (int)HttpStatusCode.BadRequest,
                 Status = false,
-                ResponseMessage = ConstantResources.Failed
+                ResponseMessage = ConstantResources.InValidRequest
             };
             try
             {
-                if (!string.IsNullOrEmpty(productRequest.ToString()))
+                if (string.IsNullOrEmpty(productRequest.ProductName) || productRequest.Price == 0 || productRequest.Quantity == 0)
+                {
+                    response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    response.Status = false;
+                    response.ResponseMessage = ConstantResources.InValidRequest;
+                    response.Data = string.Empty;
+                }
+                else
                 {
                     var command = invDbContext.Database.GetDbConnection().CreateCommand();
                     productLoggers.LogInformation("Getting data base connection at {'" + DateTime.Now + "'}");
@@ -274,13 +281,14 @@ namespace InventoryRepository.Implementation
                         response.Status = true;
                         response.StatusCode = (int)HttpStatusCode.OK;
                         response.ResponseMessage = parameterModel.ErrorMessage;
+                        response.Data=string.Empty;
                     }
                     else
                     {
-                        response.StatusCode = (int)HttpStatusCode.NotFound;
+                        response.StatusCode = (int)HttpStatusCode.BadRequest;
                         response.Status = false;
-                        response.ResponseMessage = ConstantResources.Failed;
-
+                        response.ResponseMessage = ConstantResources.InValidRequest;
+                        response.Data = string.Empty;
                     }
                 }
             }
@@ -311,7 +319,7 @@ namespace InventoryRepository.Implementation
             {
                 StatusCode = 404,
                 Status = false,
-                ResponseMessage = ConstantResources.Failed
+                ResponseMessage = ConstantResources.InValidRequest
             };
             try
             {
@@ -369,7 +377,7 @@ namespace InventoryRepository.Implementation
                         {
                             response.StatusCode = (int)HttpStatusCode.NotFound;
                             response.Status = false;
-                            response.ResponseMessage = ConstantResources.Failed;
+                            response.ResponseMessage = ConstantResources.InValidRequest;
 
                         }
                     }
@@ -406,7 +414,7 @@ namespace InventoryRepository.Implementation
             {
                 StatusCode = 404,
                 Status = false,
-                ResponseMessage = ConstantResources.Failed
+                ResponseMessage = ConstantResources.InValidRequest
             };
             try
             {
@@ -459,7 +467,7 @@ namespace InventoryRepository.Implementation
                     {
                         response.StatusCode = (int)HttpStatusCode.NotFound;
                         response.Status = false;
-                        response.ResponseMessage = ConstantResources.Failed;
+                        response.ResponseMessage = ConstantResources.InValidRequest;
 
                     }
                 }
