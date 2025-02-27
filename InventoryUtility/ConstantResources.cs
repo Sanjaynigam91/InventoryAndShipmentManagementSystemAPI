@@ -35,7 +35,7 @@
 
         #region Sql Parameter
         public const string ParamProductId = "@ProductId";
-        public const string ParamProductName= "@ProductName";
+        public const string ParamProductName = "@ProductName";
         public const string ParamQuantity = "@Quantity";
         public const string ParamPrice = "@Price";
         public const string ParamCreatedBy = "@CreatedBy";
@@ -62,6 +62,7 @@
 
         #region API Response
         public readonly static string InValidRequest = "Invalid product request";
+        public readonly static string InValidProductId = "Invalid productId, ProductId must be greater than zero";
         public readonly static string Success = "Success";
         public readonly static string InvaidUser = "Invalid User";
         #endregion

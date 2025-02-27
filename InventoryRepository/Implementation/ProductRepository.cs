@@ -375,9 +375,9 @@ namespace InventoryRepository.Implementation
                         }
                         else
                         {
-                            response.StatusCode = (int)HttpStatusCode.NotFound;
+                            response.StatusCode = (int)HttpStatusCode.BadRequest;
                             response.Status = false;
-                            response.ResponseMessage = ConstantResources.InValidRequest;
+                            response.ResponseMessage = ConstantResources.InValidProductId;
 
                         }
                     }
@@ -385,7 +385,10 @@ namespace InventoryRepository.Implementation
                 else
                 {
                     productLoggers.LogInformation("Product Id must be greater than zero {'" + productRequest.ProductId + "'}");
-                    throw new ArgumentException("Product Id must be greater than zero.");
+                    response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    response.Status = false;
+                    response.ResponseMessage = ConstantResources.InValidProductId;
+                    response.Data = string.Empty;
                 }
 
             }

@@ -53,25 +53,16 @@ namespace InventoryAndShipmentManagementSystem.Controllers
         public IActionResult UpdateProduct(ProductRequest productRequest)
         {
             productLoggers.LogInformation("UpdateProduct, API execution process started at {'" + DateTime.Now + "'} of the product Id {'" + productRequest.ProductId + "'}");
-            APIResponseModel<object> responseModel = new APIResponseModel<object>();
             var result = products.UpdateProductDetails(productRequest);
             if (result.Status && result.StatusCode == (int)HttpStatusCode.OK)
             {
-                responseModel.Status = result.Status;
-                responseModel.StatusCode = result.StatusCode;
-                responseModel.ResponseMessage = result.ResponseMessage;
-                responseModel.Data = string.Empty;
-                productLoggers.LogInformation("UpdateProduct, API execution process completed at {'" + DateTime.Now + "'} with status {'" + responseModel.Status + "'}");
-                return Ok(responseModel);
+                productLoggers.LogInformation("UpdateProduct, API execution process completed at {'" + DateTime.Now + "'} with status {'" + result.Status + "'}");
+                return Ok(result);
             }
             else
             {
-                responseModel.Status = false;
-                responseModel.StatusCode = 400;
-                responseModel.ResponseMessage = "No Record found!";
-                responseModel.Data = result;
-                productLoggers.LogInformation("UpdateProduct, API execution process completed at {'" + DateTime.Now + "'} with status {'" + responseModel.Status + "'}");
-                return NotFound(responseModel);
+                productLoggers.LogInformation("UpdateProduct, API execution process completed at {'" + DateTime.Now + "'} with status {'" + result.Status + "'}");
+                return BadRequest(result);
             }
 
         }
