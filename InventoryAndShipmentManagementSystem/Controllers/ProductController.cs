@@ -33,7 +33,6 @@ namespace InventoryAndShipmentManagementSystem.Controllers
             var result = products.SaveProductDetails(productRequest);
             if (result.Status && result.StatusCode == (int)HttpStatusCode.OK)
             {
-
                 productLoggers.LogInformation("AddNewProduct, API execution process completed at {'" + DateTime.Now + "'} with status {'" + result.Status + "'}");
                 return Ok(result);
             }
