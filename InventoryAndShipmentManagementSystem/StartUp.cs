@@ -3,6 +3,7 @@ using InventoryBAL.Interface;
 using InventoryRepository.Implementation;
 using InventoryRepository.Interface;
 using InventoryUtility;
+using InventoryUtility.Interface;
 using LISCareDataAccess.InventoryDbContext;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,9 +12,9 @@ namespace InventoryAndShipmentManagementSystem
     public class StartUp
     {
         public IConfiguration Configuration { get; }
-        public StartUp(IConfiguration configuration) 
+        public StartUp(IConfiguration configuration)
         {
-            Configuration= configuration;
+            Configuration = configuration;
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -23,7 +24,7 @@ namespace InventoryAndShipmentManagementSystem
             services.AddControllers();
             services.AddScoped<IProduct, ProductBAL>();
             services.AddScoped<IProductRepository, ProductRepository>();
-          
+            services.AddScoped<IProductLoggers, ProductLoggers>();
 
             // Configure database connection strings.
             services.AddDbContext<InventoryDbContext>(options =>

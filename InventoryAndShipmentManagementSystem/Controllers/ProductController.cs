@@ -1,7 +1,9 @@
 ﻿using InventoryBAL.Interface;
 using InventoryDTO;
 using InventoryUtility;
+using InventoryUtility.Interface;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 
 namespace InventoryAndShipmentManagementSystem.Controllers
@@ -10,12 +12,12 @@ namespace InventoryAndShipmentManagementSystem.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        private IProduct products;
-        private readonly ProductLogger productLogger;
-        public ProductController(IProduct product)
+        private readonly IProduct products;
+        private readonly IProductLoggers productLoggers;
+        public ProductController(IProduct product, IProductLoggers productLogger)
         {
             products = product;
-            productLogger = new ProductLogger();
+            productLoggers = productLogger;
         }
         /// <summary>
         /// API for to create new product
@@ -27,7 +29,7 @@ namespace InventoryAndShipmentManagementSystem.Controllers
         [Route(ConstantResources.AddNewProduct)]
         public IActionResult CreateNewProduct(ProductRequest productRequest)
         {
-            productLogger.LogInformation("AddNewProduct, API execution process started at {'" + DateTime.Now + "'}");
+            productLoggers.LogInformation("AddNewProduct, API execution process started at {'" + DateTime.Now + "'}");
             APIResponseModel<object> responseModel = new APIResponseModel<object>();
             var result = products.SaveProductDetails(productRequest);
             if (result.Status && result.StatusCode == 200)
@@ -36,7 +38,7 @@ namespace InventoryAndShipmentManagementSystem.Controllers
                 responseModel.StatusCode = 200;
                 responseModel.ResponseMessage = result.ResponseMessage;
                 responseModel.Data = string.Empty;
-                productLogger.LogInformation("AddNewProduct, API execution process completed at {'" + DateTime.Now + "'} with status {'" + responseModel.Status + "'}");
+                productLoggers.LogInformation("AddNewProduct, API execution process completed at {'" + DateTime.Now + "'} with status {'" + responseModel.Status + "'}");
                 return Ok(responseModel);
             }
             else
@@ -45,7 +47,7 @@ namespace InventoryAndShipmentManagementSystem.Controllers
                 responseModel.StatusCode = 400;
                 responseModel.ResponseMessage = "No Record found!";
                 responseModel.Data = result;
-                productLogger.LogInformation("AddNewProduct, API execution process completed at {'" + DateTime.Now + "'} with status {'" + responseModel.Status + "'}");
+                productLoggers.LogInformation("AddNewProduct, API execution process completed at {'" + DateTime.Now + "'} with status {'" + responseModel.Status + "'}");
                 return NotFound(responseModel);
             }
 
@@ -60,7 +62,7 @@ namespace InventoryAndShipmentManagementSystem.Controllers
         [Route(ConstantResources.UpdateProduct)]
         public IActionResult UpdateProduct(ProductRequest productRequest)
         {
-            productLogger.LogInformation("UpdateProduct, API execution process started at {'" + DateTime.Now + "'} of the product Id {'" + productRequest.ProductId + "'}");
+            productLoggers.LogInformation("UpdateProduct, API execution process started at {'" + DateTime.Now + "'} of the product Id {'" + productRequest.ProductId + "'}");
             APIResponseModel<object> responseModel = new APIResponseModel<object>();
             var result = products.UpdateProductDetails(productRequest);
             if (result.Status && result.StatusCode == 200)
@@ -69,7 +71,7 @@ namespace InventoryAndShipmentManagementSystem.Controllers
                 responseModel.StatusCode = 200;
                 responseModel.ResponseMessage = result.ResponseMessage;
                 responseModel.Data = string.Empty;
-                productLogger.LogInformation("UpdateProduct, API execution process completed at {'" + DateTime.Now + "'} with status {'" + responseModel.Status + "'}");
+                productLoggers.LogInformation("UpdateProduct, API execution process completed at {'" + DateTime.Now + "'} with status {'" + responseModel.Status + "'}");
                 return Ok(responseModel);
             }
             else
@@ -78,7 +80,7 @@ namespace InventoryAndShipmentManagementSystem.Controllers
                 responseModel.StatusCode = 400;
                 responseModel.ResponseMessage = "No Record found!";
                 responseModel.Data = result;
-                productLogger.LogInformation("UpdateProduct, API execution process completed at {'" + DateTime.Now + "'} with status {'" + responseModel.Status + "'}");
+                productLoggers.LogInformation("UpdateProduct, API execution process completed at {'" + DateTime.Now + "'} with status {'" + responseModel.Status + "'}");
                 return NotFound(responseModel);
             }
 
@@ -92,7 +94,7 @@ namespace InventoryAndShipmentManagementSystem.Controllers
         [Route(ConstantResources.GetProductById)]
         public IActionResult GetProductById(int productId)
         {
-            productLogger.LogInformation("GetProductById, API execution process started at {'" + DateTime.Now + "'} for the product Id {'" + productId + "'}");
+            productLoggers.LogInformation("GetProductById, API execution process started at {'" + DateTime.Now + "'} for the product Id {'" + productId + "'}");
             APIResponseModel<object> responseModel = new APIResponseModel<object>();
             var result = products.GetProductById(productId);
             if (result != null)
@@ -101,7 +103,7 @@ namespace InventoryAndShipmentManagementSystem.Controllers
                 responseModel.StatusCode = 200;
                 responseModel.ResponseMessage = ConstantResources.Success;
                 responseModel.Data = result;
-                productLogger.LogInformation("GetProductById, API execution process completed at {'" + DateTime.Now + "'} " +
+                productLoggers.LogInformation("GetProductById, API execution process completed at {'" + DateTime.Now + "'} " +
                     "with status {'" + responseModel + "'} of product Id {'" + productId + "'}");
                 return Ok(responseModel);
             }
@@ -111,7 +113,7 @@ namespace InventoryAndShipmentManagementSystem.Controllers
                 responseModel.StatusCode = 400;
                 responseModel.ResponseMessage = "No Record found!";
                 responseModel.Data = result;
-                productLogger.LogInformation("GetProductById, API execution process completed at {'" + DateTime.Now + "'} " +
+                productLoggers.LogInformation("GetProductById, API execution process completed at {'" + DateTime.Now + "'} " +
                     "with status {'" + responseModel + "'} of product Id {'" + productId + "'}");
                 return NotFound(responseModel);
             }
@@ -127,7 +129,7 @@ namespace InventoryAndShipmentManagementSystem.Controllers
         public IActionResult GetAllProducts()
         {
 
-            productLogger.LogInformation("GetAllProducts, API execution process started at {'" + DateTime.Now + "'}");
+            productLoggers.LogInformation("GetAllProducts, API execution process started at {'" + DateTime.Now + "'}");
             APIResponseModel<object> responseModel = new APIResponseModel<object>();
             var result = products.GetAllProducts();
             if (result.Count > 0)
@@ -136,7 +138,7 @@ namespace InventoryAndShipmentManagementSystem.Controllers
                 responseModel.StatusCode = 200;
                 responseModel.ResponseMessage = ConstantResources.Success;
                 responseModel.Data = result;
-                productLogger.LogInformation("GetAllProducts, API execution process completed at {'" + DateTime.Now + "'} " +
+                productLoggers.LogInformation("GetAllProducts, API execution process completed at {'" + DateTime.Now + "'} " +
                    "with status {'" + responseModel.Status + "'}");
                 return Ok(responseModel);
             }
@@ -146,7 +148,7 @@ namespace InventoryAndShipmentManagementSystem.Controllers
                 responseModel.StatusCode = 400;
                 responseModel.ResponseMessage = "No Record found!";
                 responseModel.Data = result;
-                productLogger.LogInformation("GetAllProducts, API execution process completed at {'" + DateTime.Now + "'} " +
+                productLoggers.LogInformation("GetAllProducts, API execution process completed at {'" + DateTime.Now + "'} " +
                    "with status {'" + responseModel.Status + "'}");
                 return NotFound(responseModel);
             }
@@ -161,16 +163,16 @@ namespace InventoryAndShipmentManagementSystem.Controllers
         [Route(ConstantResources.DeleteProduct)]
         public IActionResult DeleteProduct(int productId)
         {
-            productLogger.LogInformation("DeleteProduct, API execution process started at {'" + DateTime.Now + "'} of the product Id {'" + productId + "'}");
+            productLoggers.LogInformation("DeleteProduct, API execution process started at {'" + DateTime.Now + "'} of the product Id {'" + productId + "'}");
             APIResponseModel<object> responseModel = new APIResponseModel<object>();
             var result = products.DeleteProductDetails(productId);
             if (result.Status && result.StatusCode == 200)
             {
                 responseModel.Status = true;
-                responseModel.StatusCode = 200;
+                responseModel.StatusCode = Convert.ToInt32(HttpStatusCode.OK);
                 responseModel.ResponseMessage = result.ResponseMessage;
                 responseModel.Data = string.Empty;
-                productLogger.LogInformation("DeleteProduct, API execution process completed at {'" + DateTime.Now + "'} with status {'" + responseModel.Status + "'} for product Id {'"+ productId + "'}");
+                productLoggers.LogInformation("DeleteProduct, API execution process completed at {'" + DateTime.Now + "'} with status {'" + responseModel.Status + "'} for product Id {'"+ productId + "'}");
                 return Ok(responseModel);
             }
             else
@@ -179,7 +181,7 @@ namespace InventoryAndShipmentManagementSystem.Controllers
                 responseModel.StatusCode = 400;
                 responseModel.ResponseMessage = "No Record found!";
                 responseModel.Data = result;
-                productLogger.LogInformation("DeleteProduct, API execution process completed at {'" + DateTime.Now + "'} with status {'" + responseModel.Status + "'} for product Id {'"+ productId + "'}");
+                productLoggers.LogInformation("DeleteProduct, API execution process completed at {'" + DateTime.Now + "'} with status {'" + responseModel.Status + "'} for product Id {'"+ productId + "'}");
                 return NotFound(responseModel);
             }
 
@@ -195,7 +197,7 @@ namespace InventoryAndShipmentManagementSystem.Controllers
         [Route(ConstantResources.AssignToShipment)]
         public IActionResult ProductAssignToShipment(ShipmentRequest shipmentRequest)
         {
-            productLogger.LogInformation("AssignToShipment, API execution process started at {'" + DateTime.Now + "'}");
+            productLoggers.LogInformation("AssignToShipment, API execution process started at {'" + DateTime.Now + "'}");
             APIResponseModel<object> responseModel = new APIResponseModel<object>();
             var result = products.ProductAssignToShipment(shipmentRequest);
             if (result.Status && result.StatusCode == 200)
@@ -204,7 +206,7 @@ namespace InventoryAndShipmentManagementSystem.Controllers
                 responseModel.StatusCode = 200;
                 responseModel.ResponseMessage = result.ResponseMessage;
                 responseModel.Data = string.Empty;
-                productLogger.LogInformation("AssignToShipment, API execution process completed at {'" + DateTime.Now + "'} with status {'" + responseModel.Status + "'}");
+                productLoggers.LogInformation("AssignToShipment, API execution process completed at {'" + DateTime.Now + "'} with status {'" + responseModel.Status + "'}");
                 return Ok(responseModel);
             }
             else
@@ -213,7 +215,7 @@ namespace InventoryAndShipmentManagementSystem.Controllers
                 responseModel.StatusCode = 400;
                 responseModel.ResponseMessage = "No Record found!";
                 responseModel.Data = result;
-                productLogger.LogInformation("AssignToShipment, API execution process completed at {'" + DateTime.Now + "'} with status {'" + responseModel.Status + "'}");
+                productLoggers.LogInformation("AssignToShipment, API execution process completed at {'" + DateTime.Now + "'} with status {'" + responseModel.Status + "'}");
                 return NotFound(responseModel);
             }
 
@@ -229,7 +231,7 @@ namespace InventoryAndShipmentManagementSystem.Controllers
         public IActionResult GetAllShipments()
         {
 
-            productLogger.LogInformation("GetAllShipments, API execution process started at {'" + DateTime.Now + "'}");
+            productLoggers.LogInformation("GetAllShipments, API execution process started at {'" + DateTime.Now + "'}");
             APIResponseModel<object> responseModel = new APIResponseModel<object>();
             var result = products.GetAllShipmentDetails();
             if (result.Count > 0)
@@ -238,7 +240,7 @@ namespace InventoryAndShipmentManagementSystem.Controllers
                 responseModel.StatusCode = 200;
                 responseModel.ResponseMessage = ConstantResources.Success;
                 responseModel.Data = result;
-                productLogger.LogInformation("GetAllShipments, API execution process completed at {'" + DateTime.Now + "'} " +
+                productLoggers.LogInformation("GetAllShipments, API execution process completed at {'" + DateTime.Now + "'} " +
                    "with status {'" + responseModel.Status + "'}");
                 return Ok(responseModel);
             }
@@ -248,7 +250,7 @@ namespace InventoryAndShipmentManagementSystem.Controllers
                 responseModel.StatusCode = 400;
                 responseModel.ResponseMessage = "No Record found!";
                 responseModel.Data = result;
-                productLogger.LogInformation("GetAllShipments, API execution process completed at {'" + DateTime.Now + "'} " +
+                productLoggers.LogInformation("GetAllShipments, API execution process completed at {'" + DateTime.Now + "'} " +
                    "with status {'" + responseModel.Status + "'}");
                 return NotFound(responseModel);
             }
