@@ -64,8 +64,10 @@
         public readonly static string InValidRequest = "Invalid product request";
         public readonly static string InValidProductId = "Invalid productId, ProductId must be greater than zero";
         public readonly static string NoRecordFound = "No product record found";
+        public readonly static string NoShipmetFound = "No shipment found";
         public readonly static string Success = "Success";
         public readonly static string InvaidUser = "Invalid User";
+        public readonly static string InValidShipmentRequest = "Invalid shipment request";
         #endregion
 
     }

@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Data.SqlClient;
 using InventoryUtility.Interface;
 using Microsoft.AspNetCore.Http;
+using System.Reflection.PortableExecutable;
 
 
 
@@ -414,14 +415,14 @@ namespace InventoryRepository.Implementation
                             response.Status = true;
                             response.StatusCode = (int)HttpStatusCode.OK;
                             response.ResponseMessage = parameterModel.ErrorMessage;
-                            response.Data=string.Empty;
+                            response.Data = string.Empty;
                         }
                         else
                         {
                             response.StatusCode = (int)HttpStatusCode.BadRequest;
                             response.Status = false;
                             response.ResponseMessage = parameterModel.ErrorMessage;
-                            response.Data= string.Empty;
+                            response.Data = string.Empty;
                         }
                     }
                 }
@@ -461,14 +462,26 @@ namespace InventoryRepository.Implementation
             productLoggers.LogInformation("ProductAssignToShipment, Repository operation execution process started at {'" + DateTime.Now + "'}");
             var response = new APIResponseModel<object>
             {
-                StatusCode = 404,
+                StatusCode = (int)HttpStatusCode.BadRequest,
                 Status = false,
-                ResponseMessage = ConstantResources.InValidRequest
+                ResponseMessage = ConstantResources.InValidShipmentRequest,
+                Data = string.Empty
             };
             try
             {
-                if (!string.IsNullOrEmpty(shipmentRequest.ToString()))
+                if (string.IsNullOrEmpty(shipmentRequest.ShipmentName) || shipmentRequest.ProductId <= 0 || shipmentRequest.Quantity <= 0)
                 {
+                    response.Status = false;
+                    response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    response.ResponseMessage = ConstantResources.InValidShipmentRequest;
+                    response.Data = string.Empty;
+
+                }
+                else
+                {
+                    if (invDbContext.Database.GetDbConnection().State == ConnectionState.Closed)
+                        invDbContext.Database.GetDbConnection().Open();
+                    productLoggers.LogInformation("Data base connection open at {'" + DateTime.Now + "'} for ProductAssignToShipment repository logic.");
                     var command = invDbContext.Database.GetDbConnection().CreateCommand();
                     productLoggers.LogInformation("Getting data base connection at {'" + DateTime.Now + "'}");
                     command.CommandText = ConstantResources.UspAssignProductToShipment;
@@ -496,8 +509,6 @@ namespace InventoryRepository.Implementation
                     command.Parameters.Add(outputBitParm);
                     command.Parameters.Add(outputErrorParm);
                     command.Parameters.Add(outputErrorMessageParm);
-                    invDbContext.Database.GetDbConnection().Open();
-                    productLoggers.LogInformation("Data base connection open at {'" + DateTime.Now + "'} for ProductAssignToShipment repository logic.");
                     command.ExecuteScalar();
                     OutputParameterModel parameterModel = new OutputParameterModel
                     {
@@ -505,25 +516,28 @@ namespace InventoryRepository.Implementation
                         IsError = outputErrorParm.Value as bool? ?? default,
                         IsSuccess = outputBitParm.Value as bool? ?? default,
                     };
-
                     if (parameterModel.IsSuccess)
                     {
                         response.Status = true;
                         response.StatusCode = (int)HttpStatusCode.OK;
                         response.ResponseMessage = parameterModel.ErrorMessage;
+                        response.Data = string.Empty;
                     }
                     else
                     {
-                        response.StatusCode = (int)HttpStatusCode.NotFound;
+                        response.StatusCode = (int)HttpStatusCode.BadRequest;
                         response.Status = false;
-                        response.ResponseMessage = ConstantResources.InValidRequest;
-
+                        response.ResponseMessage = ConstantResources.InValidShipmentRequest;
+                        response.Data = string.Empty;
                     }
                 }
             }
             catch (Exception ex)
             {
+                response.StatusCode = (int)HttpStatusCode.BadRequest;
+                response.Status = false;
                 response.ResponseMessage = ex.Message;
+                response.Data = string.Empty;
                 productLoggers.LogInformation("{'" + ex + "'},An error occurred while {'" + shipmentRequest.ProductId + "'} product assign to shipment");
 
             }
@@ -539,9 +553,15 @@ namespace InventoryRepository.Implementation
         /// Used for Get All Product shipment history 
         /// </summary>
         /// <returns></returns>
-        public List<ProductShipmentResponse> GetAllShipmentDetails()
+        public APIResponseModel<object> GetAllShipmentDetails()
         {
             productLoggers.LogInformation("GetAllShipmentDetails, Repository operation execution process started at {'" + DateTime.Now + "'}");
+            var shipmentResponse = new APIResponseModel<object>
+            {
+                StatusCode = (int)HttpStatusCode.NotFound,
+                Status = false,
+                ResponseMessage = ConstantResources.NoShipmetFound
+            };
             List<ProductShipmentResponse> response = new List<ProductShipmentResponse>();
             try
             {
@@ -565,11 +585,19 @@ namespace InventoryRepository.Implementation
                     productShipment.Quantity = reader[ConstantResources.Quantity] != DBNull.Value ? Convert.ToInt32(reader[ConstantResources.Quantity]) : 0;
                     response.Add(productShipment);
                 }
+                shipmentResponse.Data = response;
+                shipmentResponse.StatusCode = (int)HttpStatusCode.OK;
+                shipmentResponse.Status = true;
+                shipmentResponse.ResponseMessage = ConstantResources.Success;
             }
             catch (Exception ex)
             {
+                shipmentResponse.Data = string.Empty;
+                shipmentResponse.StatusCode = (int)HttpStatusCode.NotFound;
+                shipmentResponse.Status = true;
+                shipmentResponse.ResponseMessage = "{'" + ex + "'},An error occurred products while fetching all productd details in Product Repository under GetAllShipmentDetails method at {'" + DateTime.Now + "'}";
                 productLoggers.LogInformation("{'" + ex + "'},An error occurred products while fetching all productd details in Product Repository under GetAllShipmentDetails method at {'" + DateTime.Now + "'}");
-                throw new Exception("An error occurred while retrieving all shipments details.", ex);
+      
             }
             finally
             {
@@ -577,7 +605,7 @@ namespace InventoryRepository.Implementation
                 productLoggers.LogInformation("Data base connection closed at {'" + DateTime.Now + "'} for GetAllShipmentDetails repository logic.");
             }
             productLoggers.LogInformation("GetAllShipmentDetails, Repository operation execution process completed at {'" + DateTime.Now + "'}  with total product count {'" + response.Count() + "'}");
-            return response;
+            return shipmentResponse;
         }
     }
 }

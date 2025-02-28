@@ -151,61 +151,41 @@ namespace InventoryAndShipmentManagementSystem.Controllers
         public IActionResult ProductAssignToShipment(ShipmentRequest shipmentRequest)
         {
             productLoggers.LogInformation("AssignToShipment, API execution process started at {'" + DateTime.Now + "'}");
-            APIResponseModel<object> responseModel = new APIResponseModel<object>();
             var result = products.ProductAssignToShipment(shipmentRequest);
-            if (result.Status && result.StatusCode == 200)
+            if (result.Status && result.StatusCode == (int)HttpStatusCode.OK)
             {
-                responseModel.Status = true;
-                responseModel.StatusCode = 200;
-                responseModel.ResponseMessage = result.ResponseMessage;
-                responseModel.Data = string.Empty;
-                productLoggers.LogInformation("AssignToShipment, API execution process completed at {'" + DateTime.Now + "'} with status {'" + responseModel.Status + "'}");
-                return Ok(responseModel);
+                productLoggers.LogInformation("AssignToShipment, API execution process completed at {'" + DateTime.Now + "'} with status {'" + result.Status + "'}");
+                return Ok(result);
             }
             else
             {
-                responseModel.Status = false;
-                responseModel.StatusCode = 400;
-                responseModel.ResponseMessage = "No Record found!";
-                responseModel.Data = result;
-                productLoggers.LogInformation("AssignToShipment, API execution process completed at {'" + DateTime.Now + "'} with status {'" + responseModel.Status + "'}");
-                return NotFound(responseModel);
+                productLoggers.LogInformation("AssignToShipment, API execution process completed at {'" + DateTime.Now + "'} with status {'" + result.Status + "'}");
+                return BadRequest(result);
             }
 
         }
-
         /// <summary>
         /// Used to get All Product Details
         /// </summary>
-        /// <param name="partnerId"></param>
         /// <returns></returns>
         [HttpGet]
         [Route(ConstantResources.GetAllShipments)]
         public IActionResult GetAllShipments()
         {
-
             productLoggers.LogInformation("GetAllShipments, API execution process started at {'" + DateTime.Now + "'}");
             APIResponseModel<object> responseModel = new APIResponseModel<object>();
             var result = products.GetAllShipmentDetails();
-            if (result.Count > 0)
+            if (result.Status && result.StatusCode==(int)HttpStatusCode.OK)
             {
-                responseModel.Status = true;
-                responseModel.StatusCode = 200;
-                responseModel.ResponseMessage = ConstantResources.Success;
-                responseModel.Data = result;
                 productLoggers.LogInformation("GetAllShipments, API execution process completed at {'" + DateTime.Now + "'} " +
-                   "with status {'" + responseModel.Status + "'}");
-                return Ok(responseModel);
+                   "with status {'" + result.Status + "'}");
+                return Ok(result);
             }
             else
             {
-                responseModel.Status = false;
-                responseModel.StatusCode = 400;
-                responseModel.ResponseMessage = "No Record found!";
-                responseModel.Data = result;
                 productLoggers.LogInformation("GetAllShipments, API execution process completed at {'" + DateTime.Now + "'} " +
-                   "with status {'" + responseModel.Status + "'}");
-                return NotFound(responseModel);
+                   "with status {'" + result.Status + "'}");
+                return NotFound(result);
             }
 
         }

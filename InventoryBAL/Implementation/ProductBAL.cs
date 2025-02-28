@@ -63,10 +63,10 @@ namespace InventoryBAL.Implementation
         /// Used to Get All Shipments 
         /// </summary>
         /// <returns></returns>
-        public List<ProductShipmentResponse> GetAllShipmentDetails()
+        public APIResponseModel<object> GetAllShipmentDetails()
         {
             productLoggers.LogInformation("GetAllShipmentDetails,Bussiness operation execution process started at {'" + DateTime.Now + "'}");
-            var response = new List<ProductShipmentResponse>();
+            var response = new APIResponseModel<object>();
             try
             {
                 response = productRepo.GetAllShipmentDetails();

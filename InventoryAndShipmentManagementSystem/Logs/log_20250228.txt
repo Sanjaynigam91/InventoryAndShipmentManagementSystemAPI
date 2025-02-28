@@ -267,3 +267,77 @@ Error Number:245,State:1,Class:16'},An error occurred while deleting product wit
 2025-02-28 11:38:38 - UpdateProductDetails, Repository operation execution process completed at {'28-02-2025 11:38:38'} with status code {'200'}
 2025-02-28 11:38:40 - UpdateProductDetails, Bussiness operation execution process completed at {'28-02-2025 11:38:40'}
 2025-02-28 11:38:40 - UpdateProduct, API execution process completed at {'28-02-2025 11:38:40'} with status {'True'}
+2025-02-28 11:51:29 - AddNewProduct, API execution process started at {'28-02-2025 11:51:29'}
+2025-02-28 11:51:30 - SaveProductDetails, Bussiness operation execution process started at {'28-02-2025 11:51:30'}
+2025-02-28 11:51:30 - SaveProductDetails, Repository operation execution process started at {'28-02-2025 11:51:30'}
+2025-02-28 11:51:33 - Data base connection open at {'28-02-2025 11:51:33'} for SaveProductDetails repository logic.
+2025-02-28 11:51:34 - Getting data base connection at {'28-02-2025 11:51:34'}
+2025-02-28 11:51:34 - {'Usp_Save_Product_Details'} getting called at {'28-02-2025 11:51:34'}
+2025-02-28 12:35:18 - AssignToShipment, API execution process started at {'28-02-2025 12:35:18'}
+2025-02-28 12:35:18 - ProductAssignToShipment, Bussiness operation execution process started at {'28-02-2025 12:35:18'}
+2025-02-28 12:35:18 - ProductAssignToShipment, Repository operation execution process started at {'28-02-2025 12:35:18'}
+2025-02-28 12:35:28 - Data base connection closed at {'28-02-2025 12:35:28'} for ProductAssignToShipment repository logic
+2025-02-28 12:35:28 - ProductAssignToShipment, Repository operation execution process completed at {'28-02-2025 12:35:28'} with status code {'400'}
+2025-02-28 12:35:29 - ProductAssignToShipment, Bussiness operation execution process completed at {'28-02-2025 12:35:29'}
+2025-02-28 12:35:30 - AssignToShipment, API execution process completed at {'28-02-2025 12:35:30'} with status {'False'}
+2025-02-28 12:36:03 - AssignToShipment, API execution process started at {'28-02-2025 12:36:03'}
+2025-02-28 12:36:03 - ProductAssignToShipment, Bussiness operation execution process started at {'28-02-2025 12:36:03'}
+2025-02-28 12:36:03 - ProductAssignToShipment, Repository operation execution process started at {'28-02-2025 12:36:03'}
+2025-02-28 12:36:07 - Data base connection closed at {'28-02-2025 12:36:07'} for ProductAssignToShipment repository logic
+2025-02-28 12:36:08 - ProductAssignToShipment, Repository operation execution process completed at {'28-02-2025 12:36:08'} with status code {'400'}
+2025-02-28 12:36:08 - ProductAssignToShipment, Bussiness operation execution process completed at {'28-02-2025 12:36:08'}
+2025-02-28 12:36:13 - AssignToShipment, API execution process completed at {'28-02-2025 12:36:13'} with status {'False'}
+2025-02-28 12:36:55 - AssignToShipment, API execution process started at {'28-02-2025 12:36:55'}
+2025-02-28 12:36:55 - ProductAssignToShipment, Bussiness operation execution process started at {'28-02-2025 12:36:55'}
+2025-02-28 12:36:55 - ProductAssignToShipment, Repository operation execution process started at {'28-02-2025 12:36:55'}
+2025-02-28 12:36:57 - Data base connection closed at {'28-02-2025 12:36:57'} for ProductAssignToShipment repository logic
+2025-02-28 12:36:57 - ProductAssignToShipment, Repository operation execution process completed at {'28-02-2025 12:36:57'} with status code {'400'}
+2025-02-28 12:36:57 - ProductAssignToShipment, Bussiness operation execution process completed at {'28-02-2025 12:36:57'}
+2025-02-28 12:36:58 - AssignToShipment, API execution process completed at {'28-02-2025 12:36:58'} with status {'False'}
+2025-02-28 12:37:11 - AssignToShipment, API execution process started at {'28-02-2025 12:37:11'}
+2025-02-28 12:37:11 - ProductAssignToShipment, Bussiness operation execution process started at {'28-02-2025 12:37:11'}
+2025-02-28 12:37:11 - ProductAssignToShipment, Repository operation execution process started at {'28-02-2025 12:37:11'}
+2025-02-28 12:37:20 - Data base connection closed at {'28-02-2025 12:37:20'} for ProductAssignToShipment repository logic
+2025-02-28 12:37:20 - ProductAssignToShipment, Repository operation execution process completed at {'28-02-2025 12:37:20'} with status code {'400'}
+2025-02-28 12:37:21 - ProductAssignToShipment, Bussiness operation execution process completed at {'28-02-2025 12:37:21'}
+2025-02-28 12:37:22 - AssignToShipment, API execution process completed at {'28-02-2025 12:37:22'} with status {'False'}
+2025-02-28 12:38:02 - AssignToShipment, API execution process started at {'28-02-2025 12:38:02'}
+2025-02-28 12:38:02 - ProductAssignToShipment, Bussiness operation execution process started at {'28-02-2025 12:38:02'}
+2025-02-28 12:38:02 - ProductAssignToShipment, Repository operation execution process started at {'28-02-2025 12:38:02'}
+2025-02-28 12:38:06 - Data base connection closed at {'28-02-2025 12:38:06'} for ProductAssignToShipment repository logic
+2025-02-28 12:38:06 - ProductAssignToShipment, Repository operation execution process completed at {'28-02-2025 12:38:06'} with status code {'400'}
+2025-02-28 12:38:07 - ProductAssignToShipment, Bussiness operation execution process completed at {'28-02-2025 12:38:07'}
+2025-02-28 12:38:08 - AssignToShipment, API execution process completed at {'28-02-2025 12:38:08'} with status {'False'}
+2025-02-28 12:38:24 - AssignToShipment, API execution process started at {'28-02-2025 12:38:24'}
+2025-02-28 12:38:24 - ProductAssignToShipment, Bussiness operation execution process started at {'28-02-2025 12:38:24'}
+2025-02-28 12:38:24 - ProductAssignToShipment, Repository operation execution process started at {'28-02-2025 12:38:24'}
+2025-02-28 12:38:28 - Data base connection open at {'28-02-2025 12:38:28'} for ProductAssignToShipment repository logic.
+2025-02-28 12:38:29 - Getting data base connection at {'28-02-2025 12:38:29'}
+2025-02-28 12:38:30 - {'Usp_Save_Product_Details'} getting called at {'28-02-2025 12:38:30'}
+2025-02-28 12:38:38 - Data base connection closed at {'28-02-2025 12:38:38'} for ProductAssignToShipment repository logic
+2025-02-28 12:38:39 - ProductAssignToShipment, Repository operation execution process completed at {'28-02-2025 12:38:39'} with status code {'200'}
+2025-02-28 12:38:40 - ProductAssignToShipment, Bussiness operation execution process completed at {'28-02-2025 12:38:40'}
+2025-02-28 12:38:43 - AssignToShipment, API execution process completed at {'28-02-2025 12:38:43'} with status {'True'}
+2025-02-28 12:48:33 - GetAllShipments, API execution process started at {'28-02-2025 12:48:33'}
+2025-02-28 12:48:33 - GetAllShipmentDetails,Bussiness operation execution process started at {'28-02-2025 12:48:33'}
+2025-02-28 12:48:33 - GetAllShipmentDetails, Repository operation execution process started at {'28-02-2025 12:48:33'}
+2025-02-28 12:48:34 - Data base connection open at {'28-02-2025 12:48:34'} for GetAllShipmentDetails repository logic.
+2025-02-28 12:48:34 - Getting data base connection at {'28-02-2025 12:48:34'}
+2025-02-28 12:48:34 - {'Usp_GetAllProducts'} getting called at {'28-02-2025 12:48:34'}
+2025-02-28 12:48:34 - Data base connection closed at {'28-02-2025 12:48:34'} for GetAllShipmentDetails repository logic.
+2025-02-28 12:48:34 - GetAllShipmentDetails, Repository operation execution process completed at {'28-02-2025 12:48:34'}  with total product count {'17'}
+2025-02-28 12:48:34 - GetAllShipmentDetails,Bussiness operation execution process completed at {'28-02-2025 12:48:34'}
+2025-02-28 12:48:34 - GetAllShipments, API execution process completed at {'28-02-2025 12:48:34'} with status {'True'}
+2025-02-28 12:53:35 - GetAllProducts, API execution process started at {'28-02-2025 12:53:35'}
+2025-02-28 12:53:35 - GetAllProducts,Bussiness operation execution process started at {'28-02-2025 12:53:35'}
+2025-02-28 12:53:36 - GetAllProducts, Repository operation execution process started at {'28-02-2025 12:53:36'}
+2025-02-28 12:53:37 - Data base connection open at {'28-02-2025 12:53:37'} for GetAllProducts repository logic.
+2025-02-28 12:53:39 - Getting data base connection at {'28-02-2025 12:53:39'}
+2025-02-28 12:53:40 - {'Usp_GetAllProducts'} getting called at {'28-02-2025 12:53:40'}
+2025-02-28 12:53:59 - {'System.InvalidOperationException: ExecuteReader requires an open and available Connection. The connection's current state is closed.
+   at Microsoft.Data.SqlClient.SqlCommand.ValidateCommand(Boolean isAsync, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at InventoryRepository.Implementation.ProductRepository.GetAllProducts() in D:\Sanjay\InventoryAndShipment\InventoryAndShipmentManagementSystemAPI\InventoryRepository\Implementation\ProductRepository.cs:line 149'},An error occurred products while fetching all productd details in Product Repository under GetAllProducts method at {'28-02-2025 12:53:59'}

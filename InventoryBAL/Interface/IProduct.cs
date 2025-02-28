@@ -44,6 +44,6 @@ namespace InventoryBAL.Interface
         /// Used for Get All Product shipment history 
         /// </summary>
         /// <returns></returns>
-        List<ProductShipmentResponse> GetAllShipmentDetails();
+        APIResponseModel<object> GetAllShipmentDetails();
     }
 }
