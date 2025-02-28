@@ -25,7 +25,7 @@ namespace InventoryBAL.Implementation
         /// <returns></returns>
         public APIResponseModel<object> DeleteProductDetails(int productId)
         {
-            productLoggers.LogInformation("DeleteProduct, Bussiness operation execution process started at {'" + DateTime.Now + "'} for product Id {'" + productId + "'}");
+            productLoggers.LogInformation(ConstantResources.DeleteProductBALStart + productId);
             var response = new APIResponseModel<object>();
             try
             {
@@ -33,10 +33,10 @@ namespace InventoryBAL.Implementation
             }
             catch (Exception ex)
             {
-                productLoggers.LogInformation("{'" + ex + "'},An error occurred in business operation of DeleteProductDetails while deleting product with product Id {'" + productId + "'}");
+                productLoggers.LogInformation("{'" + ex + "'}" + ConstantResources.ExceptionWhileDeleteProductBAL + productId);
                 throw;
             }
-            productLoggers.LogInformation("DeleteProduct, Bussiness operation execution process completed at {'" + DateTime.Now + "'} for product Id {'" + productId + "'}");
+            productLoggers.LogInformation(ConstantResources.DeleteProductBALComplete + productId);
             return response;
         }
         /// <summary>
@@ -45,7 +45,7 @@ namespace InventoryBAL.Implementation
         /// <returns></returns>
         public APIResponseModel<object> GetAllProducts()
         {
-            productLoggers.LogInformation("GetAllProducts,Bussiness operation execution process started at {'" + DateTime.Now + "'}");
+            productLoggers.LogInformation(ConstantResources.GetAllProductsBALStart);
             var response = new APIResponseModel<object>();
             try
             {
@@ -53,10 +53,10 @@ namespace InventoryBAL.Implementation
             }
             catch (Exception ex)
             {
-                productLoggers.LogInformation("{'" + ex + "'},An error occurred in business operation of GetAllProducts while fetching all products at {'" + DateTime.Now + "'}");
+                productLoggers.LogInformation("{'" + ex + "'}" + ConstantResources.ExceptionWhileGettingAllProductsBAL);
                 throw;
             }
-            productLoggers.LogInformation("GetAllProducts,Bussiness operation execution process completed at {'" + DateTime.Now + "'}");
+            productLoggers.LogInformation(ConstantResources.GetAllProductsBALComplete);
             return response;
         }
         /// <summary>
@@ -87,7 +87,7 @@ namespace InventoryBAL.Implementation
         /// <returns></returns>
         public APIResponseModel<object> GetProductById(int productId)
         {
-            productLoggers.LogInformation("GetProductById, Bussiness operation execution process started at {'" + DateTime.Now + "'} for product Id {'" + productId + "'}");
+            productLoggers.LogInformation(ConstantResources.GetProductByIdBALStart + ConstantResources.ForProductId + productId);
             var response = new APIResponseModel<object>();
             try
             {
@@ -95,10 +95,10 @@ namespace InventoryBAL.Implementation
             }
             catch (Exception ex)
             {
-                productLoggers.LogInformation("{'" + ex + "'},An error occurred in business operation of GetProductById while fetching product details by product Id {'" + productId + "'} at {'" + DateTime.Now + "'}");
+                productLoggers.LogInformation("{'" + ex + "'}" + ConstantResources.ExceptionWhileGettingProductById + productId + " at {'" + ConstantResources.timeStamp + "'}");
                 throw;
             }
-            productLoggers.LogInformation("GetProductById, Bussiness operation execution process completed at {'" + DateTime.Now + "'} for product Id {'" + productId + "'}");
+            productLoggers.LogInformation(ConstantResources.GetProductByIdBALComplete + productId);
             return response;
         }
         /// <summary>
@@ -151,7 +151,7 @@ namespace InventoryBAL.Implementation
         /// <returns></returns>
         public APIResponseModel<object> UpdateProductDetails(ProductRequest productRequest)
         {
-            productLoggers.LogInformation("UpdateProductDetails, Bussiness operation execution process started at {'" + DateTime.Now + "'}");
+            productLoggers.LogInformation(ConstantResources.UpdateProductDetailsBALStart);
             var response = new APIResponseModel<object>();
             try
             {
@@ -159,10 +159,10 @@ namespace InventoryBAL.Implementation
             }
             catch (Exception ex)
             {
-                productLoggers.LogInformation("{'" + ex + "'},An error occurred in business operation of UpdateProductDetails while updateing the product details of the product Id {'" + productRequest.ProductId + "'}");
+                productLoggers.LogInformation("{'" + ex + "'}" + ConstantResources.UpdateProductDetailsBALException + productRequest.ProductId);
                 throw;
             }
-            productLoggers.LogInformation("UpdateProductDetails, Bussiness operation execution process completed at {'" + DateTime.Now + "'}");
+            productLoggers.LogInformation(ConstantResources.UpdateProductDetailsBALComplete);
             return response;
         }
     }

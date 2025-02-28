@@ -52,16 +52,16 @@ namespace InventoryAndShipmentManagementSystem.Controllers
         [Route(ConstantResources.UpdateProduct)]
         public IActionResult UpdateProduct(ProductRequest productRequest)
         {
-            productLoggers.LogInformation("UpdateProduct, API execution process started at {'" + DateTime.Now + "'} of the product Id {'" + productRequest.ProductId + "'}");
+            productLoggers.LogInformation(ConstantResources.UpdateProductAPIStart + productRequest.ProductId);
             var result = products.UpdateProductDetails(productRequest);
             if (result.Status && result.StatusCode == (int)HttpStatusCode.OK)
             {
-                productLoggers.LogInformation("UpdateProduct, API execution process completed at {'" + DateTime.Now + "'} with status {'" + result.Status + "'}");
+                productLoggers.LogInformation(ConstantResources.UpdateProductAPIComplete + result.Status);
                 return Ok(result);
             }
             else
             {
-                productLoggers.LogInformation("UpdateProduct, API execution process completed at {'" + DateTime.Now + "'} with status {'" + result.Status + "'}");
+                productLoggers.LogInformation(ConstantResources.UpdateProductAPIComplete + result.Status);
                 return BadRequest(result);
             }
 
@@ -69,24 +69,24 @@ namespace InventoryAndShipmentManagementSystem.Controllers
         /// <summary>
         /// Used to get Product Details By Id
         /// </summary>
-        /// <param name="partnerId"></param>
+        /// <param name="productId"></param>
         /// <returns></returns>
         [HttpGet]
         [Route(ConstantResources.GetProductById)]
         public IActionResult GetProductById(int productId)
         {
-            productLoggers.LogInformation("GetProductById, API execution process started at {'" + DateTime.Now + "'} for the product Id {'" + productId + "'}");
+            productLoggers.LogInformation(ConstantResources.GetProductByIdAPIStart + productId);
             var result = products.GetProductById(productId);
             if (result.Status && result.StatusCode == (int)HttpStatusCode.OK)
             {
-                productLoggers.LogInformation("GetProductById, API execution process completed at {'" + DateTime.Now + "'} " +
-                    "with status {'" + result.Status + "'} of product Id {'" + productId + "'}");
+                productLoggers.LogInformation(ConstantResources.GetProductByIdAPIComplete + ConstantResources.WithStatus +
+                    "{'" + result.Status + "'}" + ConstantResources.OfProductId + productId);
                 return Ok(result);
             }
             else
             {
-                productLoggers.LogInformation("GetProductById, API execution process completed at {'" + DateTime.Now + "'} " +
-                    "with status {'" + result.Status + "'} of product Id {'" + productId + "'}");
+                productLoggers.LogInformation(ConstantResources.GetProductByIdAPIComplete + ConstantResources.WithStatus +
+                     "{'" + result.Status + "'}" + ConstantResources.OfProductId + productId);
                 return NotFound(result);
             }
 
@@ -94,50 +94,46 @@ namespace InventoryAndShipmentManagementSystem.Controllers
         /// <summary>
         /// Used to get All Product Details
         /// </summary>
-        /// <param name="partnerId"></param>
         /// <returns></returns>
         [HttpGet]
         [Route(ConstantResources.GetAllProducts)]
         public IActionResult GetAllProducts()
         {
-            productLoggers.LogInformation("GetAllProducts, API execution process started at {'" + DateTime.Now + "'}");
+            productLoggers.LogInformation(ConstantResources.GetAllProductsAPIStart);
             var result = products.GetAllProducts();
             if (result.Status && result.StatusCode == (int)HttpStatusCode.OK)
             {
-                productLoggers.LogInformation("GetAllProducts, API execution process completed at {'" + DateTime.Now + "'} " +
-                   "with status {'" + result.Status + "'}");
+                productLoggers.LogInformation(ConstantResources.GetAllProductsAPIComplete + ConstantResources.WithStatus + result.Status);
                 return Ok(result);
             }
             else
             {
-                productLoggers.LogInformation("GetAllProducts, API execution process completed at {'" + DateTime.Now + "'} " +
-                   "with status {'" + result.Status + "'}");
+                productLoggers.LogInformation(ConstantResources.GetAllProductsAPIComplete + ConstantResources.WithStatus + result.Status);
                 return NotFound(result);
             }
 
         }
         /// <summary>
-        /// API for to create new product
+        /// API for to Delete the product details
         /// </summary>
-        /// <param name="productRequest"></param>
+        /// <param name="productId"></param>
         /// <returns></returns>
         [HttpDelete]
         [Route(ConstantResources.DeleteProduct)]
         public IActionResult DeleteProduct(int productId)
         {
-            productLoggers.LogInformation("DeleteProduct, API execution process started at {'" + DateTime.Now + "'} of the product Id {'" + productId + "'}");
+            productLoggers.LogInformation(ConstantResources.DeleteProductAPIStart + productId);
             var result = products.DeleteProductDetails(productId);
             if (result.Status && result.StatusCode == (int)HttpStatusCode.OK)
             {
-                productLoggers.LogInformation("DeleteProduct, API execution process completed at {'" + DateTime.Now + "'} with status {'" + result.Status + "'} for product Id {'" + productId + "'}");
+                productLoggers.LogInformation(ConstantResources.DeleteProductAPIComplete + result.Status + ConstantResources.ForProductId + productId);
                 return Ok(result);
             }
             else
             {
-                productLoggers.LogInformation("DeleteProduct, API execution process completed at {'" + DateTime.Now + "'} with status {'" + result.Status + "'} for product Id {'" + productId + "'}");
+                productLoggers.LogInformation(ConstantResources.DeleteProductAPIComplete + result.Status + ConstantResources.ForProductId + productId);
                 return BadRequest(result);
             }
-
         }
 
         /// <summary>
