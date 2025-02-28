@@ -9,6 +9,7 @@ using InventoryUtility;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Data.SqlClient;
 using InventoryUtility.Interface;
+using Microsoft.AspNetCore.Http;
 
 
 
@@ -35,23 +36,24 @@ namespace InventoryRepository.Implementation
             productLoggers.LogInformation("DeleteProduct, Repository operation execution process started at {'" + DateTime.Now + "'} for product Id {'" + productId + "'}");
             var response = new APIResponseModel<object>
             {
-                StatusCode = 404,
+                StatusCode = (int)HttpStatusCode.BadRequest,
                 Status = false,
-                ResponseMessage = ConstantResources.InValidRequest
+                ResponseMessage = ConstantResources.InValidProductId
             };
             try
             {
                 productLoggers.LogInformation("Checking Product Id, Product Id must be greater than zero {'" + productId + "'}");
                 if (productId > 0)
                 {
+                    if (invDbContext.Database.GetDbConnection().State == ConnectionState.Closed)
+                        productLoggers.LogInformation("Data base connection open at {'" + DateTime.Now + "'} for DeleteProduct repository logic.");
+                    invDbContext.Database.OpenConnection();
                     var command = invDbContext.Database.GetDbConnection().CreateCommand();
                     productLoggers.LogInformation("Getting data base connection at {'" + DateTime.Now + "'}");
                     command.CommandText = ConstantResources.UspDeleteProduct;
                     productLoggers.LogInformation("{'" + ConstantResources.UspDeleteProduct + "'} getting called at {'" + DateTime.Now + "'}");
                     command.CommandType = CommandType.StoredProcedure;
-
                     command.Parameters.Add(new SqlParameter(ConstantResources.ParamProductId, productId));
-
                     // output parameters
                     SqlParameter outputBitParm = new SqlParameter(ConstantResources.ParamIsSuccess, SqlDbType.Bit)
                     {
@@ -69,8 +71,6 @@ namespace InventoryRepository.Implementation
                     command.Parameters.Add(outputBitParm);
                     command.Parameters.Add(outputErrorParm);
                     command.Parameters.Add(outputErrorMessageParm);
-                    invDbContext.Database.GetDbConnection().Open();
-                    productLoggers.LogInformation("Data base connection open at {'" + DateTime.Now + "'} for DeleteProduct repository logic.");
                     command.ExecuteScalar();
                     OutputParameterModel parameterModel = new OutputParameterModel
                     {
@@ -78,31 +78,37 @@ namespace InventoryRepository.Implementation
                         IsError = outputErrorParm.Value as bool? ?? default,
                         IsSuccess = outputBitParm.Value as bool? ?? default,
                     };
-
                     if (parameterModel.IsSuccess)
                     {
                         response.Status = true;
                         response.StatusCode = (int)HttpStatusCode.OK;
                         response.ResponseMessage = parameterModel.ErrorMessage;
+                        response.Data = string.Empty;
                     }
                     else
                     {
-                        response.StatusCode = (int)HttpStatusCode.NotFound;
+                        response.StatusCode = (int)HttpStatusCode.BadRequest;
                         response.Status = false;
-                        response.ResponseMessage = ConstantResources.InValidRequest;
-
+                        response.ResponseMessage = parameterModel.ErrorMessage;
+                        response.Data = string.Empty;
                     }
                 }
                 else
                 {
                     productLoggers.LogInformation("Product Id must be greater than zero {'" + productId + "'}");
-                    throw new ArgumentException("Product Id must be greater than zero.");
+                    response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    response.Status = false;
+                    response.ResponseMessage = ("Invalid ProductId, ProductId {'" + productId + "'} must be greater than zero");
+                    response.Data = string.Empty;
 
                 }
             }
             catch (Exception ex)
             {
-                response.ResponseMessage = ex.Message;
+                response.StatusCode = (int)HttpStatusCode.BadRequest;
+                response.Status = false;
+                response.ResponseMessage = "{'" + ex + "'},An error occurred while deleting product with Product Id {'" + productId + "'}";
+                response.Data = string.Empty;
                 productLoggers.LogInformation("{'" + ex + "'},An error occurred while deleting product with Product Id {'" + productId + "'}");
             }
             finally

@@ -126,25 +126,16 @@ namespace InventoryAndShipmentManagementSystem.Controllers
         public IActionResult DeleteProduct(int productId)
         {
             productLoggers.LogInformation("DeleteProduct, API execution process started at {'" + DateTime.Now + "'} of the product Id {'" + productId + "'}");
-            APIResponseModel<object> responseModel = new APIResponseModel<object>();
             var result = products.DeleteProductDetails(productId);
-            if (result.Status && result.StatusCode == 200)
+            if (result.Status && result.StatusCode == (int)HttpStatusCode.OK)
             {
-                responseModel.Status = true;
-                responseModel.StatusCode = Convert.ToInt32(HttpStatusCode.OK);
-                responseModel.ResponseMessage = result.ResponseMessage;
-                responseModel.Data = string.Empty;
-                productLoggers.LogInformation("DeleteProduct, API execution process completed at {'" + DateTime.Now + "'} with status {'" + responseModel.Status + "'} for product Id {'" + productId + "'}");
-                return Ok(responseModel);
+                productLoggers.LogInformation("DeleteProduct, API execution process completed at {'" + DateTime.Now + "'} with status {'" + result.Status + "'} for product Id {'" + productId + "'}");
+                return Ok(result);
             }
             else
             {
-                responseModel.Status = false;
-                responseModel.StatusCode = 400;
-                responseModel.ResponseMessage = "No Record found!";
-                responseModel.Data = result;
-                productLoggers.LogInformation("DeleteProduct, API execution process completed at {'" + DateTime.Now + "'} with status {'" + responseModel.Status + "'} for product Id {'" + productId + "'}");
-                return NotFound(responseModel);
+                productLoggers.LogInformation("DeleteProduct, API execution process completed at {'" + DateTime.Now + "'} with status {'" + result.Status + "'} for product Id {'" + productId + "'}");
+                return BadRequest(result);
             }
 
         }
