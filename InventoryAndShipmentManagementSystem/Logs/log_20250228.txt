@@ -208,3 +208,62 @@ Error Number:245,State:1,Class:16'},An error occurred while deleting product wit
 2025-02-28 11:19:23 - DeleteProduct, Repository operation execution process completed at {'28-02-2025 11:19:23'} for product Id {'83'} with status code {'400'} for DeleteProduct repository logic
 2025-02-28 11:19:23 - DeleteProduct, Bussiness operation execution process completed at {'28-02-2025 11:19:23'} for product Id {'83'}
 2025-02-28 11:19:23 - DeleteProduct, API execution process completed at {'28-02-2025 11:19:23'} with status {'False'} for product Id {'83'}
+2025-02-28 11:30:23 - AddNewProduct, API execution process started at {'28-02-2025 11:30:23'}
+2025-02-28 11:30:23 - SaveProductDetails, Bussiness operation execution process started at {'28-02-2025 11:30:23'}
+2025-02-28 11:30:24 - SaveProductDetails, Repository operation execution process started at {'28-02-2025 11:30:24'}
+2025-02-28 11:30:29 - Data base connection closed at {'28-02-2025 11:30:29'} for SaveProductDetails repository logic
+2025-02-28 11:30:29 - SaveProductDetails, Repository operation execution process completed at {'28-02-2025 11:30:29'} with status code {'400'}
+2025-02-28 11:30:29 - SaveProductDetails, Bussiness operation execution process completed at {'28-02-2025 11:30:29'}
+2025-02-28 11:30:30 - AddNewProduct, API execution process completed at {'28-02-2025 11:30:30'} with status {'False'}
+2025-02-28 11:31:10 - AddNewProduct, API execution process started at {'28-02-2025 11:31:10'}
+2025-02-28 11:31:10 - SaveProductDetails, Bussiness operation execution process started at {'28-02-2025 11:31:10'}
+2025-02-28 11:31:10 - SaveProductDetails, Repository operation execution process started at {'28-02-2025 11:31:10'}
+2025-02-28 11:31:13 - Data base connection open at {'28-02-2025 11:31:13'} for SaveProductDetails repository logic.
+2025-02-28 11:31:13 - Getting data base connection at {'28-02-2025 11:31:13'}
+2025-02-28 11:31:14 - {'Usp_Save_Product_Details'} getting called at {'28-02-2025 11:31:14'}
+2025-02-28 11:31:23 - Data base connection closed at {'28-02-2025 11:31:23'} for SaveProductDetails repository logic
+2025-02-28 11:31:24 - SaveProductDetails, Repository operation execution process completed at {'28-02-2025 11:31:24'} with status code {'200'}
+2025-02-28 11:31:26 - SaveProductDetails, Bussiness operation execution process completed at {'28-02-2025 11:31:26'}
+2025-02-28 11:31:28 - AddNewProduct, API execution process completed at {'28-02-2025 11:31:28'} with status {'True'}
+2025-02-28 11:31:59 - UpdateProduct, API execution process started at {'28-02-2025 11:31:59'} of the product Id {'0'}
+2025-02-28 11:31:59 - UpdateProductDetails, Bussiness operation execution process started at {'28-02-2025 11:31:59'}
+2025-02-28 11:32:01 - UpdateProductDetails, Repository operation execution process started at {'28-02-2025 11:32:01'}
+2025-02-28 11:32:01 - Checking Product Id, Product Id must be greater than zero {'0'}
+2025-02-28 11:32:01 - Product Id must be greater than zero {'0'}
+2025-02-28 11:32:01 - Data base connection closed at {'28-02-2025 11:32:01'} for UpdateProductDetails repository logic
+2025-02-28 11:32:01 - UpdateProductDetails, Repository operation execution process completed at {'28-02-2025 11:32:01'} with status code {'400'}
+2025-02-28 11:32:01 - UpdateProductDetails, Bussiness operation execution process completed at {'28-02-2025 11:32:01'}
+2025-02-28 11:32:01 - UpdateProduct, API execution process completed at {'28-02-2025 11:32:01'} with status {'False'}
+2025-02-28 11:32:25 - UpdateProduct, API execution process started at {'28-02-2025 11:32:25'} of the product Id {'85'}
+2025-02-28 11:32:25 - UpdateProductDetails, Bussiness operation execution process started at {'28-02-2025 11:32:25'}
+2025-02-28 11:37:17 - UpdateProduct, API execution process started at {'28-02-2025 11:37:17'} of the product Id {'0'}
+2025-02-28 11:37:17 - UpdateProductDetails, Bussiness operation execution process started at {'28-02-2025 11:37:17'}
+2025-02-28 11:37:18 - UpdateProductDetails, Repository operation execution process started at {'28-02-2025 11:37:18'}
+2025-02-28 11:37:18 - Checking Product Id, Product Id must be greater than zero {'0'}
+2025-02-28 11:37:19 - Product Id must be greater than zero {'0'}
+2025-02-28 11:37:19 - Data base connection closed at {'28-02-2025 11:37:19'} for UpdateProductDetails repository logic
+2025-02-28 11:37:19 - UpdateProductDetails, Repository operation execution process completed at {'28-02-2025 11:37:19'} with status code {'400'}
+2025-02-28 11:37:19 - UpdateProductDetails, Bussiness operation execution process completed at {'28-02-2025 11:37:19'}
+2025-02-28 11:37:19 - UpdateProduct, API execution process completed at {'28-02-2025 11:37:19'} with status {'False'}
+2025-02-28 11:37:28 - UpdateProduct, API execution process started at {'28-02-2025 11:37:28'} of the product Id {'83'}
+2025-02-28 11:37:28 - UpdateProductDetails, Bussiness operation execution process started at {'28-02-2025 11:37:28'}
+2025-02-28 11:37:31 - UpdateProductDetails, Repository operation execution process started at {'28-02-2025 11:37:31'}
+2025-02-28 11:37:31 - Checking Product Id, Product Id must be greater than zero {'83'}
+2025-02-28 11:37:33 - Data base connection open at {'28-02-2025 11:37:33'} for UpdateProductDetails repository logic.
+2025-02-28 11:37:33 - Getting data base connection at {'28-02-2025 11:37:33'}
+2025-02-28 11:37:34 - {'Usp_Update_Product_Details'} getting called at {'28-02-2025 11:37:34'}
+2025-02-28 11:37:49 - Data base connection closed at {'28-02-2025 11:37:49'} for UpdateProductDetails repository logic
+2025-02-28 11:37:49 - UpdateProductDetails, Repository operation execution process completed at {'28-02-2025 11:37:49'} with status code {'400'}
+2025-02-28 11:37:49 - UpdateProductDetails, Bussiness operation execution process completed at {'28-02-2025 11:37:49'}
+2025-02-28 11:37:49 - UpdateProduct, API execution process completed at {'28-02-2025 11:37:49'} with status {'False'}
+2025-02-28 11:38:22 - UpdateProduct, API execution process started at {'28-02-2025 11:38:22'} of the product Id {'84'}
+2025-02-28 11:38:22 - UpdateProductDetails, Bussiness operation execution process started at {'28-02-2025 11:38:22'}
+2025-02-28 11:38:25 - UpdateProductDetails, Repository operation execution process started at {'28-02-2025 11:38:25'}
+2025-02-28 11:38:26 - Checking Product Id, Product Id must be greater than zero {'84'}
+2025-02-28 11:38:28 - Data base connection open at {'28-02-2025 11:38:28'} for UpdateProductDetails repository logic.
+2025-02-28 11:38:29 - Getting data base connection at {'28-02-2025 11:38:29'}
+2025-02-28 11:38:29 - {'Usp_Update_Product_Details'} getting called at {'28-02-2025 11:38:29'}
+2025-02-28 11:38:37 - Data base connection closed at {'28-02-2025 11:38:37'} for UpdateProductDetails repository logic
+2025-02-28 11:38:38 - UpdateProductDetails, Repository operation execution process completed at {'28-02-2025 11:38:38'} with status code {'200'}
+2025-02-28 11:38:40 - UpdateProductDetails, Bussiness operation execution process completed at {'28-02-2025 11:38:40'}
+2025-02-28 11:38:40 - UpdateProduct, API execution process completed at {'28-02-2025 11:38:40'} with status {'True'}

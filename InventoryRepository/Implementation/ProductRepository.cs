@@ -275,6 +275,9 @@ namespace InventoryRepository.Implementation
                 }
                 else
                 {
+                    if (invDbContext.Database.GetDbConnection().State == ConnectionState.Closed)
+                        invDbContext.Database.GetDbConnection().Open();
+                    productLoggers.LogInformation("Data base connection open at {'" + DateTime.Now + "'} for SaveProductDetails repository logic.");
                     var command = invDbContext.Database.GetDbConnection().CreateCommand();
                     productLoggers.LogInformation("Getting data base connection at {'" + DateTime.Now + "'}");
                     command.CommandText = ConstantResources.UspSaveProductDetails;
@@ -303,8 +306,6 @@ namespace InventoryRepository.Implementation
                     command.Parameters.Add(outputBitParm);
                     command.Parameters.Add(outputErrorParm);
                     command.Parameters.Add(outputErrorMessageParm);
-                    invDbContext.Database.GetDbConnection().Open();
-                    productLoggers.LogInformation("Data base connection open at {'" + DateTime.Now + "'} for SaveProductDetails repository logic.");
                     command.ExecuteScalar();
                     OutputParameterModel parameterModel = new OutputParameterModel
                     {
@@ -357,7 +358,7 @@ namespace InventoryRepository.Implementation
             productLoggers.LogInformation("UpdateProductDetails, Repository operation execution process started at {'" + DateTime.Now + "'}");
             var response = new APIResponseModel<object>
             {
-                StatusCode = 404,
+                StatusCode = (int)HttpStatusCode.BadRequest,
                 Status = false,
                 ResponseMessage = ConstantResources.InValidRequest
             };
@@ -368,6 +369,9 @@ namespace InventoryRepository.Implementation
                 {
                     if (!string.IsNullOrEmpty(productRequest.ToString()))
                     {
+                        if (invDbContext.Database.GetDbConnection().State == ConnectionState.Closed)
+                            invDbContext.Database.GetDbConnection().Open();
+                        productLoggers.LogInformation("Data base connection open at {'" + DateTime.Now + "'} for UpdateProductDetails repository logic.");
                         var command = invDbContext.Database.GetDbConnection().CreateCommand();
                         productLoggers.LogInformation("Getting data base connection at {'" + DateTime.Now + "'}");
                         command.CommandText = ConstantResources.UspUpdateProductDetails;
@@ -397,8 +401,6 @@ namespace InventoryRepository.Implementation
                         command.Parameters.Add(outputBitParm);
                         command.Parameters.Add(outputErrorParm);
                         command.Parameters.Add(outputErrorMessageParm);
-                        invDbContext.Database.GetDbConnection().Open();
-                        productLoggers.LogInformation("Data base connection open at {'" + DateTime.Now + "'} for UpdateProductDetails repository logic.");
                         command.ExecuteScalar();
                         OutputParameterModel parameterModel = new OutputParameterModel
                         {
@@ -412,13 +414,14 @@ namespace InventoryRepository.Implementation
                             response.Status = true;
                             response.StatusCode = (int)HttpStatusCode.OK;
                             response.ResponseMessage = parameterModel.ErrorMessage;
+                            response.Data=string.Empty;
                         }
                         else
                         {
                             response.StatusCode = (int)HttpStatusCode.BadRequest;
                             response.Status = false;
-                            response.ResponseMessage = ConstantResources.InValidProductId;
-
+                            response.ResponseMessage = parameterModel.ErrorMessage;
+                            response.Data= string.Empty;
                         }
                     }
                 }
