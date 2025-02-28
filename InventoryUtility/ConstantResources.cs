@@ -1,4 +1,6 @@
-﻿namespace InventoryUtility
+﻿using static System.Runtime.InteropServices.JavaScript.JSType;
+
+namespace InventoryUtility
 {
     public class ConstantResources
     {
@@ -69,6 +71,22 @@
         public readonly static string InvaidUser = "Invalid User";
         public readonly static string InValidShipmentRequest = "Invalid shipment request";
         #endregion
+
+        #region Logging Information
+        public readonly static string timeStamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
+        public readonly static string AddNewProductStart = "AddNewProduct, API execution process started at {'" + timeStamp + "'}";
+        public readonly static string AddNewProductComplete = "AddNewProduct, API execution process completed at {'" + timeStamp + "'} with status" + " ";
+        public readonly static string SaveProductDetailsBALStart = "SaveProductDetails, Bussiness operation execution process started at {'" + timeStamp + "'}";
+        public readonly static string SaveProductDetailsBALException = "An error occurred in business operation of SaveProductDetails while saving the product details like" + " ";
+        public readonly static string SaveProductDetailsBALComplete = "SaveProductDetails, Bussiness operation execution process completed at {'" + timeStamp + "'}";
+        public readonly static string SaveProductDetailsRepoStart = "SaveProductDetails, Repository operation execution process started at {'" + timeStamp + "'}";
+        public readonly static string DBConnectionForSaveProductDetails = "Data base connection open at {'" + timeStamp + "'} for SaveProductDetails repository logic.";
+        public readonly static string GetDBConnection = "Getting data base connection at {'" + timeStamp + "'}";
+        public readonly static string ExecptionOnSavingProduct = "An error occurred while saving product details";
+        public readonly static string DBConnectionClosedForSaveProduct = "Data base connection closed at {'" + timeStamp + "'} for SaveProductDetails repository logic";
+        public readonly static string SaveProductDetailsRepoComplete = "SaveProductDetails, Repository operation execution process completed at {'" + timeStamp + "'} with status code" + " ";
+        #endregion
+
 
     }
 }

@@ -258,7 +258,7 @@ namespace InventoryRepository.Implementation
         /// <exception cref="NotImplementedException"></exception>
         public APIResponseModel<object> SaveProductDetails(ProductRequest productRequest)
         {
-            productLoggers.LogInformation("SaveProductDetails, Repository operation execution process started at {'" + DateTime.Now + "'}");
+            productLoggers.LogInformation(ConstantResources.SaveProductDetailsRepoStart);
             var response = new APIResponseModel<object>
             {
                 StatusCode = (int)HttpStatusCode.BadRequest,
@@ -278,11 +278,11 @@ namespace InventoryRepository.Implementation
                 {
                     if (invDbContext.Database.GetDbConnection().State == ConnectionState.Closed)
                         invDbContext.Database.GetDbConnection().Open();
-                    productLoggers.LogInformation("Data base connection open at {'" + DateTime.Now + "'} for SaveProductDetails repository logic.");
+                    productLoggers.LogInformation(ConstantResources.DBConnectionForSaveProductDetails);
                     var command = invDbContext.Database.GetDbConnection().CreateCommand();
-                    productLoggers.LogInformation("Getting data base connection at {'" + DateTime.Now + "'}");
+                    productLoggers.LogInformation(ConstantResources.GetDBConnection);
                     command.CommandText = ConstantResources.UspSaveProductDetails;
-                    productLoggers.LogInformation("{'" + ConstantResources.UspSaveProductDetails + "'} getting called at {'" + DateTime.Now + "'}");
+                    productLoggers.LogInformation("{'" + ConstantResources.UspSaveProductDetails + "'} getting called at {'" + ConstantResources.timeStamp + "'}");
                     command.CommandType = CommandType.StoredProcedure;
 
                     command.Parameters.Add(new SqlParameter(ConstantResources.ParamProductName, productRequest.ProductName));
@@ -335,17 +335,17 @@ namespace InventoryRepository.Implementation
             {
                 response.StatusCode = (int)HttpStatusCode.BadRequest;
                 response.Status = false;
-                response.ResponseMessage = "{'" + ex + "'},An error occurred while saving product details";
+                response.ResponseMessage = "{'" + ex + "'}" + " " + ConstantResources.ExecptionOnSavingProduct;
                 response.Data = string.Empty;
-                productLoggers.LogInformation("{'" + ex + "'},An error occurred while saving product details");
+                productLoggers.LogInformation("{'" + ex + "'}" + " " + ConstantResources.ExecptionOnSavingProduct);
 
             }
             finally
             {
                 invDbContext.Database.GetDbConnection().Close();
-                productLoggers.LogInformation("Data base connection closed at {'" + DateTime.Now + "'} for SaveProductDetails repository logic");
+                productLoggers.LogInformation(ConstantResources.DBConnectionClosedForSaveProduct);
             }
-            productLoggers.LogInformation("SaveProductDetails, Repository operation execution process completed at {'" + DateTime.Now + "'} with status code {'" + response.StatusCode + "'}");
+            productLoggers.LogInformation(ConstantResources.SaveProductDetailsRepoComplete + response.StatusCode);
             return response;
         }
         /// <summary>
@@ -597,7 +597,7 @@ namespace InventoryRepository.Implementation
                 shipmentResponse.Status = true;
                 shipmentResponse.ResponseMessage = "{'" + ex + "'},An error occurred products while fetching all productd details in Product Repository under GetAllShipmentDetails method at {'" + DateTime.Now + "'}";
                 productLoggers.LogInformation("{'" + ex + "'},An error occurred products while fetching all productd details in Product Repository under GetAllShipmentDetails method at {'" + DateTime.Now + "'}");
-      
+
             }
             finally
             {

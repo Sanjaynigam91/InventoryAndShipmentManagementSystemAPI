@@ -341,3 +341,29 @@ Error Number:245,State:1,Class:16'},An error occurred while deleting product wit
    at Microsoft.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior)
    at Microsoft.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
    at InventoryRepository.Implementation.ProductRepository.GetAllProducts() in D:\Sanjay\InventoryAndShipment\InventoryAndShipmentManagementSystemAPI\InventoryRepository\Implementation\ProductRepository.cs:line 149'},An error occurred products while fetching all productd details in Product Repository under GetAllProducts method at {'28-02-2025 12:53:59'}
+2025-02-28 14:03:43 - AddNewProduct, API execution process started at {'2025-02-28 14:03:43.139'}
+2025-02-28 14:03:43 - SaveProductDetails, Bussiness operation execution process started at {'2025-02-28 14:03:43.139'}
+2025-02-28 14:03:45 - SaveProductDetails, Repository operation execution process started at {'2025-02-28 14:03:43.139'}
+2025-02-28 14:03:52 - Data base connection closed at {'2025-02-28 14:03:43.139'} for SaveProductDetails repository logic
+2025-02-28 14:03:54 - SaveProductDetails, Repository operation execution process completed at {'2025-02-28 14:03:43.139'} with status code 400
+2025-02-28 14:03:56 - SaveProductDetails, Bussiness operation execution process completed at {'2025-02-28 14:03:43.139'}
+2025-02-28 14:03:58 - AddNewProduct, API execution process completed at {'2025-02-28 14:03:43.139'} with status False
+2025-02-28 14:05:22 - AddNewProduct, API execution process started at {'2025-02-28 14:03:43.139'}
+2025-02-28 14:05:23 - SaveProductDetails, Bussiness operation execution process started at {'2025-02-28 14:03:43.139'}
+2025-02-28 14:05:23 - SaveProductDetails, Repository operation execution process started at {'2025-02-28 14:03:43.139'}
+2025-02-28 14:05:26 - Data base connection open at {'2025-02-28 14:03:43.139'} for SaveProductDetails repository logic.
+2025-02-28 14:05:26 - Getting data base connection at {'2025-02-28 14:03:43.139'}
+2025-02-28 14:05:27 - {'Usp_Save_Product_Details'} getting called at {'2025-02-28 14:03:43.139'}
+2025-02-28 14:05:33 - Data base connection closed at {'2025-02-28 14:03:43.139'} for SaveProductDetails repository logic
+2025-02-28 14:05:34 - SaveProductDetails, Repository operation execution process completed at {'2025-02-28 14:03:43.139'} with status code 200
+2025-02-28 14:05:35 - SaveProductDetails, Bussiness operation execution process completed at {'2025-02-28 14:03:43.139'}
+2025-02-28 14:08:53 - AddNewProduct, API execution process started at {'2025-02-28 14:08:53.403'}
+2025-02-28 14:08:53 - SaveProductDetails, Bussiness operation execution process started at {'2025-02-28 14:08:53.403'}
+2025-02-28 14:08:54 - SaveProductDetails, Repository operation execution process started at {'2025-02-28 14:08:53.403'}
+2025-02-28 14:08:57 - Data base connection open at {'2025-02-28 14:08:53.403'} for SaveProductDetails repository logic.
+2025-02-28 14:08:57 - Getting data base connection at {'2025-02-28 14:08:53.403'}
+2025-02-28 14:08:59 - {'Usp_Save_Product_Details'} getting called at {'2025-02-28 14:08:53.403'}
+2025-02-28 14:09:11 - Data base connection closed at {'2025-02-28 14:08:53.403'} for SaveProductDetails repository logic
+2025-02-28 14:09:12 - SaveProductDetails, Repository operation execution process completed at {'2025-02-28 14:08:53.403'} with status code 200
+2025-02-28 14:09:15 - SaveProductDetails, Bussiness operation execution process completed at {'2025-02-28 14:08:53.403'}
+2025-02-28 14:09:18 - AddNewProduct, API execution process completed at {'2025-02-28 14:08:53.403'} with status True

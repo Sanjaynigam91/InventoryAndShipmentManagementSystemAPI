@@ -29,16 +29,16 @@ namespace InventoryAndShipmentManagementSystem.Controllers
         [Route(ConstantResources.AddNewProduct)]
         public IActionResult CreateNewProduct(ProductRequest productRequest)
         {
-            productLoggers.LogInformation("AddNewProduct, API execution process started at {'" + DateTime.Now + "'}");
+            productLoggers.LogInformation(ConstantResources.AddNewProductStart);
             var result = products.SaveProductDetails(productRequest);
             if (result.Status && result.StatusCode == (int)HttpStatusCode.OK)
             {
-                productLoggers.LogInformation("AddNewProduct, API execution process completed at {'" + DateTime.Now + "'} with status {'" + result.Status + "'}");
+                productLoggers.LogInformation(ConstantResources.AddNewProductComplete + result.Status);
                 return Ok(result);
             }
             else
             {
-                productLoggers.LogInformation("AddNewProduct, API execution process completed at {'" + DateTime.Now + "'} with status {'" + result.Status + "'}");
+                productLoggers.LogInformation(ConstantResources.AddNewProductComplete + result.Status);
                 return BadRequest(result);
             }
         }
@@ -175,7 +175,7 @@ namespace InventoryAndShipmentManagementSystem.Controllers
             productLoggers.LogInformation("GetAllShipments, API execution process started at {'" + DateTime.Now + "'}");
             APIResponseModel<object> responseModel = new APIResponseModel<object>();
             var result = products.GetAllShipmentDetails();
-            if (result.Status && result.StatusCode==(int)HttpStatusCode.OK)
+            if (result.Status && result.StatusCode == (int)HttpStatusCode.OK)
             {
                 productLoggers.LogInformation("GetAllShipments, API execution process completed at {'" + DateTime.Now + "'} " +
                    "with status {'" + result.Status + "'}");

@@ -130,7 +130,7 @@ namespace InventoryBAL.Implementation
         /// <returns></returns>
         public APIResponseModel<object> SaveProductDetails(ProductRequest productRequest)
         {
-            productLoggers.LogInformation("SaveProductDetails, Bussiness operation execution process started at {'" + DateTime.Now + "'}");
+            productLoggers.LogInformation(ConstantResources.SaveProductDetailsBALStart);
             var response = new APIResponseModel<object>();
             try
             {
@@ -138,10 +138,10 @@ namespace InventoryBAL.Implementation
             }
             catch (Exception ex)
             {
-                productLoggers.LogInformation("{'" + ex + "'},An error occurred in business operation of SaveProductDetails while saving the product details like {'" + productRequest + "'}");
+                productLoggers.LogInformation("{'" + ex + "'}" + ConstantResources.SaveProductDetailsBALException + productRequest);
                 throw;
             }
-            productLoggers.LogInformation("SaveProductDetails, Bussiness operation execution process completed at {'" + DateTime.Now + "'}");
+            productLoggers.LogInformation(ConstantResources.SaveProductDetailsBALComplete);
             return response;
         }
         /// <summary>
