@@ -118,9 +118,16 @@ namespace InventoryRepository.Implementation
         /// </summary>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public List<ProductResponse> GetAllProducts()
+        public APIResponseModel<object> GetAllProducts()
         {
             productLoggers.LogInformation("GetAllProducts, Repository operation execution process started at {'" + DateTime.Now + "'}");
+            var allProducts = new APIResponseModel<object>
+            {
+                StatusCode = (int)HttpStatusCode.NotFound,
+                Status = false,
+                ResponseMessage = ConstantResources.NoRecordFound
+            };
+
             List<ProductResponse> response = new List<ProductResponse>();
             try
             {
@@ -144,11 +151,18 @@ namespace InventoryRepository.Implementation
                     productResponse.createdBy = reader[ConstantResources.CreatedBy] != DBNull.Value ? Convert.ToString(reader[ConstantResources.CreatedBy]) : string.Empty;
                     response.Add(productResponse);
                 }
+                allProducts.Data = response;
+                allProducts.StatusCode = (int)HttpStatusCode.OK;
+                allProducts.Status = true;
+                allProducts.ResponseMessage = ConstantResources.Success;
             }
             catch (Exception ex)
             {
                 productLoggers.LogInformation("{'" + ex + "'},An error occurred products while fetching all productd details in Product Repository under GetAllProducts method at {'" + DateTime.Now + "'}");
-                throw new Exception("An error occurred while retrieving products.", ex);
+                allProducts.Data = string.Empty;
+                allProducts.StatusCode = (int)HttpStatusCode.NotFound;
+                allProducts.Status = false;
+                allProducts.ResponseMessage = "{'" + ex + "'},An error occurred products while fetching all productd details in Product Repository under GetAllProducts method at {'" + DateTime.Now + "'}";
             }
             finally
             {
@@ -156,7 +170,7 @@ namespace InventoryRepository.Implementation
                 productLoggers.LogInformation("Data base connection closed at {'" + DateTime.Now + "'} for GetAllProducts repository logic.");
             }
             productLoggers.LogInformation("GetAllProducts, Repository operation execution process completed at {'" + DateTime.Now + "'}  with total product count {'" + response.Count() + "'}");
-            return response;
+            return allProducts;
         }
         /// <summary>
         /// Used for Get All Product By Id
@@ -207,7 +221,7 @@ namespace InventoryRepository.Implementation
                     productLoggers.LogInformation("Product Id must be greater than zero {'" + productId + "'}");
                     response.StatusCode = (int)HttpStatusCode.NotFound;
                     response.Status = false;
-                    response.ResponseMessage = ConstantResources.InValidProductId;
+                    response.ResponseMessage = "Product Id must be greater than zero {'" + productId + "'}";
                     response.Data = string.Empty;
                 }
 
@@ -215,7 +229,10 @@ namespace InventoryRepository.Implementation
             catch (Exception ex)
             {
                 productLoggers.LogInformation("{'" + ex + "'},An error occurred products while fetching product details by product Id {'" + productId + "'} in Product Repository under GetProductById method at {'" + DateTime.Now + "'}");
-                throw new Exception("An error occurred while retrieving products.", ex);
+                response.StatusCode = (int)HttpStatusCode.NotFound;
+                response.Status = false;
+                response.ResponseMessage = "{'" + ex + "'},An error occurred products while fetching product details by product Id {'" + productId + "'} in Product Repository under GetProductById method at {'" + DateTime.Now + "'}";
+                response.Data = string.Empty;
             }
             finally
             {
@@ -308,7 +325,10 @@ namespace InventoryRepository.Implementation
             }
             catch (Exception ex)
             {
-                response.ResponseMessage = ex.Message;
+                response.StatusCode = (int)HttpStatusCode.BadRequest;
+                response.Status = false;
+                response.ResponseMessage = "{'" + ex + "'},An error occurred while saving product details";
+                response.Data = string.Empty;
                 productLoggers.LogInformation("{'" + ex + "'},An error occurred while saving product details");
 
             }
@@ -408,7 +428,10 @@ namespace InventoryRepository.Implementation
             }
             catch (Exception ex)
             {
-                response.ResponseMessage = ex.Message;
+                response.StatusCode = (int)HttpStatusCode.BadRequest;
+                response.Status = false;
+                response.ResponseMessage = "{'" + ex + "'},An error occurred while updating product details";
+                response.Data = string.Empty;
                 productLoggers.LogInformation("{'" + ex + "'},An error occurred while updating product details");
             }
             finally

@@ -63,6 +63,7 @@
         #region API Response
         public readonly static string InValidRequest = "Invalid product request";
         public readonly static string InValidProductId = "Invalid productId, ProductId must be greater than zero";
+        public readonly static string NoRecordFound = "No product record found";
         public readonly static string Success = "Success";
         public readonly static string InvaidUser = "Invalid User";
         #endregion

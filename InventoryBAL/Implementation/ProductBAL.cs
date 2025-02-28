@@ -43,10 +43,10 @@ namespace InventoryBAL.Implementation
         /// Used to Get All Products
         /// </summary>
         /// <returns></returns>
-        public List<ProductResponse> GetAllProducts()
+        public APIResponseModel<object> GetAllProducts()
         {
             productLoggers.LogInformation("GetAllProducts,Bussiness operation execution process started at {'" + DateTime.Now + "'}");
-            var response = new List<ProductResponse>();
+            var response = new APIResponseModel<object>();
             try
             {
                 response = productRepo.GetAllProducts();
