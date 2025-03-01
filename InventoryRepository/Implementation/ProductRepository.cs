@@ -132,7 +132,7 @@ namespace InventoryRepository.Implementation
             {
                 StatusCode = (int)HttpStatusCode.NotFound,
                 Status = false,
-                ResponseMessage = ConstantResources.NoProductFound
+                ResponseMessage = ConstantResources.NoProductsFound
             };
 
             List<ProductResponse> response = new List<ProductResponse>();
@@ -158,16 +158,27 @@ namespace InventoryRepository.Implementation
                     productResponse.createdBy = reader[ConstantResources.CreatedBy] != DBNull.Value ? Convert.ToString(reader[ConstantResources.CreatedBy]) : string.Empty;
                     response.Add(productResponse);
                 }
-                allProducts.Data = response;
-                allProducts.StatusCode = (int)HttpStatusCode.OK;
-                allProducts.Status = true;
-                allProducts.ResponseMessage = ConstantResources.Success;
+                if (response.Count > 0)
+                {
+                    allProducts.Data = response;
+                    allProducts.StatusCode = (int)HttpStatusCode.OK;
+                    allProducts.Status = true;
+                    allProducts.ResponseMessage = ConstantResources.Success;
+                }
+                else
+                {
+                    allProducts.Data = string.Empty;
+                    allProducts.StatusCode = (int)HttpStatusCode.NotFound;
+                    allProducts.Status = false;
+                    allProducts.ResponseMessage = ConstantResources.NoProductsFound;
+                }
+
             }
             catch (Exception ex)
             {
                 productLoggers.LogInformation("{'" + ex + "'}, " + ConstantResources.ExceptionWhileGettingAllProductsInRepo);
                 allProducts.Data = string.Empty;
-                allProducts.StatusCode = (int)HttpStatusCode.NotFound;
+                allProducts.StatusCode = (int)HttpStatusCode.BadRequest;
                 allProducts.Status = false;
                 allProducts.ResponseMessage = "{'" + ex + "'}, " + ConstantResources.ExceptionWhileGettingAllProductsInRepo;
             }
@@ -593,15 +604,26 @@ namespace InventoryRepository.Implementation
                     productShipment.Quantity = reader[ConstantResources.Quantity] != DBNull.Value ? Convert.ToInt32(reader[ConstantResources.Quantity]) : 0;
                     response.Add(productShipment);
                 }
-                shipmentResponse.Data = response;
-                shipmentResponse.StatusCode = (int)HttpStatusCode.OK;
-                shipmentResponse.Status = true;
-                shipmentResponse.ResponseMessage = ConstantResources.Success;
+                if (response.Count > 0) 
+                {
+                    shipmentResponse.Data = response;
+                    shipmentResponse.StatusCode = (int)HttpStatusCode.OK;
+                    shipmentResponse.Status = true;
+                    shipmentResponse.ResponseMessage = ConstantResources.Success;
+                }
+                else
+                {
+                    shipmentResponse.Data = response;
+                    shipmentResponse.StatusCode = (int)HttpStatusCode.NotFound;
+                    shipmentResponse.Status = false;
+                    shipmentResponse.ResponseMessage = ConstantResources.NoShipmetFound;
+                }
+                
             }
             catch (Exception ex)
             {
                 shipmentResponse.Data = string.Empty;
-                shipmentResponse.StatusCode = (int)HttpStatusCode.NotFound;
+                shipmentResponse.StatusCode = (int)HttpStatusCode.BadRequest;
                 shipmentResponse.Status = true;
                 shipmentResponse.ResponseMessage = "{'" + ex + "'}," + ConstantResources.ExceptionGetAllShipmentsRepo;
                 productLoggers.LogInformation("{'" + ex + "'}," + ConstantResources.ExceptionGetAllShipmentsRepo);

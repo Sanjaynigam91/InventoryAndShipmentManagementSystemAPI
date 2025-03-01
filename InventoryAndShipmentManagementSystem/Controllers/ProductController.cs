@@ -29,17 +29,25 @@ namespace InventoryAndShipmentManagementSystem.Controllers
         [Route(ConstantResources.AddNewProduct)]
         public IActionResult CreateNewProduct(ProductRequest productRequest)
         {
-            productLoggers.LogInformation(ConstantResources.AddNewProductStart);
-            var result = products.SaveProductDetails(productRequest);
-            if (result.Status && result.StatusCode == (int)HttpStatusCode.OK)
+            try
             {
-                productLoggers.LogInformation(ConstantResources.AddNewProductComplete + result.Status);
-                return Ok(result);
+                productLoggers.LogInformation(ConstantResources.AddNewProductStart);
+                var result = products.SaveProductDetails(productRequest);
+                if (result.Status && result.StatusCode == (int)HttpStatusCode.OK)
+                {
+                    productLoggers.LogInformation(ConstantResources.AddNewProductComplete + result.Status);
+                    return Ok(result);
+                }
+                else
+                {
+                    productLoggers.LogInformation(ConstantResources.AddNewProductComplete + result.Status);
+                    return BadRequest(result);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                productLoggers.LogInformation(ConstantResources.AddNewProductComplete + result.Status);
-                return BadRequest(result);
+                productLoggers.LogInformation(ex.Message + "," + " at {'" + ConstantResources.timeStamp + "'}");
+                return BadRequest(ex.Message);
             }
         }
         /// <summary>
@@ -52,17 +60,25 @@ namespace InventoryAndShipmentManagementSystem.Controllers
         [Route(ConstantResources.UpdateProduct)]
         public IActionResult UpdateProduct(ProductRequest productRequest)
         {
-            productLoggers.LogInformation(ConstantResources.UpdateProductAPIStart + productRequest.ProductId);
-            var result = products.UpdateProductDetails(productRequest);
-            if (result.Status && result.StatusCode == (int)HttpStatusCode.OK)
+            try
             {
-                productLoggers.LogInformation(ConstantResources.UpdateProductAPIComplete + result.Status);
-                return Ok(result);
+                productLoggers.LogInformation(ConstantResources.UpdateProductAPIStart + productRequest.ProductId);
+                var result = products.UpdateProductDetails(productRequest);
+                if (result.Status && result.StatusCode == (int)HttpStatusCode.OK)
+                {
+                    productLoggers.LogInformation(ConstantResources.UpdateProductAPIComplete + result.Status);
+                    return Ok(result);
+                }
+                else
+                {
+                    productLoggers.LogInformation(ConstantResources.UpdateProductAPIComplete + result.Status);
+                    return BadRequest(result);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                productLoggers.LogInformation(ConstantResources.UpdateProductAPIComplete + result.Status);
-                return BadRequest(result);
+                productLoggers.LogInformation(ex.Message + "," + " at {'" + ConstantResources.timeStamp + "'}");
+                return BadRequest(ex.Message);
             }
 
         }
@@ -75,25 +91,33 @@ namespace InventoryAndShipmentManagementSystem.Controllers
         [Route(ConstantResources.GetProductById)]
         public IActionResult GetProductById(int productId)
         {
-            productLoggers.LogInformation(ConstantResources.GetProductByIdAPIStart + productId);
-            var result = products.GetProductById(productId);
-            if (result.Status && result.StatusCode == (int)HttpStatusCode.OK)
+            try
             {
-                productLoggers.LogInformation(ConstantResources.GetProductByIdAPIComplete + ConstantResources.WithStatus +
-                    "{'" + result.Status + "'}" + ConstantResources.OfProductId + productId);
-                return Ok(result);
+                productLoggers.LogInformation(ConstantResources.GetProductByIdAPIStart + productId);
+                var result = products.GetProductById(productId);
+                if (result.Status && result.StatusCode == (int)HttpStatusCode.OK)
+                {
+                    productLoggers.LogInformation(ConstantResources.GetProductByIdAPIComplete + ConstantResources.WithStatus +
+                        "{'" + result.Status + "'}" + ConstantResources.OfProductId + productId);
+                    return Ok(result);
+                }
+                else if (!result.Status && result.StatusCode == (int)HttpStatusCode.BadRequest)
+                {
+                    productLoggers.LogInformation(ConstantResources.GetProductByIdAPIComplete + ConstantResources.WithStatus +
+                         "{'" + result.Status + "'}" + ConstantResources.OfProductId + productId);
+                    return BadRequest(result);
+                }
+                else
+                {
+                    productLoggers.LogInformation(ConstantResources.GetProductByIdAPIComplete + ConstantResources.WithStatus +
+                         "{'" + result.Status + "'}" + ConstantResources.OfProductId + productId);
+                    return NotFound(result);
+                }
             }
-            else if (!result.Status && result.StatusCode == (int)HttpStatusCode.BadRequest)
+            catch (Exception ex)
             {
-                productLoggers.LogInformation(ConstantResources.GetProductByIdAPIComplete + ConstantResources.WithStatus +
-                     "{'" + result.Status + "'}" + ConstantResources.OfProductId + productId);
-                return BadRequest(result);
-            }
-            else
-            {
-                productLoggers.LogInformation(ConstantResources.GetProductByIdAPIComplete + ConstantResources.WithStatus +
-                     "{'" + result.Status + "'}" + ConstantResources.OfProductId + productId);
-                return NotFound(result);
+                productLoggers.LogInformation(ex.Message + "," + " at {'" + ConstantResources.timeStamp + "'}");
+                return BadRequest(ex.Message);
             }
 
         }
@@ -105,19 +129,31 @@ namespace InventoryAndShipmentManagementSystem.Controllers
         [Route(ConstantResources.GetAllProducts)]
         public IActionResult GetAllProducts()
         {
-            productLoggers.LogInformation(ConstantResources.GetAllProductsAPIStart);
-            var result = products.GetAllProducts();
-            if (result.Status && result.StatusCode == (int)HttpStatusCode.OK)
+            try
             {
-                productLoggers.LogInformation(ConstantResources.GetAllProductsAPIComplete + ConstantResources.WithStatus + result.Status);
-                return Ok(result);
+                productLoggers.LogInformation(ConstantResources.GetAllProductsAPIStart);
+                var result = products.GetAllProducts();
+                if (result.Status && result.StatusCode == (int)HttpStatusCode.OK)
+                {
+                    productLoggers.LogInformation(ConstantResources.GetAllProductsAPIComplete + ConstantResources.WithStatus + result.Status);
+                    return Ok(result);
+                }
+                else if (!result.Status && result.StatusCode == (int)HttpStatusCode.BadRequest)
+                {
+                    productLoggers.LogInformation(ConstantResources.GetAllProductsAPIComplete + ConstantResources.WithStatus + result.Status);
+                    return BadRequest(result);
+                }
+                else
+                {
+                    productLoggers.LogInformation(ConstantResources.GetAllProductsAPIComplete + ConstantResources.WithStatus + result.Status);
+                    return NotFound(result);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                productLoggers.LogInformation(ConstantResources.GetAllProductsAPIComplete + ConstantResources.WithStatus + result.Status);
-                return NotFound(result);
+                productLoggers.LogInformation(ex.Message + "," + " at {'" + ConstantResources.timeStamp + "'}");
+                return BadRequest(ex.Message);
             }
-
         }
         /// <summary>
         /// API for to Delete the product details
@@ -128,17 +164,25 @@ namespace InventoryAndShipmentManagementSystem.Controllers
         [Route(ConstantResources.DeleteProduct)]
         public IActionResult DeleteProduct(int productId)
         {
-            productLoggers.LogInformation(ConstantResources.DeleteProductAPIStart + productId);
-            var result = products.DeleteProductDetails(productId);
-            if (result.Status && result.StatusCode == (int)HttpStatusCode.OK)
+            try
             {
-                productLoggers.LogInformation(ConstantResources.DeleteProductAPIComplete + result.Status + ConstantResources.ForProductId + productId);
-                return Ok(result);
+                productLoggers.LogInformation(ConstantResources.DeleteProductAPIStart + productId);
+                var result = products.DeleteProductDetails(productId);
+                if (result.Status && result.StatusCode == (int)HttpStatusCode.OK)
+                {
+                    productLoggers.LogInformation(ConstantResources.DeleteProductAPIComplete + result.Status + ConstantResources.ForProductId + productId);
+                    return Ok(result);
+                }
+                else
+                {
+                    productLoggers.LogInformation(ConstantResources.DeleteProductAPIComplete + result.Status + ConstantResources.ForProductId + productId);
+                    return BadRequest(result);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                productLoggers.LogInformation(ConstantResources.DeleteProductAPIComplete + result.Status + ConstantResources.ForProductId + productId);
-                return BadRequest(result);
+                productLoggers.LogInformation(ex.Message + "," + " at {'" + ConstantResources.timeStamp + "'}");
+                return BadRequest(ex.Message);
             }
         }
 
@@ -152,17 +196,25 @@ namespace InventoryAndShipmentManagementSystem.Controllers
         [Route(ConstantResources.AssignToShipment)]
         public IActionResult ProductAssignToShipment(ShipmentRequest shipmentRequest)
         {
-            productLoggers.LogInformation(ConstantResources.AssignToShipmentAPIStart);
-            var result = products.ProductAssignToShipment(shipmentRequest);
-            if (result.Status && result.StatusCode == (int)HttpStatusCode.OK)
+            try
             {
-                productLoggers.LogInformation(ConstantResources.AssignToShipmentAPIComplete + result.Status);
-                return Ok(result);
+                productLoggers.LogInformation(ConstantResources.AssignToShipmentAPIStart);
+                var result = products.ProductAssignToShipment(shipmentRequest);
+                if (result.Status && result.StatusCode == (int)HttpStatusCode.OK)
+                {
+                    productLoggers.LogInformation(ConstantResources.AssignToShipmentAPIComplete + result.Status);
+                    return Ok(result);
+                }
+                else
+                {
+                    productLoggers.LogInformation(ConstantResources.AssignToShipmentAPIComplete + result.Status);
+                    return BadRequest(result);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                productLoggers.LogInformation(ConstantResources.AssignToShipmentAPIComplete + result.Status);
-                return BadRequest(result);
+                productLoggers.LogInformation(ex.Message + "," + " at {'" + ConstantResources.timeStamp + "'}");
+                return BadRequest(ex.Message);
             }
 
         }
@@ -174,17 +226,30 @@ namespace InventoryAndShipmentManagementSystem.Controllers
         [Route(ConstantResources.GetAllShipments)]
         public IActionResult GetAllShipments()
         {
-            productLoggers.LogInformation(ConstantResources.GetAllShipmentsAPIStart);
-            var result = products.GetAllShipmentDetails();
-            if (result.Status && result.StatusCode == (int)HttpStatusCode.OK)
+            try
             {
-                productLoggers.LogInformation(ConstantResources.GetAllShipmentsAPIComplete + ConstantResources.WithStatus + result.Status);
-                return Ok(result);
+                productLoggers.LogInformation(ConstantResources.GetAllShipmentsAPIStart);
+                var result = products.GetAllShipmentDetails();
+                if (result.Status && result.StatusCode == (int)HttpStatusCode.OK)
+                {
+                    productLoggers.LogInformation(ConstantResources.GetAllShipmentsAPIComplete + ConstantResources.WithStatus + result.Status);
+                    return Ok(result);
+                }
+                else if (!result.Status && result.StatusCode == (int)HttpStatusCode.BadRequest)
+                {
+                    productLoggers.LogInformation(ConstantResources.GetAllShipmentsAPIComplete + ConstantResources.WithStatus + result.Status);
+                    return BadRequest(result);
+                }
+                else
+                {
+                    productLoggers.LogInformation(ConstantResources.GetAllShipmentsAPIComplete + ConstantResources.WithStatus + result.Status);
+                    return NotFound(result);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                productLoggers.LogInformation(ConstantResources.GetAllShipmentsAPIComplete + ConstantResources.WithStatus + result.Status);
-                return NotFound(result);
+                productLoggers.LogInformation(ex.Message + "," + " at {'" + ConstantResources.timeStamp + "'}");
+                return BadRequest(ex.Message);
             }
 
         }

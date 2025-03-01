@@ -34,7 +34,6 @@ namespace InventoryBAL.Implementation
             catch (Exception ex)
             {
                 productLoggers.LogInformation("{'" + ex + "'}, " + ConstantResources.ExceptionWhileDeleteProductBAL + productId);
-                throw;
             }
             productLoggers.LogInformation(ConstantResources.DeleteProductBALComplete + productId);
             return response;
@@ -54,7 +53,6 @@ namespace InventoryBAL.Implementation
             catch (Exception ex)
             {
                 productLoggers.LogInformation("{'" + ex + "'}, " + ConstantResources.ExceptionWhileGettingAllProductsBAL);
-                throw;
             }
             productLoggers.LogInformation(ConstantResources.GetAllProductsBALComplete);
             return response;
@@ -74,7 +72,6 @@ namespace InventoryBAL.Implementation
             catch (Exception ex)
             {
                 productLoggers.LogInformation("{'" + ex + "'}, " + ConstantResources.ExceptionGetAllShipmentsBAL);
-                throw;
             }
             productLoggers.LogInformation(ConstantResources.GetAllShipmentsBAComplete);
             return response;
@@ -96,7 +93,6 @@ namespace InventoryBAL.Implementation
             catch (Exception ex)
             {
                 productLoggers.LogInformation("{'" + ex + "'}, " + ConstantResources.ExceptionWhileGettingProductById + productId + " at {'" + ConstantResources.timeStamp + "'}");
-                throw;
             }
             productLoggers.LogInformation(ConstantResources.GetProductByIdBALComplete + productId);
             return response;
@@ -117,7 +113,6 @@ namespace InventoryBAL.Implementation
             catch (Exception ex)
             {
                 productLoggers.LogInformation("{'" + ex + "'}, " + ConstantResources.ExceptionAssignToShipmentBAL + shipmentRequest);
-                throw;
             }
             productLoggers.LogInformation(ConstantResources.AssignToShipmentBALComplete);
             return response;
@@ -139,7 +134,6 @@ namespace InventoryBAL.Implementation
             catch (Exception ex)
             {
                 productLoggers.LogInformation("{'" + ex + "'}, " + ConstantResources.SaveProductDetailsBALException + productRequest);
-                throw;
             }
             productLoggers.LogInformation(ConstantResources.SaveProductDetailsBALComplete);
             return response;
@@ -160,7 +154,6 @@ namespace InventoryBAL.Implementation
             catch (Exception ex)
             {
                 productLoggers.LogInformation("{'" + ex + "'}, " + ConstantResources.UpdateProductDetailsBALException + productRequest.ProductId);
-                throw;
             }
             productLoggers.LogInformation(ConstantResources.UpdateProductDetailsBALComplete);
             return response;
