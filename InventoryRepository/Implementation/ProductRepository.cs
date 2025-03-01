@@ -245,7 +245,7 @@ namespace InventoryRepository.Implementation
             catch (Exception ex)
             {
                 productLoggers.LogInformation("{'" + ex + "'}, " + ConstantResources.ExceptionWhileGettingProductByIdInRepo + productId + ConstantResources.GetProductByIdMethodAt);
-                response.StatusCode = (int)HttpStatusCode.NotFound;
+                response.StatusCode = (int)HttpStatusCode.BadRequest;
                 response.Status = false;
                 response.ResponseMessage = "{'" + ex + "'}, " + ConstantResources.ExceptionWhileGettingProductByIdInRepo + productId + ConstantResources.GetProductByIdMethodAt;
                 response.Data = string.Empty;
