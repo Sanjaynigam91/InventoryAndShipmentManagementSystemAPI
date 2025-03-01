@@ -21,7 +21,7 @@ namespace InventoryBAL.Interface
         /// Used for Get All Products
         /// </summary>
         /// <returns></returns>
-        Task<APIResponseModel<object>> GetAllProducts();
+        Task<ProductDataResponse> GetAllProducts();
         /// <summary>
         /// Used to Get Product By Product Id
         /// </summary>

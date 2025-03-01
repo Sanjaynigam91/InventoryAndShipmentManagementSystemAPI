@@ -42,10 +42,10 @@ namespace InventoryBAL.Implementation
         /// Used to Get All Products
         /// </summary>
         /// <returns></returns>
-        public async Task<APIResponseModel<object>> GetAllProducts()
+        public async Task<ProductDataResponse> GetAllProducts()
         {
             productLoggers.LogInformation(ConstantResources.GetAllProductsBALStart);
-            var response = new APIResponseModel<object>();
+            var response = new ProductDataResponse();
             try
             {
                 response = await productRepo.GetAllProducts();

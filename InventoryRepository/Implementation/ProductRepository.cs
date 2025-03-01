@@ -119,10 +119,10 @@ namespace InventoryRepository.Implementation
         /// </summary>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public async Task<APIResponseModel<object>> GetAllProducts()
+        public async Task<ProductDataResponse> GetAllProducts()
         {
             productLoggers.LogInformation(ConstantResources.GetAllProductsByIdRepoStart);
-            var allProducts = new APIResponseModel<object>
+            var allProducts = new ProductDataResponse
             {
                 StatusCode = (int)HttpStatusCode.NotFound,
                 Status = false,
@@ -144,12 +144,12 @@ namespace InventoryRepository.Implementation
                 while (await reader.ReadAsync())
                 {
                     ProductResponse productResponse = new ProductResponse();
-                    productResponse.productId = reader[ConstantResources.ProductId] != DBNull.Value ? Convert.ToInt32(reader[ConstantResources.ProductId]) : 0;
-                    productResponse.productName = reader[ConstantResources.ProductName] != DBNull.Value ? Convert.ToString(reader[ConstantResources.ProductName]) : string.Empty;
-                    productResponse.quantity = reader[ConstantResources.Quantity] != DBNull.Value ? Convert.ToInt32(reader[ConstantResources.Quantity]) : 0;
-                    productResponse.price = reader[ConstantResources.Price] != DBNull.Value ? Convert.ToDecimal(reader[ConstantResources.Price]) : 0;
-                    productResponse.createdDate = reader[ConstantResources.CreatedDate] != DBNull.Value ? Convert.ToDateTime(reader[ConstantResources.CreatedDate]) : DateTime.Now;
-                    productResponse.createdBy = reader[ConstantResources.CreatedBy] != DBNull.Value ? Convert.ToString(reader[ConstantResources.CreatedBy]) : string.Empty;
+                    productResponse.ProductId = reader[ConstantResources.ProductId] != DBNull.Value ? Convert.ToInt32(reader[ConstantResources.ProductId]) : 0;
+                    productResponse.ProductName = reader[ConstantResources.ProductName] != DBNull.Value ? Convert.ToString(reader[ConstantResources.ProductName]) : string.Empty;
+                    productResponse.Quantity = reader[ConstantResources.Quantity] != DBNull.Value ? Convert.ToInt32(reader[ConstantResources.Quantity]) : 0;
+                    productResponse.Price = reader[ConstantResources.Price] != DBNull.Value ? Convert.ToDecimal(reader[ConstantResources.Price]) : 0;
+                    productResponse.CreatedDate = reader[ConstantResources.CreatedDate] != DBNull.Value ? Convert.ToDateTime(reader[ConstantResources.CreatedDate]) : DateTime.Now;
+                    productResponse.CreatedBy = reader[ConstantResources.CreatedBy] != DBNull.Value ? Convert.ToString(reader[ConstantResources.CreatedBy]) : string.Empty;
                     response.Add(productResponse);
                 }
                 if (response.Count > 0)
@@ -161,7 +161,6 @@ namespace InventoryRepository.Implementation
                 }
                 else
                 {
-                    allProducts.Data = string.Empty;
                     allProducts.StatusCode = (int)HttpStatusCode.NotFound;
                     allProducts.Status = false;
                     allProducts.ResponseMessage = ConstantResources.NoProductsFound;
@@ -171,7 +170,6 @@ namespace InventoryRepository.Implementation
             catch (Exception ex)
             {
                 productLoggers.LogInformation("{'" + ex + "'}, " + ConstantResources.ExceptionWhileGettingAllProductsInRepo);
-                allProducts.Data = string.Empty;
                 allProducts.StatusCode = (int)HttpStatusCode.BadRequest;
                 allProducts.Status = false;
                 allProducts.ResponseMessage = "{'" + ex + "'}, " + ConstantResources.ExceptionWhileGettingAllProductsInRepo;
@@ -216,14 +214,14 @@ namespace InventoryRepository.Implementation
                     while (await reader.ReadAsync())
                     {
 
-                        productResponse.productId = reader[ConstantResources.ProductId] != DBNull.Value ? Convert.ToInt32(reader[ConstantResources.ProductId]) : 0;
-                        productResponse.productName = reader[ConstantResources.ProductName] != DBNull.Value ? Convert.ToString(reader[ConstantResources.ProductName]) : string.Empty;
-                        productResponse.quantity = reader[ConstantResources.Quantity] != DBNull.Value ? Convert.ToInt32(reader[ConstantResources.Quantity]) : 0;
-                        productResponse.price = reader[ConstantResources.Price] != DBNull.Value ? Convert.ToDecimal(reader[ConstantResources.Price]) : 0;
-                        productResponse.createdDate = reader[ConstantResources.CreatedDate] != DBNull.Value ? Convert.ToDateTime(reader[ConstantResources.CreatedDate]) : DateTime.Now;
-                        productResponse.createdBy = reader[ConstantResources.CreatedBy] != DBNull.Value ? Convert.ToString(reader[ConstantResources.CreatedBy]) : string.Empty;
+                        productResponse.ProductId = reader[ConstantResources.ProductId] != DBNull.Value ? Convert.ToInt32(reader[ConstantResources.ProductId]) : 0;
+                        productResponse.ProductName = reader[ConstantResources.ProductName] != DBNull.Value ? Convert.ToString(reader[ConstantResources.ProductName]) : string.Empty;
+                        productResponse.Quantity = reader[ConstantResources.Quantity] != DBNull.Value ? Convert.ToInt32(reader[ConstantResources.Quantity]) : 0;
+                        productResponse.Price = reader[ConstantResources.Price] != DBNull.Value ? Convert.ToDecimal(reader[ConstantResources.Price]) : 0;
+                        productResponse.CreatedDate = reader[ConstantResources.CreatedDate] != DBNull.Value ? Convert.ToDateTime(reader[ConstantResources.CreatedDate]) : DateTime.Now;
+                        productResponse.CreatedBy = reader[ConstantResources.CreatedBy] != DBNull.Value ? Convert.ToString(reader[ConstantResources.CreatedBy]) : string.Empty;
                     }
-                    if (productResponse.productId > 0)
+                    if (productResponse.ProductId > 0)
                     {
                         response.Status = true;
                         response.StatusCode = (int)HttpStatusCode.OK;
