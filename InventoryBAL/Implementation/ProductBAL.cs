@@ -33,7 +33,7 @@ namespace InventoryBAL.Implementation
             }
             catch (Exception ex)
             {
-                productLoggers.LogInformation("{'" + ex + "'}" + ConstantResources.ExceptionWhileDeleteProductBAL + productId);
+                productLoggers.LogInformation("{'" + ex + "'}, " + ConstantResources.ExceptionWhileDeleteProductBAL + productId);
                 throw;
             }
             productLoggers.LogInformation(ConstantResources.DeleteProductBALComplete + productId);
@@ -53,7 +53,7 @@ namespace InventoryBAL.Implementation
             }
             catch (Exception ex)
             {
-                productLoggers.LogInformation("{'" + ex + "'}" + ConstantResources.ExceptionWhileGettingAllProductsBAL);
+                productLoggers.LogInformation("{'" + ex + "'}, " + ConstantResources.ExceptionWhileGettingAllProductsBAL);
                 throw;
             }
             productLoggers.LogInformation(ConstantResources.GetAllProductsBALComplete);
@@ -65,7 +65,7 @@ namespace InventoryBAL.Implementation
         /// <returns></returns>
         public APIResponseModel<object> GetAllShipmentDetails()
         {
-            productLoggers.LogInformation("GetAllShipmentDetails,Bussiness operation execution process started at {'" + DateTime.Now + "'}");
+            productLoggers.LogInformation(ConstantResources.GetAllShipmentsBALStart);
             var response = new APIResponseModel<object>();
             try
             {
@@ -73,10 +73,10 @@ namespace InventoryBAL.Implementation
             }
             catch (Exception ex)
             {
-                productLoggers.LogInformation("{'" + ex + "'},An error occurred in business operation of GetAllShipmentDetails while fetching all shipment details at {'" + DateTime.Now + "'}");
+                productLoggers.LogInformation("{'" + ex + "'}, " + ConstantResources.ExceptionGetAllShipmentsBAL);
                 throw;
             }
-            productLoggers.LogInformation("GetAllShipmentDetails,Bussiness operation execution process completed at {'" + DateTime.Now + "'}");
+            productLoggers.LogInformation(ConstantResources.GetAllShipmentsBAComplete);
             return response;
         }
 
@@ -95,7 +95,7 @@ namespace InventoryBAL.Implementation
             }
             catch (Exception ex)
             {
-                productLoggers.LogInformation("{'" + ex + "'}" + ConstantResources.ExceptionWhileGettingProductById + productId + " at {'" + ConstantResources.timeStamp + "'}");
+                productLoggers.LogInformation("{'" + ex + "'}, " + ConstantResources.ExceptionWhileGettingProductById + productId + " at {'" + ConstantResources.timeStamp + "'}");
                 throw;
             }
             productLoggers.LogInformation(ConstantResources.GetProductByIdBALComplete + productId);
@@ -108,7 +108,7 @@ namespace InventoryBAL.Implementation
         /// <returns></returns>
         public APIResponseModel<object> ProductAssignToShipment(ShipmentRequest shipmentRequest)
         {
-            productLoggers.LogInformation("ProductAssignToShipment, Bussiness operation execution process started at {'" + DateTime.Now + "'}");
+            productLoggers.LogInformation(ConstantResources.AssignToShipmentBALStart);
             var response = new APIResponseModel<object>();
             try
             {
@@ -116,10 +116,10 @@ namespace InventoryBAL.Implementation
             }
             catch (Exception ex)
             {
-                productLoggers.LogInformation("{'" + ex + "'},An error occurred in business operation of ProductAssignToShipment while saving the product details like {'" + shipmentRequest + "'}");
+                productLoggers.LogInformation("{'" + ex + "'}, " + ConstantResources.ExceptionAssignToShipmentBAL + shipmentRequest);
                 throw;
             }
-            productLoggers.LogInformation("ProductAssignToShipment, Bussiness operation execution process completed at {'" + DateTime.Now + "'}");
+            productLoggers.LogInformation(ConstantResources.AssignToShipmentBALComplete);
             return response;
         }
 
@@ -138,7 +138,7 @@ namespace InventoryBAL.Implementation
             }
             catch (Exception ex)
             {
-                productLoggers.LogInformation("{'" + ex + "'}" + ConstantResources.SaveProductDetailsBALException + productRequest);
+                productLoggers.LogInformation("{'" + ex + "'}, " + ConstantResources.SaveProductDetailsBALException + productRequest);
                 throw;
             }
             productLoggers.LogInformation(ConstantResources.SaveProductDetailsBALComplete);
@@ -159,7 +159,7 @@ namespace InventoryBAL.Implementation
             }
             catch (Exception ex)
             {
-                productLoggers.LogInformation("{'" + ex + "'}" + ConstantResources.UpdateProductDetailsBALException + productRequest.ProductId);
+                productLoggers.LogInformation("{'" + ex + "'}, " + ConstantResources.UpdateProductDetailsBALException + productRequest.ProductId);
                 throw;
             }
             productLoggers.LogInformation(ConstantResources.UpdateProductDetailsBALComplete);

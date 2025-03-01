@@ -1,0 +1,27 @@
+2025-03-01 10:54:07 - AssignToShipment, API execution process started at {'2025-03-01 10:54:07.256'}
+2025-03-01 10:54:07 - ProductAssignToShipment, Bussiness operation execution process started at {'2025-03-01 10:54:07.256'}
+2025-03-01 10:54:07 - ProductAssignToShipment, Repository operation execution process started at {'2025-03-01 10:54:07.256 '}
+2025-03-01 10:54:12 - Data base connection closed at {'2025-03-01 10:54:07.256'} for ProductAssignToShipment repository logic.
+2025-03-01 10:54:13 - ProductAssignToShipment, Repository operation execution process completed at {'2025-03-01 10:54:07.256'} with status code False
+2025-03-01 10:54:15 - ProductAssignToShipment, Bussiness operation execution process completed at {'2025-03-01 10:54:07.256'}
+2025-03-01 10:54:16 - AssignToShipment, API execution process completed at {'2025-03-01 10:54:07.256'} with status False
+2025-03-01 10:56:04 - AssignToShipment, API execution process started at {'2025-03-01 10:54:07.256'}
+2025-03-01 10:56:04 - ProductAssignToShipment, Bussiness operation execution process started at {'2025-03-01 10:54:07.256'}
+2025-03-01 10:56:04 - ProductAssignToShipment, Repository operation execution process started at {'2025-03-01 10:54:07.256 '}
+2025-03-01 10:56:05 - Data base connection open at {'2025-03-01 10:54:07.256'} for ProductAssignToShipment repository logic.
+2025-03-01 10:56:05 - Getting data base connection at {'2025-03-01 10:54:07.256'}
+2025-03-01 10:56:05 - {'Usp_Save_Product_Details'} getting called at {'2025-03-01 10:54:07.256'}
+2025-03-01 10:56:05 - Data base connection closed at {'2025-03-01 10:54:07.256'} for ProductAssignToShipment repository logic.
+2025-03-01 10:56:05 - ProductAssignToShipment, Repository operation execution process completed at {'2025-03-01 10:54:07.256'} with status code True
+2025-03-01 10:56:05 - ProductAssignToShipment, Bussiness operation execution process completed at {'2025-03-01 10:54:07.256'}
+2025-03-01 10:56:20 - AssignToShipment, API execution process completed at {'2025-03-01 10:54:07.256'} with status True
+2025-03-01 10:57:48 - GetAllShipments, API execution process started at {'2025-03-01 10:54:07.256'}
+2025-03-01 10:57:49 - GetAllShipmentDetails,Bussiness operation execution process started at {'2025-03-01 10:54:07.256'}
+2025-03-01 10:57:51 - GetAllShipmentDetails, Repository operation execution process started at {'2025-03-01 10:54:07.256'}
+2025-03-01 10:57:52 - Data base connection open at {'2025-03-01 10:54:07.256'} for GetAllShipmentDetails repository logic.
+2025-03-01 10:57:52 - Getting data base connection at {'2025-03-01 10:54:07.256'}
+2025-03-01 10:57:52 - {'Usp_GetAllProducts'} getting called at {'2025-03-01 10:54:07.256'}
+2025-03-01 10:57:52 - Data base connection closed at {'2025-03-01 10:54:07.256'} for GetAllShipmentDetails repository logic.
+2025-03-01 10:57:52 - GetAllShipmentDetails, Repository operation execution process completed at {'2025-03-01 10:54:07.256'}  with total product count 18
+2025-03-01 10:57:52 - GetAllShipmentDetails,Bussiness operation execution process completed at {'2025-03-01 10:54:07.256'}
+2025-03-01 10:58:01 - GetAllShipments, API execution process completed at {'2025-03-01 10:54:07.256'} with status True

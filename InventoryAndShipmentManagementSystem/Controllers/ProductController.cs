@@ -146,16 +146,16 @@ namespace InventoryAndShipmentManagementSystem.Controllers
         [Route(ConstantResources.AssignToShipment)]
         public IActionResult ProductAssignToShipment(ShipmentRequest shipmentRequest)
         {
-            productLoggers.LogInformation("AssignToShipment, API execution process started at {'" + DateTime.Now + "'}");
+            productLoggers.LogInformation(ConstantResources.AssignToShipmentAPIStart);
             var result = products.ProductAssignToShipment(shipmentRequest);
             if (result.Status && result.StatusCode == (int)HttpStatusCode.OK)
             {
-                productLoggers.LogInformation("AssignToShipment, API execution process completed at {'" + DateTime.Now + "'} with status {'" + result.Status + "'}");
+                productLoggers.LogInformation(ConstantResources.AssignToShipmentAPIComplete + result.Status);
                 return Ok(result);
             }
             else
             {
-                productLoggers.LogInformation("AssignToShipment, API execution process completed at {'" + DateTime.Now + "'} with status {'" + result.Status + "'}");
+                productLoggers.LogInformation(ConstantResources.AssignToShipmentAPIComplete + result.Status);
                 return BadRequest(result);
             }
 
@@ -168,19 +168,16 @@ namespace InventoryAndShipmentManagementSystem.Controllers
         [Route(ConstantResources.GetAllShipments)]
         public IActionResult GetAllShipments()
         {
-            productLoggers.LogInformation("GetAllShipments, API execution process started at {'" + DateTime.Now + "'}");
-            APIResponseModel<object> responseModel = new APIResponseModel<object>();
+            productLoggers.LogInformation(ConstantResources.GetAllShipmentsAPIStart);
             var result = products.GetAllShipmentDetails();
             if (result.Status && result.StatusCode == (int)HttpStatusCode.OK)
             {
-                productLoggers.LogInformation("GetAllShipments, API execution process completed at {'" + DateTime.Now + "'} " +
-                   "with status {'" + result.Status + "'}");
+                productLoggers.LogInformation(ConstantResources.GetAllShipmentsAPIComplete + ConstantResources.WithStatus + result.Status);
                 return Ok(result);
             }
             else
             {
-                productLoggers.LogInformation("GetAllShipments, API execution process completed at {'" + DateTime.Now + "'} " +
-                   "with status {'" + result.Status + "'}");
+                productLoggers.LogInformation(ConstantResources.GetAllShipmentsAPIComplete + ConstantResources.WithStatus + result.Status);
                 return NotFound(result);
             }
 

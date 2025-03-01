@@ -108,9 +108,9 @@ namespace InventoryRepository.Implementation
             {
                 response.StatusCode = (int)HttpStatusCode.BadRequest;
                 response.Status = false;
-                response.ResponseMessage = "{'" + ex + "'}" + ConstantResources.ExceptionWhileDeleteProductRepo + productId;
+                response.ResponseMessage = "{'" + ex + "'}, " + ConstantResources.ExceptionWhileDeleteProductRepo + productId;
                 response.Data = string.Empty;
-                productLoggers.LogInformation("{'" + ex + "'}" + ConstantResources.ExceptionWhileDeleteProductRepo + productId);
+                productLoggers.LogInformation("{'" + ex + "'}, " + ConstantResources.ExceptionWhileDeleteProductRepo + productId);
             }
             finally
             {
@@ -165,11 +165,11 @@ namespace InventoryRepository.Implementation
             }
             catch (Exception ex)
             {
-                productLoggers.LogInformation("{'" + ex + "'}" + ConstantResources.ExceptionWhileGettingAllProductsInRepo);
+                productLoggers.LogInformation("{'" + ex + "'}, " + ConstantResources.ExceptionWhileGettingAllProductsInRepo);
                 allProducts.Data = string.Empty;
                 allProducts.StatusCode = (int)HttpStatusCode.NotFound;
                 allProducts.Status = false;
-                allProducts.ResponseMessage = "{'" + ex + "'}" + ConstantResources.ExceptionWhileGettingAllProductsInRepo;
+                allProducts.ResponseMessage = "{'" + ex + "'}, " + ConstantResources.ExceptionWhileGettingAllProductsInRepo;
             }
             finally
             {
@@ -234,10 +234,10 @@ namespace InventoryRepository.Implementation
             }
             catch (Exception ex)
             {
-                productLoggers.LogInformation("{'" + ex + "'}" + ConstantResources.ExceptionWhileGettingProductByIdInRepo + productId + ConstantResources.GetProductByIdMethodAt);
+                productLoggers.LogInformation("{'" + ex + "'}, " + ConstantResources.ExceptionWhileGettingProductByIdInRepo + productId + ConstantResources.GetProductByIdMethodAt);
                 response.StatusCode = (int)HttpStatusCode.NotFound;
                 response.Status = false;
-                response.ResponseMessage = "{'" + ex + "'}" + ConstantResources.ExceptionWhileGettingProductByIdInRepo + productId + ConstantResources.GetProductByIdMethodAt;
+                response.ResponseMessage = "{'" + ex + "'}, " + ConstantResources.ExceptionWhileGettingProductByIdInRepo + productId + ConstantResources.GetProductByIdMethodAt;
                 response.Data = string.Empty;
             }
             finally
@@ -333,9 +333,9 @@ namespace InventoryRepository.Implementation
             {
                 response.StatusCode = (int)HttpStatusCode.BadRequest;
                 response.Status = false;
-                response.ResponseMessage = "{'" + ex + "'}" + " " + ConstantResources.ExecptionOnSavingProduct;
+                response.ResponseMessage = "{'" + ex + "'}, " + " " + ConstantResources.ExecptionOnSavingProduct;
                 response.Data = string.Empty;
-                productLoggers.LogInformation("{'" + ex + "'}" + " " + ConstantResources.ExecptionOnSavingProduct);
+                productLoggers.LogInformation("{'" + ex + "'}, " + " " + ConstantResources.ExecptionOnSavingProduct);
 
             }
             finally
@@ -438,9 +438,9 @@ namespace InventoryRepository.Implementation
             {
                 response.StatusCode = (int)HttpStatusCode.BadRequest;
                 response.Status = false;
-                response.ResponseMessage = "{'" + ex + "'}" + ConstantResources.ExceptionWhileUpdatingProductDetails;
+                response.ResponseMessage = "{'" + ex + "'}, " + ConstantResources.ExceptionWhileUpdatingProductDetails;
                 response.Data = string.Empty;
-                productLoggers.LogInformation("{'" + ex + "'}" + ConstantResources.ExceptionWhileUpdatingProductDetails);
+                productLoggers.LogInformation("{'" + ex + "'}, " + ConstantResources.ExceptionWhileUpdatingProductDetails);
             }
             finally
             {
@@ -457,7 +457,7 @@ namespace InventoryRepository.Implementation
         /// <returns></returns>
         public APIResponseModel<object> ProductAssignToShipment(ShipmentRequest shipmentRequest)
         {
-            productLoggers.LogInformation("ProductAssignToShipment, Repository operation execution process started at {'" + DateTime.Now + "'}");
+            productLoggers.LogInformation(ConstantResources.AssignToShipmentRepoStart);
             var response = new APIResponseModel<object>
             {
                 StatusCode = (int)HttpStatusCode.BadRequest,
@@ -479,11 +479,11 @@ namespace InventoryRepository.Implementation
                 {
                     if (invDbContext.Database.GetDbConnection().State == ConnectionState.Closed)
                         invDbContext.Database.GetDbConnection().Open();
-                    productLoggers.LogInformation("Data base connection open at {'" + DateTime.Now + "'} for ProductAssignToShipment repository logic.");
+                    productLoggers.LogInformation(ConstantResources.DBConnectionForAssignToShipment);
                     var command = invDbContext.Database.GetDbConnection().CreateCommand();
-                    productLoggers.LogInformation("Getting data base connection at {'" + DateTime.Now + "'}");
+                    productLoggers.LogInformation(ConstantResources.GetDBConnection);
                     command.CommandText = ConstantResources.UspAssignProductToShipment;
-                    productLoggers.LogInformation("{'" + ConstantResources.UspSaveProductDetails + "'} getting called at {'" + DateTime.Now + "'}");
+                    productLoggers.LogInformation("{'" + ConstantResources.UspSaveProductDetails + "'} getting called at {'" + ConstantResources.timeStamp + "'}");
                     command.CommandType = CommandType.StoredProcedure;
 
                     command.Parameters.Add(new SqlParameter(ConstantResources.ParamProductId, shipmentRequest.ProductId));
@@ -536,15 +536,15 @@ namespace InventoryRepository.Implementation
                 response.Status = false;
                 response.ResponseMessage = ex.Message;
                 response.Data = string.Empty;
-                productLoggers.LogInformation("{'" + ex + "'},An error occurred while {'" + shipmentRequest.ProductId + "'} product assign to shipment");
+                productLoggers.LogInformation("{'" + ex + "'}, " + ConstantResources.ExceptionAssignToShipmentRepo + shipmentRequest.ProductId);
 
             }
             finally
             {
                 invDbContext.Database.GetDbConnection().Close();
-                productLoggers.LogInformation("Data base connection closed at {'" + DateTime.Now + "'} for ProductAssignToShipment repository logic");
+                productLoggers.LogInformation(ConstantResources.DBConnectionClosedForAssignToShipment);
             }
-            productLoggers.LogInformation("ProductAssignToShipment, Repository operation execution process completed at {'" + DateTime.Now + "'} with status code {'" + response.StatusCode + "'}");
+            productLoggers.LogInformation(ConstantResources.AssignToShipmentRepoComplete + response.Status);
             return response;
         }
         /// <summary>
@@ -553,7 +553,7 @@ namespace InventoryRepository.Implementation
         /// <returns></returns>
         public APIResponseModel<object> GetAllShipmentDetails()
         {
-            productLoggers.LogInformation("GetAllShipmentDetails, Repository operation execution process started at {'" + DateTime.Now + "'}");
+            productLoggers.LogInformation(ConstantResources.GetAllShipmentsRepoStart);
             var shipmentResponse = new APIResponseModel<object>
             {
                 StatusCode = (int)HttpStatusCode.NotFound,
@@ -565,11 +565,11 @@ namespace InventoryRepository.Implementation
             {
                 if (invDbContext.Database.GetDbConnection().State == ConnectionState.Closed)
                     invDbContext.Database.OpenConnection();
-                productLoggers.LogInformation("Data base connection open at {'" + DateTime.Now + "'} for GetAllShipmentDetails repository logic.");
+                productLoggers.LogInformation(ConstantResources.DBConnectionForGetAllShipments);
                 var cmd = invDbContext.Database.GetDbConnection().CreateCommand();
-                productLoggers.LogInformation("Getting data base connection at {'" + DateTime.Now + "'}");
+                productLoggers.LogInformation(ConstantResources.GetDBConnection);
                 cmd.CommandText = ConstantResources.UspGetProductShipmentDetails;
-                productLoggers.LogInformation("{'" + ConstantResources.UspGetAllProducts + "'} getting called at {'" + DateTime.Now + "'}");
+                productLoggers.LogInformation("{'" + ConstantResources.UspGetAllProducts + "'} getting called at {'" + ConstantResources.timeStamp + "'}");
                 cmd.CommandType = CommandType.StoredProcedure;
                 DbDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
@@ -593,16 +593,16 @@ namespace InventoryRepository.Implementation
                 shipmentResponse.Data = string.Empty;
                 shipmentResponse.StatusCode = (int)HttpStatusCode.NotFound;
                 shipmentResponse.Status = true;
-                shipmentResponse.ResponseMessage = "{'" + ex + "'},An error occurred products while fetching all productd details in Product Repository under GetAllShipmentDetails method at {'" + DateTime.Now + "'}";
-                productLoggers.LogInformation("{'" + ex + "'},An error occurred products while fetching all productd details in Product Repository under GetAllShipmentDetails method at {'" + DateTime.Now + "'}");
+                shipmentResponse.ResponseMessage = "{'" + ex + "'}," + ConstantResources.ExceptionGetAllShipmentsRepo;
+                productLoggers.LogInformation("{'" + ex + "'}," + ConstantResources.ExceptionGetAllShipmentsRepo);
 
             }
             finally
             {
                 invDbContext.Database.GetDbConnection().Close();
-                productLoggers.LogInformation("Data base connection closed at {'" + DateTime.Now + "'} for GetAllShipmentDetails repository logic.");
+                productLoggers.LogInformation(ConstantResources.DBConnectionClosedForGetAllShipments);
             }
-            productLoggers.LogInformation("GetAllShipmentDetails, Repository operation execution process completed at {'" + DateTime.Now + "'}  with total product count {'" + response.Count() + "'}");
+            productLoggers.LogInformation(ConstantResources.GetAllShipmentsRepoComplete + response.Count);
             return shipmentResponse;
         }
     }
