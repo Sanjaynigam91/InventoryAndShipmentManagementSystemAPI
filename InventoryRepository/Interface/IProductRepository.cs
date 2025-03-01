@@ -45,6 +45,6 @@ namespace InventoryRepository.Interface
         /// Used for Get All Product shipment history 
         /// </summary>
         /// <returns></returns>
-        Task<APIResponseModel<object>> GetAllShipmentDetails();
+        Task<ProductShipmentResponse> GetAllShipmentDetails();
     }
 }

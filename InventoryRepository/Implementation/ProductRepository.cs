@@ -561,16 +561,16 @@ namespace InventoryRepository.Implementation
         /// Used for Get All Product shipment history 
         /// </summary>
         /// <returns></returns>
-        public async Task<APIResponseModel<object>> GetAllShipmentDetails()
+        public async Task<ProductShipmentResponse> GetAllShipmentDetails()
         {
             productLoggers.LogInformation(ConstantResources.GetAllShipmentsRepoStart);
-            var shipmentResponse = new APIResponseModel<object>
+            var shipmentResponse = new ProductShipmentResponse
             {
                 StatusCode = (int)HttpStatusCode.NotFound,
                 Status = false,
                 ResponseMessage = ConstantResources.NoShipmetFound
             };
-            List<ProductShipmentResponse> response = new List<ProductShipmentResponse>();
+            List<ProductShipment> response = new List<ProductShipment>();
             try
             {
                 if (invDbContext.Database.GetDbConnection().State == ConnectionState.Closed)
@@ -584,7 +584,7 @@ namespace InventoryRepository.Implementation
                 DbDataReader reader = cmd.ExecuteReader();
                 while (await reader.ReadAsync())
                 {
-                    ProductShipmentResponse productShipment = new ProductShipmentResponse();
+                    ProductShipment productShipment = new ProductShipment();
                     productShipment.ProductId = reader[ConstantResources.ProductId] != DBNull.Value ? Convert.ToInt32(reader[ConstantResources.ProductId]) : 0;
                     productShipment.ProductName = reader[ConstantResources.ProductName] != DBNull.Value ? Convert.ToString(reader[ConstantResources.ProductName]) : string.Empty;
                     productShipment.ShipmentId = reader[ConstantResources.ShipmentId] != DBNull.Value ? Convert.ToInt32(reader[ConstantResources.ShipmentId]) : 0;
@@ -611,7 +611,6 @@ namespace InventoryRepository.Implementation
             }
             catch (Exception ex)
             {
-                shipmentResponse.Data = string.Empty;
                 shipmentResponse.StatusCode = (int)HttpStatusCode.BadRequest;
                 shipmentResponse.Status = true;
                 shipmentResponse.ResponseMessage = "{'" + ex + "'}," + ConstantResources.ExceptionGetAllShipmentsRepo;

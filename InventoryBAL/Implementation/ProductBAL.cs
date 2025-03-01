@@ -61,10 +61,10 @@ namespace InventoryBAL.Implementation
         /// Used to Get All Shipments 
         /// </summary>
         /// <returns></returns>
-        public async Task<APIResponseModel<object>> GetAllShipmentDetails()
+        public async Task<ProductShipmentResponse> GetAllShipmentDetails()
         {
             productLoggers.LogInformation(ConstantResources.GetAllShipmentsBALStart);
-            var response = new APIResponseModel<object>();
+            var response = new ProductShipmentResponse();
             try
             {
                 response = await productRepo.GetAllShipmentDetails();
