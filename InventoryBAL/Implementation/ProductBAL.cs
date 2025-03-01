@@ -23,10 +23,10 @@ namespace InventoryBAL.Implementation
         /// </summary>
         /// <param name="productId"></param>
         /// <returns></returns>
-        public async Task<APIResponseModel<object>> DeleteProductDetails(int productId)
+        public async Task<APIResponseModel<string>> DeleteProductDetails(int productId)
         {
             productLoggers.LogInformation(ConstantResources.DeleteProductBALStart + productId);
-            var response = new APIResponseModel<object>();
+            var response = new APIResponseModel<string>();
             try
             {
                 response = await productRepo.DeleteProductDetails(productId);
@@ -102,10 +102,10 @@ namespace InventoryBAL.Implementation
         /// </summary>
         /// <param name="shipmentRequest"></param>
         /// <returns></returns>
-        public async Task<APIResponseModel<object>> ProductAssignToShipment(ShipmentRequest shipmentRequest)
+        public async Task<APIResponseModel<string>> ProductAssignToShipment(ShipmentRequest shipmentRequest)
         {
             productLoggers.LogInformation(ConstantResources.AssignToShipmentBALStart);
-            var response = new APIResponseModel<object>();
+            var response = new APIResponseModel<string>();
             try
             {
                 response = await productRepo.ProductAssignToShipment(shipmentRequest);
@@ -124,10 +124,10 @@ namespace InventoryBAL.Implementation
         /// </summary>
         /// <param name="productRequest"></param>
         /// <returns></returns>
-        public async Task<APIResponseModel<object>> SaveProductDetails(ProductRequest productRequest)
+        public async Task<APIResponseModel<string>> SaveProductDetails(ProductRequest productRequest)
         {
             productLoggers.LogInformation(ConstantResources.SaveProductDetailsBALStart);
-            var response = new APIResponseModel<object>();
+            var response = new APIResponseModel<string>();
             try
             {
                 response = await productRepo.SaveProductDetails(productRequest);
@@ -144,10 +144,10 @@ namespace InventoryBAL.Implementation
         /// </summary>
         /// <param name="productRequest"></param>
         /// <returns></returns>
-        public async Task<APIResponseModel<object>> UpdateProductDetails(ProductRequest productRequest)
+        public async Task<APIResponseModel<string>> UpdateProductDetails(ProductRequest productRequest)
         {
             productLoggers.LogInformation(ConstantResources.UpdateProductDetailsBALStart);
-            var response = new APIResponseModel<object>();
+            var response = new APIResponseModel<string>();
             try
             {
                 response = await productRepo.UpdateProductDetails(productRequest);

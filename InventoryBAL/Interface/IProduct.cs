@@ -10,13 +10,13 @@ namespace InventoryBAL.Interface
         /// </summary>
         /// <param name="productRequest"></param>
         /// <returns></returns>
-        Task<APIResponseModel<object>> SaveProductDetails(ProductRequest productRequest);
+        Task<APIResponseModel<string>> SaveProductDetails(ProductRequest productRequest);
         /// <summary>
         ///  Used for upadte Product Details
         /// </summary>
         /// <param name="productRequest"></param>
         /// <returns></returns>
-        Task<APIResponseModel<object>> UpdateProductDetails(ProductRequest productRequest);
+        Task<APIResponseModel<string>> UpdateProductDetails(ProductRequest productRequest);
         /// <summary>
         /// Used for Get All Products
         /// </summary>
@@ -33,13 +33,13 @@ namespace InventoryBAL.Interface
         /// </summary>
         /// <param name="productRequest"></param>
         /// <returns></returns>
-        Task<APIResponseModel<object>> DeleteProductDetails(int productId);
+        Task<APIResponseModel<string>> DeleteProductDetails(int productId);
         /// <summary>
         ///  Used for Product need to assign shipment
         /// </summary>
         /// <param name="shipmentRequest"></param>
         /// <returns></returns>
-        Task<APIResponseModel<object>> ProductAssignToShipment(ShipmentRequest shipmentRequest);
+        Task<APIResponseModel<string>> ProductAssignToShipment(ShipmentRequest shipmentRequest);
         /// <summary>
         /// Used for Get All Product shipment history 
         /// </summary>

@@ -26,14 +26,15 @@ namespace InventoryRepository.Implementation
         /// </summary>
         /// <param name="productId"></param>
         /// <returns></returns>
-        public async Task<APIResponseModel<object>> DeleteProductDetails(int productId)
+        public async Task<APIResponseModel<string>> DeleteProductDetails(int productId)
         {
             productLoggers.LogInformation(ConstantResources.DeleteProductRepoStart + productId);
-            var response = new APIResponseModel<object>
+            var response = new APIResponseModel<string>
             {
                 StatusCode = (int)HttpStatusCode.BadRequest,
                 Status = false,
-                ResponseMessage = ConstantResources.InValidProductId
+                ResponseMessage = ConstantResources.InValidProductId,
+                Data=string.Empty
             };
             try
             {
@@ -264,10 +265,10 @@ namespace InventoryRepository.Implementation
         /// <param name="productRequest"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public async Task<APIResponseModel<object>> SaveProductDetails(ProductRequest productRequest)
+        public async Task<APIResponseModel<string>> SaveProductDetails(ProductRequest productRequest)
         {
             productLoggers.LogInformation(ConstantResources.SaveProductDetailsRepoStart);
-            var response = new APIResponseModel<object>
+            var response = new APIResponseModel<string>
             {
                 StatusCode = (int)HttpStatusCode.BadRequest,
                 Status = false,
@@ -362,10 +363,10 @@ namespace InventoryRepository.Implementation
         /// <param name="productRequest"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public async Task<APIResponseModel<object>> UpdateProductDetails(ProductRequest productRequest)
+        public async Task<APIResponseModel<string>> UpdateProductDetails(ProductRequest productRequest)
         {
             productLoggers.LogInformation(ConstantResources.UpdateProductDetailsRepoStart);
-            var response = new APIResponseModel<object>
+            var response = new APIResponseModel<string>
             {
                 StatusCode = (int)HttpStatusCode.BadRequest,
                 Status = false,
@@ -465,10 +466,10 @@ namespace InventoryRepository.Implementation
         /// </summary>
         /// <param name="shipmentRequest"></param>
         /// <returns></returns>
-        public async Task<APIResponseModel<object>> ProductAssignToShipment(ShipmentRequest shipmentRequest)
+        public async Task<APIResponseModel<string>> ProductAssignToShipment(ShipmentRequest shipmentRequest)
         {
             productLoggers.LogInformation(ConstantResources.AssignToShipmentRepoStart);
-            var response = new APIResponseModel<object>
+            var response = new APIResponseModel<string>
             {
                 StatusCode = (int)HttpStatusCode.BadRequest,
                 Status = false,
