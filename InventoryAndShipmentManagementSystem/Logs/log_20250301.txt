@@ -857,3 +857,34 @@
 2025-03-01 16:29:40 - GetProductById, Repository operation execution process completed at 2025-03-01 16:29:00.765 for the product Id 91
 2025-03-01 16:29:40 - GetProductById, Business operation execution process completed at 2025-03-01 16:29:00.765 for product Id 91
 2025-03-01 16:29:40 - GetProductById, API execution process completed at 2025-03-01 16:29:00.765 with status {'True'} of product Id 91
+2025-03-01 16:39:45 - GetProductById, API execution process started at 2025-03-01 16:39:44.998 for the product Id is 0
+2025-03-01 16:39:45 - GetProductById, Business operation execution process started at 2025-03-01 16:39:44.998  for product Id 0
+2025-03-01 16:39:46 - GetProductById, Repository operation execution process started at 2025-03-01 16:39:44.998 for the product Id 0
+2025-03-01 16:39:47 - Checking Product Id, Product Id must be greater than zero at 2025-03-01 16:39:44.998
+2025-03-01 16:39:48 - Product Id must be greater than zero at 2025-03-01 16:39:44.998 and requested productId is 0
+2025-03-01 16:39:49 - Data base connection closed at 2025-03-01 16:39:44.998 for GetProductById repository logic.
+2025-03-01 16:39:49 - GetProductById, Repository operation execution process completed at 2025-03-01 16:39:44.998 for the product Id 0
+2025-03-01 16:39:49 - GetProductById, Business operation execution process completed at 2025-03-01 16:39:44.998 for product Id 0
+2025-03-01 16:39:50 - GetProductById, API execution process completed at 2025-03-01 16:39:44.998 with status {'False'} of product Id 0
+2025-03-01 16:40:03 - GetProductById, API execution process started at 2025-03-01 16:39:44.998 for the product Id is 91
+2025-03-01 16:40:04 - GetProductById, Business operation execution process started at 2025-03-01 16:39:44.998  for product Id 91
+2025-03-01 16:40:05 - GetProductById, Repository operation execution process started at 2025-03-01 16:39:44.998 for the product Id 91
+2025-03-01 16:40:06 - Checking Product Id, Product Id must be greater than zero at 2025-03-01 16:39:44.998
+2025-03-01 16:40:06 - Data base connection open at 2025-03-01 16:39:44.998 for GetProductById repository logic.
+2025-03-01 16:40:06 - Getting data base connection at 2025-03-01 16:39:44.998
+2025-03-01 16:40:06 - {'Usp_Get_Product_DetailsById'} getting called at {'2025-03-01 16:39:44.998'}
+2025-03-01 16:40:08 - Data base connection closed at 2025-03-01 16:39:44.998 for GetProductById repository logic.
+2025-03-01 16:40:08 - GetProductById, Repository operation execution process completed at 2025-03-01 16:39:44.998 for the product Id 91
+2025-03-01 16:40:08 - GetProductById, Business operation execution process completed at 2025-03-01 16:39:44.998 for product Id 91
+2025-03-01 16:40:09 - GetProductById, API execution process completed at 2025-03-01 16:39:44.998 with status {'True'} of product Id 91
+2025-03-01 16:40:22 - GetProductById, API execution process started at 2025-03-01 16:39:44.998 for the product Id is 16
+2025-03-01 16:40:23 - GetProductById, Business operation execution process started at 2025-03-01 16:39:44.998  for product Id 16
+2025-03-01 16:40:23 - GetProductById, Repository operation execution process started at 2025-03-01 16:39:44.998 for the product Id 16
+2025-03-01 16:40:24 - Checking Product Id, Product Id must be greater than zero at 2025-03-01 16:39:44.998
+2025-03-01 16:40:25 - Data base connection open at 2025-03-01 16:39:44.998 for GetProductById repository logic.
+2025-03-01 16:40:26 - Getting data base connection at 2025-03-01 16:39:44.998
+2025-03-01 16:40:26 - {'Usp_Get_Product_DetailsById'} getting called at {'2025-03-01 16:39:44.998'}
+2025-03-01 16:40:32 - Data base connection closed at 2025-03-01 16:39:44.998 for GetProductById repository logic.
+2025-03-01 16:40:33 - GetProductById, Repository operation execution process completed at 2025-03-01 16:39:44.998 for the product Id 16
+2025-03-01 16:40:34 - GetProductById, Business operation execution process completed at 2025-03-01 16:39:44.998 for product Id 16
+2025-03-01 16:40:35 - GetProductById, API execution process completed at 2025-03-01 16:39:44.998 with status {'True'} of product Id 16

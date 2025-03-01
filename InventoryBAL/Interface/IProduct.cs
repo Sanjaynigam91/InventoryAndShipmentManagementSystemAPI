@@ -27,7 +27,7 @@ namespace InventoryBAL.Interface
         /// </summary>
         /// <param name="productId"></param>
         /// <returns></returns>
-        Task<APIResponseModel<object>> GetProductById(int productId);
+        Task<ProductModel> GetProductById(int productId);
         /// <summary>
         ///  Used for Save Product Details
         /// </summary>

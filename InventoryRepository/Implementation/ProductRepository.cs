@@ -186,16 +186,16 @@ namespace InventoryRepository.Implementation
         /// Used for Get All Product By Id
         /// </summary>
         /// <returns></returns>
-        public async Task<APIResponseModel<object>> GetProductById(int productId)
+        public async Task<ProductModel> GetProductById(int productId)
         {
             productLoggers.LogInformation(ConstantResources.GetProductByIdRepoStart + productId);
-            var response = new APIResponseModel<object>
+            var response = new ProductModel
             {
                 StatusCode = (int)HttpStatusCode.BadRequest,
                 Status = false,
                 ResponseMessage = ConstantResources.InValidProductId
             };
-            ProductResponse productResponse = new ProductResponse();
+            Product productResponse = new Product();
             try
             {
                 productLoggers.LogInformation(ConstantResources.CheckingProductId);
@@ -233,7 +233,6 @@ namespace InventoryRepository.Implementation
                         response.Status = false;
                         response.StatusCode = (int)HttpStatusCode.NotFound;
                         response.ResponseMessage = ConstantResources.NoProductFound + " which is " + productId;
-                        response.Data = string.Empty;
                     }
                 }
                 else
@@ -242,7 +241,6 @@ namespace InventoryRepository.Implementation
                     response.StatusCode = (int)HttpStatusCode.BadRequest;
                     response.Status = false;
                     response.ResponseMessage = ConstantResources.ProductIdGreaterThanZero + productId;
-                    response.Data = string.Empty;
                 }
             }
             catch (Exception ex)
@@ -251,7 +249,6 @@ namespace InventoryRepository.Implementation
                 response.StatusCode = (int)HttpStatusCode.BadRequest;
                 response.Status = false;
                 response.ResponseMessage = "{'" + ex + "'}, " + ConstantResources.ExceptionWhileGettingProductByIdInRepo + productId + ConstantResources.GetProductByIdMethodAt;
-                response.Data = string.Empty;
             }
             finally
             {

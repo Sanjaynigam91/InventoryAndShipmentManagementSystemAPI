@@ -28,7 +28,7 @@ namespace InventoryRepository.Interface
         /// </summary>
         /// <param name="productId"></param>
         /// <returns></returns>
-        Task<APIResponseModel<object>> GetProductById(int productId);
+        Task<ProductModel> GetProductById(int productId);
         /// <summary>
         ///  Used for delete Product Details
         /// </summary>

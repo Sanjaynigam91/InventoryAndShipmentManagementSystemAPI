@@ -82,10 +82,10 @@ namespace InventoryBAL.Implementation
         /// </summary>
         /// <param name="productId"></param>
         /// <returns></returns>
-        public async Task<APIResponseModel<object>> GetProductById(int productId)
+        public async Task<ProductModel> GetProductById(int productId)
         {
             productLoggers.LogInformation(ConstantResources.GetProductByIdBALStart + ConstantResources.ForProductId + productId);
-            var response = new APIResponseModel<object>();
+            var response = new ProductModel();
             try
             {
                 response = await productRepo.GetProductById(productId);
