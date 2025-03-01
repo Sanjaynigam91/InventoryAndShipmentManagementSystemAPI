@@ -2,18 +2,12 @@
 using System.Data.Common;
 using System.Data;
 using System.Net;
-using Microsoft.Extensions.Configuration;
 using LISCareDataAccess.InventoryDbContext;
 using InventoryDTO;
 using InventoryUtility;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Data.SqlClient;
 using InventoryUtility.Interface;
-using Microsoft.AspNetCore.Http;
-using System.Reflection.PortableExecutable;
-
-
-
 
 namespace InventoryRepository.Implementation
 {
@@ -32,7 +26,7 @@ namespace InventoryRepository.Implementation
         /// </summary>
         /// <param name="productId"></param>
         /// <returns></returns>
-        public APIResponseModel<object> DeleteProductDetails(int productId)
+        public async Task<APIResponseModel<object>> DeleteProductDetails(int productId)
         {
             productLoggers.LogInformation(ConstantResources.DeleteProductRepoStart + productId);
             var response = new APIResponseModel<object>
@@ -72,7 +66,7 @@ namespace InventoryRepository.Implementation
                     command.Parameters.Add(outputBitParm);
                     command.Parameters.Add(outputErrorParm);
                     command.Parameters.Add(outputErrorMessageParm);
-                    command.ExecuteScalar();
+                    await command.ExecuteScalarAsync();
                     OutputParameterModel parameterModel = new OutputParameterModel
                     {
                         ErrorMessage = Convert.ToString(outputErrorMessageParm.Value),
@@ -125,7 +119,7 @@ namespace InventoryRepository.Implementation
         /// </summary>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public APIResponseModel<object> GetAllProducts()
+        public async Task<APIResponseModel<object>> GetAllProducts()
         {
             productLoggers.LogInformation(ConstantResources.GetAllProductsByIdRepoStart);
             var allProducts = new APIResponseModel<object>
@@ -147,7 +141,7 @@ namespace InventoryRepository.Implementation
                 productLoggers.LogInformation("{'" + ConstantResources.UspGetAllProducts + "'} getting called at {'" + ConstantResources.timeStamp + "'}");
                 cmd.CommandType = CommandType.StoredProcedure;
                 DbDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
+                while (await reader.ReadAsync())
                 {
                     ProductResponse productResponse = new ProductResponse();
                     productResponse.productId = reader[ConstantResources.ProductId] != DBNull.Value ? Convert.ToInt32(reader[ConstantResources.ProductId]) : 0;
@@ -194,7 +188,7 @@ namespace InventoryRepository.Implementation
         /// Used for Get All Product By Id
         /// </summary>
         /// <returns></returns>
-        public APIResponseModel<object> GetProductById(int productId)
+        public async Task<APIResponseModel<object>> GetProductById(int productId)
         {
             productLoggers.LogInformation(ConstantResources.GetProductByIdRepoStart + productId);
             var response = new APIResponseModel<object>
@@ -219,7 +213,7 @@ namespace InventoryRepository.Implementation
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(new SqlParameter(ConstantResources.ParamProductId, productId));
                     DbDataReader reader = cmd.ExecuteReader();
-                    while (reader.Read())
+                    while (await reader.ReadAsync())
                     {
 
                         productResponse.productId = reader[ConstantResources.ProductId] != DBNull.Value ? Convert.ToInt32(reader[ConstantResources.ProductId]) : 0;
@@ -275,7 +269,7 @@ namespace InventoryRepository.Implementation
         /// <param name="productRequest"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public APIResponseModel<object> SaveProductDetails(ProductRequest productRequest)
+        public async Task<APIResponseModel<object>> SaveProductDetails(ProductRequest productRequest)
         {
             productLoggers.LogInformation(ConstantResources.SaveProductDetailsRepoStart);
             var response = new APIResponseModel<object>
@@ -326,7 +320,7 @@ namespace InventoryRepository.Implementation
                     command.Parameters.Add(outputBitParm);
                     command.Parameters.Add(outputErrorParm);
                     command.Parameters.Add(outputErrorMessageParm);
-                    command.ExecuteScalar();
+                    await command.ExecuteScalarAsync();
                     OutputParameterModel parameterModel = new OutputParameterModel
                     {
                         ErrorMessage = Convert.ToString(outputErrorMessageParm.Value),
@@ -373,7 +367,7 @@ namespace InventoryRepository.Implementation
         /// <param name="productRequest"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public APIResponseModel<object> UpdateProductDetails(ProductRequest productRequest)
+        public async Task<APIResponseModel<object>> UpdateProductDetails(ProductRequest productRequest)
         {
             productLoggers.LogInformation(ConstantResources.UpdateProductDetailsRepoStart);
             var response = new APIResponseModel<object>
@@ -421,7 +415,7 @@ namespace InventoryRepository.Implementation
                         command.Parameters.Add(outputBitParm);
                         command.Parameters.Add(outputErrorParm);
                         command.Parameters.Add(outputErrorMessageParm);
-                        command.ExecuteScalar();
+                        await command.ExecuteScalarAsync();
                         OutputParameterModel parameterModel = new OutputParameterModel
                         {
                             ErrorMessage = Convert.ToString(outputErrorMessageParm.Value),
@@ -476,7 +470,7 @@ namespace InventoryRepository.Implementation
         /// </summary>
         /// <param name="shipmentRequest"></param>
         /// <returns></returns>
-        public APIResponseModel<object> ProductAssignToShipment(ShipmentRequest shipmentRequest)
+        public async Task<APIResponseModel<object>> ProductAssignToShipment(ShipmentRequest shipmentRequest)
         {
             productLoggers.LogInformation(ConstantResources.AssignToShipmentRepoStart);
             var response = new APIResponseModel<object>
@@ -528,7 +522,7 @@ namespace InventoryRepository.Implementation
                     command.Parameters.Add(outputBitParm);
                     command.Parameters.Add(outputErrorParm);
                     command.Parameters.Add(outputErrorMessageParm);
-                    command.ExecuteScalar();
+                    await command.ExecuteScalarAsync();
                     OutputParameterModel parameterModel = new OutputParameterModel
                     {
                         ErrorMessage = Convert.ToString(outputErrorMessageParm.Value),
@@ -572,7 +566,7 @@ namespace InventoryRepository.Implementation
         /// Used for Get All Product shipment history 
         /// </summary>
         /// <returns></returns>
-        public APIResponseModel<object> GetAllShipmentDetails()
+        public async Task<APIResponseModel<object>> GetAllShipmentDetails()
         {
             productLoggers.LogInformation(ConstantResources.GetAllShipmentsRepoStart);
             var shipmentResponse = new APIResponseModel<object>
@@ -593,7 +587,7 @@ namespace InventoryRepository.Implementation
                 productLoggers.LogInformation("{'" + ConstantResources.UspGetAllProducts + "'} getting called at {'" + ConstantResources.timeStamp + "'}");
                 cmd.CommandType = CommandType.StoredProcedure;
                 DbDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
+                while (await reader.ReadAsync())
                 {
                     ProductShipmentResponse productShipment = new ProductShipmentResponse();
                     productShipment.ProductId = reader[ConstantResources.ProductId] != DBNull.Value ? Convert.ToInt32(reader[ConstantResources.ProductId]) : 0;
@@ -604,7 +598,7 @@ namespace InventoryRepository.Implementation
                     productShipment.Quantity = reader[ConstantResources.Quantity] != DBNull.Value ? Convert.ToInt32(reader[ConstantResources.Quantity]) : 0;
                     response.Add(productShipment);
                 }
-                if (response.Count > 0) 
+                if (response.Count > 0)
                 {
                     shipmentResponse.Data = response;
                     shipmentResponse.StatusCode = (int)HttpStatusCode.OK;
@@ -618,7 +612,7 @@ namespace InventoryRepository.Implementation
                     shipmentResponse.Status = false;
                     shipmentResponse.ResponseMessage = ConstantResources.NoShipmetFound;
                 }
-                
+
             }
             catch (Exception ex)
             {

@@ -27,12 +27,12 @@ namespace InventoryAndShipmentManagementSystem.Controllers
 
         [HttpPost]
         [Route(ConstantResources.AddNewProduct)]
-        public IActionResult CreateNewProduct(ProductRequest productRequest)
+        public async Task<IActionResult> CreateNewProduct(ProductRequest productRequest)
         {
             try
             {
                 productLoggers.LogInformation(ConstantResources.AddNewProductStart);
-                var result = products.SaveProductDetails(productRequest);
+                var result = await products.SaveProductDetails(productRequest);
                 if (result.Status && result.StatusCode == (int)HttpStatusCode.OK)
                 {
                     productLoggers.LogInformation(ConstantResources.AddNewProductComplete + result.Status);
@@ -58,12 +58,12 @@ namespace InventoryAndShipmentManagementSystem.Controllers
 
         [HttpPut]
         [Route(ConstantResources.UpdateProduct)]
-        public IActionResult UpdateProduct(ProductRequest productRequest)
+        public async Task<IActionResult> UpdateProduct(ProductRequest productRequest)
         {
             try
             {
                 productLoggers.LogInformation(ConstantResources.UpdateProductAPIStart + productRequest.ProductId);
-                var result = products.UpdateProductDetails(productRequest);
+                var result = await products.UpdateProductDetails(productRequest);
                 if (result.Status && result.StatusCode == (int)HttpStatusCode.OK)
                 {
                     productLoggers.LogInformation(ConstantResources.UpdateProductAPIComplete + result.Status);
@@ -89,12 +89,12 @@ namespace InventoryAndShipmentManagementSystem.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route(ConstantResources.GetProductById)]
-        public IActionResult GetProductById(int productId)
+        public async Task<IActionResult> GetProductById(int productId)
         {
             try
             {
                 productLoggers.LogInformation(ConstantResources.GetProductByIdAPIStart + productId);
-                var result = products.GetProductById(productId);
+                var result = await products.GetProductById(productId);
                 if (result.Status && result.StatusCode == (int)HttpStatusCode.OK)
                 {
                     productLoggers.LogInformation(ConstantResources.GetProductByIdAPIComplete + ConstantResources.WithStatus +
@@ -127,12 +127,12 @@ namespace InventoryAndShipmentManagementSystem.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route(ConstantResources.GetAllProducts)]
-        public IActionResult GetAllProducts()
+        public async Task<IActionResult> GetAllProducts()
         {
             try
             {
                 productLoggers.LogInformation(ConstantResources.GetAllProductsAPIStart);
-                var result = products.GetAllProducts();
+                var result = await products.GetAllProducts();
                 if (result.Status && result.StatusCode == (int)HttpStatusCode.OK)
                 {
                     productLoggers.LogInformation(ConstantResources.GetAllProductsAPIComplete + ConstantResources.WithStatus + result.Status);
@@ -162,12 +162,12 @@ namespace InventoryAndShipmentManagementSystem.Controllers
         /// <returns></returns>
         [HttpDelete]
         [Route(ConstantResources.DeleteProduct)]
-        public IActionResult DeleteProduct(int productId)
+        public async Task<IActionResult> DeleteProduct(int productId)
         {
             try
             {
                 productLoggers.LogInformation(ConstantResources.DeleteProductAPIStart + productId);
-                var result = products.DeleteProductDetails(productId);
+                var result =await products.DeleteProductDetails(productId);
                 if (result.Status && result.StatusCode == (int)HttpStatusCode.OK)
                 {
                     productLoggers.LogInformation(ConstantResources.DeleteProductAPIComplete + result.Status + ConstantResources.ForProductId + productId);
@@ -194,12 +194,12 @@ namespace InventoryAndShipmentManagementSystem.Controllers
 
         [HttpPost]
         [Route(ConstantResources.AssignToShipment)]
-        public IActionResult ProductAssignToShipment(ShipmentRequest shipmentRequest)
+        public async Task<IActionResult> ProductAssignToShipment(ShipmentRequest shipmentRequest)
         {
             try
             {
                 productLoggers.LogInformation(ConstantResources.AssignToShipmentAPIStart);
-                var result = products.ProductAssignToShipment(shipmentRequest);
+                var result =await products.ProductAssignToShipment(shipmentRequest);
                 if (result.Status && result.StatusCode == (int)HttpStatusCode.OK)
                 {
                     productLoggers.LogInformation(ConstantResources.AssignToShipmentAPIComplete + result.Status);
@@ -224,12 +224,12 @@ namespace InventoryAndShipmentManagementSystem.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route(ConstantResources.GetAllShipments)]
-        public IActionResult GetAllShipments()
+        public async Task<IActionResult> GetAllShipments()
         {
             try
             {
                 productLoggers.LogInformation(ConstantResources.GetAllShipmentsAPIStart);
-                var result = products.GetAllShipmentDetails();
+                var result = await products.GetAllShipmentDetails();
                 if (result.Status && result.StatusCode == (int)HttpStatusCode.OK)
                 {
                     productLoggers.LogInformation(ConstantResources.GetAllShipmentsAPIComplete + ConstantResources.WithStatus + result.Status);

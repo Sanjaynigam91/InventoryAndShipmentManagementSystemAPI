@@ -23,13 +23,13 @@ namespace InventoryBAL.Implementation
         /// </summary>
         /// <param name="productId"></param>
         /// <returns></returns>
-        public APIResponseModel<object> DeleteProductDetails(int productId)
+        public async Task<APIResponseModel<object>> DeleteProductDetails(int productId)
         {
             productLoggers.LogInformation(ConstantResources.DeleteProductBALStart + productId);
             var response = new APIResponseModel<object>();
             try
             {
-                response = productRepo.DeleteProductDetails(productId);
+                response = await productRepo.DeleteProductDetails(productId);
             }
             catch (Exception ex)
             {
@@ -42,13 +42,13 @@ namespace InventoryBAL.Implementation
         /// Used to Get All Products
         /// </summary>
         /// <returns></returns>
-        public APIResponseModel<object> GetAllProducts()
+        public async Task<APIResponseModel<object>> GetAllProducts()
         {
             productLoggers.LogInformation(ConstantResources.GetAllProductsBALStart);
             var response = new APIResponseModel<object>();
             try
             {
-                response = productRepo.GetAllProducts();
+                response = await productRepo.GetAllProducts();
             }
             catch (Exception ex)
             {
@@ -61,13 +61,13 @@ namespace InventoryBAL.Implementation
         /// Used to Get All Shipments 
         /// </summary>
         /// <returns></returns>
-        public APIResponseModel<object> GetAllShipmentDetails()
+        public async Task<APIResponseModel<object>> GetAllShipmentDetails()
         {
             productLoggers.LogInformation(ConstantResources.GetAllShipmentsBALStart);
             var response = new APIResponseModel<object>();
             try
             {
-                response = productRepo.GetAllShipmentDetails();
+                response = await productRepo.GetAllShipmentDetails();
             }
             catch (Exception ex)
             {
@@ -82,13 +82,13 @@ namespace InventoryBAL.Implementation
         /// </summary>
         /// <param name="productId"></param>
         /// <returns></returns>
-        public APIResponseModel<object> GetProductById(int productId)
+        public async Task<APIResponseModel<object>> GetProductById(int productId)
         {
             productLoggers.LogInformation(ConstantResources.GetProductByIdBALStart + ConstantResources.ForProductId + productId);
             var response = new APIResponseModel<object>();
             try
             {
-                response = productRepo.GetProductById(productId);
+                response = await productRepo.GetProductById(productId);
             }
             catch (Exception ex)
             {
@@ -102,17 +102,18 @@ namespace InventoryBAL.Implementation
         /// </summary>
         /// <param name="shipmentRequest"></param>
         /// <returns></returns>
-        public APIResponseModel<object> ProductAssignToShipment(ShipmentRequest shipmentRequest)
+        public async Task<APIResponseModel<object>> ProductAssignToShipment(ShipmentRequest shipmentRequest)
         {
             productLoggers.LogInformation(ConstantResources.AssignToShipmentBALStart);
             var response = new APIResponseModel<object>();
             try
             {
-                response = productRepo.ProductAssignToShipment(shipmentRequest);
+                response = await productRepo.ProductAssignToShipment(shipmentRequest);
             }
             catch (Exception ex)
             {
                 productLoggers.LogInformation("{'" + ex + "'}, " + ConstantResources.ExceptionAssignToShipmentBAL + shipmentRequest);
+
             }
             productLoggers.LogInformation(ConstantResources.AssignToShipmentBALComplete);
             return response;
@@ -123,13 +124,13 @@ namespace InventoryBAL.Implementation
         /// </summary>
         /// <param name="productRequest"></param>
         /// <returns></returns>
-        public APIResponseModel<object> SaveProductDetails(ProductRequest productRequest)
+        public async Task<APIResponseModel<object>> SaveProductDetails(ProductRequest productRequest)
         {
             productLoggers.LogInformation(ConstantResources.SaveProductDetailsBALStart);
             var response = new APIResponseModel<object>();
             try
             {
-                response = productRepo.SaveProductDetails(productRequest);
+                response = await productRepo.SaveProductDetails(productRequest);
             }
             catch (Exception ex)
             {
@@ -143,13 +144,13 @@ namespace InventoryBAL.Implementation
         /// </summary>
         /// <param name="productRequest"></param>
         /// <returns></returns>
-        public APIResponseModel<object> UpdateProductDetails(ProductRequest productRequest)
+        public async Task<APIResponseModel<object>> UpdateProductDetails(ProductRequest productRequest)
         {
             productLoggers.LogInformation(ConstantResources.UpdateProductDetailsBALStart);
             var response = new APIResponseModel<object>();
             try
             {
-                response = productRepo.UpdateProductDetails(productRequest);
+                response = await productRepo.UpdateProductDetails(productRequest);
             }
             catch (Exception ex)
             {
