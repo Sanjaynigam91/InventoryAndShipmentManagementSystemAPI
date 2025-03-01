@@ -132,7 +132,7 @@ namespace InventoryRepository.Implementation
             {
                 StatusCode = (int)HttpStatusCode.NotFound,
                 Status = false,
-                ResponseMessage = ConstantResources.NoRecordFound
+                ResponseMessage = ConstantResources.NoProductFound
             };
 
             List<ProductResponse> response = new List<ProductResponse>();
@@ -218,15 +218,25 @@ namespace InventoryRepository.Implementation
                         productResponse.createdDate = reader[ConstantResources.CreatedDate] != DBNull.Value ? Convert.ToDateTime(reader[ConstantResources.CreatedDate]) : DateTime.Now;
                         productResponse.createdBy = reader[ConstantResources.CreatedBy] != DBNull.Value ? Convert.ToString(reader[ConstantResources.CreatedBy]) : string.Empty;
                     }
-                    response.Status = true;
-                    response.StatusCode = (int)HttpStatusCode.OK;
-                    response.ResponseMessage = ConstantResources.Success;
-                    response.Data = productResponse;
+                    if (productResponse.productId > 0)
+                    {
+                        response.Status = true;
+                        response.StatusCode = (int)HttpStatusCode.OK;
+                        response.ResponseMessage = ConstantResources.Success;
+                        response.Data = productResponse;
+                    }
+                    else
+                    {
+                        response.Status = false;
+                        response.StatusCode = (int)HttpStatusCode.NotFound;
+                        response.ResponseMessage = ConstantResources.NoProductFound + " which is " + productId;
+                        response.Data = string.Empty;
+                    }
                 }
                 else
                 {
                     productLoggers.LogInformation(ConstantResources.ProductIdGreaterThanZero + productId);
-                    response.StatusCode = (int)HttpStatusCode.NotFound;
+                    response.StatusCode = (int)HttpStatusCode.BadRequest;
                     response.Status = false;
                     response.ResponseMessage = ConstantResources.ProductIdGreaterThanZero + productId;
                     response.Data = string.Empty;

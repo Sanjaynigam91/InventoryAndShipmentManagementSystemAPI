@@ -83,6 +83,12 @@ namespace InventoryAndShipmentManagementSystem.Controllers
                     "{'" + result.Status + "'}" + ConstantResources.OfProductId + productId);
                 return Ok(result);
             }
+            else if (!result.Status && result.StatusCode == (int)HttpStatusCode.BadRequest)
+            {
+                productLoggers.LogInformation(ConstantResources.GetProductByIdAPIComplete + ConstantResources.WithStatus +
+                     "{'" + result.Status + "'}" + ConstantResources.OfProductId + productId);
+                return BadRequest(result);
+            }
             else
             {
                 productLoggers.LogInformation(ConstantResources.GetProductByIdAPIComplete + ConstantResources.WithStatus +

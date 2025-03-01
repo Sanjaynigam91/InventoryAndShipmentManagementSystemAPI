@@ -25,3 +25,82 @@
 2025-03-01 10:57:52 - GetAllShipmentDetails, Repository operation execution process completed at {'2025-03-01 10:54:07.256'}  with total product count 18
 2025-03-01 10:57:52 - GetAllShipmentDetails,Bussiness operation execution process completed at {'2025-03-01 10:54:07.256'}
 2025-03-01 10:58:01 - GetAllShipments, API execution process completed at {'2025-03-01 10:54:07.256'} with status True
+2025-03-01 11:40:06 - GetProductById, API execution process started at {'2025-03-01 11:40:06.359'} for the product Id is -1999
+2025-03-01 11:40:07 - GetProductById, Bussiness operation execution process started at {'2025-03-01 11:40:06.359'}  for product Id -1999
+2025-03-01 11:40:10 - GetProductById, Repository operation execution process started at {'2025-03-01 11:40:06.359'} for the product Id -1999
+2025-03-01 11:40:13 - Checking Product Id, Product Id must be greater than zero at {'2025-03-01 11:40:06.359'}
+2025-03-01 11:40:17 - Product Id must be greater than zero at {'2025-03-01 11:40:06.359'} and requested productId is -1999
+2025-03-01 11:40:29 - Data base connection closed at {'2025-03-01 11:40:06.359'} for GetProductById repository logic.
+2025-03-01 11:40:30 - GetProductById, Repository operation execution process completed at {'2025-03-01 11:40:06.359'} for the product Id -1999
+2025-03-01 11:40:33 - GetProductById, Bussiness operation execution process completed at {'2025-03-01 11:40:06.359'} for product Id -1999
+2025-03-01 11:40:53 - GetProductById, API execution process completed at {'2025-03-01 11:40:06.359'} with status {'False'} of product Id -1999
+2025-03-01 11:41:22 - GetProductById, API execution process started at {'2025-03-01 11:40:06.359'} for the product Id is 1999
+2025-03-01 11:41:23 - GetProductById, Bussiness operation execution process started at {'2025-03-01 11:40:06.359'}  for product Id 1999
+2025-03-01 11:41:25 - GetProductById, Repository operation execution process started at {'2025-03-01 11:40:06.359'} for the product Id 1999
+2025-03-01 11:41:27 - Checking Product Id, Product Id must be greater than zero at {'2025-03-01 11:40:06.359'}
+2025-03-01 11:41:29 - Data base connection open at {'2025-03-01 11:40:06.359'} for GetProductById repository logic.
+2025-03-01 11:41:30 - Getting data base connection at {'2025-03-01 11:40:06.359'}
+2025-03-01 11:41:31 - {'Usp_Get_Product_DetailsById'} getting called at {'2025-03-01 11:40:06.359'}
+2025-03-01 11:41:46 - Data base connection closed at {'2025-03-01 11:40:06.359'} for GetProductById repository logic.
+2025-03-01 11:41:46 - GetProductById, Repository operation execution process completed at {'2025-03-01 11:40:06.359'} for the product Id 1999
+2025-03-01 11:41:49 - GetProductById, Bussiness operation execution process completed at {'2025-03-01 11:40:06.359'} for product Id 1999
+2025-03-01 11:48:42 - GetProductById, API execution process started at {'2025-03-01 11:48:42.610'} for the product Id is -2000
+2025-03-01 11:48:43 - GetProductById, Bussiness operation execution process started at {'2025-03-01 11:48:42.610'}  for product Id -2000
+2025-03-01 11:48:45 - GetProductById, Repository operation execution process started at {'2025-03-01 11:48:42.610'} for the product Id -2000
+2025-03-01 11:48:47 - Checking Product Id, Product Id must be greater than zero at {'2025-03-01 11:48:42.610'}
+2025-03-01 11:48:48 - Product Id must be greater than zero at {'2025-03-01 11:48:42.610'} and requested productId is -2000
+2025-03-01 11:48:52 - Data base connection closed at {'2025-03-01 11:48:42.610'} for GetProductById repository logic.
+2025-03-01 11:48:52 - GetProductById, Repository operation execution process completed at {'2025-03-01 11:48:42.610'} for the product Id -2000
+2025-03-01 11:48:55 - GetProductById, Bussiness operation execution process completed at {'2025-03-01 11:48:42.610'} for product Id -2000
+2025-03-01 11:49:02 - GetProductById, API execution process completed at {'2025-03-01 11:48:42.610'} with status {'False'} of product Id -2000
+2025-03-01 11:49:53 - GetProductById, API execution process started at {'2025-03-01 11:48:42.610'} for the product Id is 2000
+2025-03-01 11:49:54 - GetProductById, Bussiness operation execution process started at {'2025-03-01 11:48:42.610'}  for product Id 2000
+2025-03-01 11:49:56 - GetProductById, Repository operation execution process started at {'2025-03-01 11:48:42.610'} for the product Id 2000
+2025-03-01 11:49:58 - Checking Product Id, Product Id must be greater than zero at {'2025-03-01 11:48:42.610'}
+2025-03-01 11:50:00 - Data base connection open at {'2025-03-01 11:48:42.610'} for GetProductById repository logic.
+2025-03-01 11:50:01 - Getting data base connection at {'2025-03-01 11:48:42.610'}
+2025-03-01 11:50:01 - {'Usp_Get_Product_DetailsById'} getting called at {'2025-03-01 11:48:42.610'}
+2025-03-01 11:51:40 - GetProductById, API execution process started at {'2025-03-01 11:51:40.135'} for the product Id is 1000
+2025-03-01 11:51:40 - GetProductById, Bussiness operation execution process started at {'2025-03-01 11:51:40.135'}  for product Id 1000
+2025-03-01 11:51:42 - GetProductById, Repository operation execution process started at {'2025-03-01 11:51:40.135'} for the product Id 1000
+2025-03-01 11:51:43 - Checking Product Id, Product Id must be greater than zero at {'2025-03-01 11:51:40.135'}
+2025-03-01 11:51:45 - Data base connection open at {'2025-03-01 11:51:40.135'} for GetProductById repository logic.
+2025-03-01 11:51:45 - Getting data base connection at {'2025-03-01 11:51:40.135'}
+2025-03-01 11:51:45 - {'Usp_Get_Product_DetailsById'} getting called at {'2025-03-01 11:51:40.135'}
+2025-03-01 11:51:52 - Data base connection closed at {'2025-03-01 11:51:40.135'} for GetProductById repository logic.
+2025-03-01 11:51:53 - GetProductById, Repository operation execution process completed at {'2025-03-01 11:51:40.135'} for the product Id 1000
+2025-03-01 11:51:56 - GetProductById, Bussiness operation execution process completed at {'2025-03-01 11:51:40.135'} for product Id 1000
+2025-03-01 11:52:15 - GetProductById, API execution process completed at {'2025-03-01 11:51:40.135'} with status {'False'} of product Id 1000
+2025-03-01 11:52:54 - GetProductById, API execution process started at {'2025-03-01 11:51:40.135'} for the product Id is 1000
+2025-03-01 11:52:55 - GetProductById, Bussiness operation execution process started at {'2025-03-01 11:51:40.135'}  for product Id 1000
+2025-03-01 11:52:57 - GetProductById, Repository operation execution process started at {'2025-03-01 11:51:40.135'} for the product Id 1000
+2025-03-01 11:52:58 - Checking Product Id, Product Id must be greater than zero at {'2025-03-01 11:51:40.135'}
+2025-03-01 11:52:59 - Data base connection open at {'2025-03-01 11:51:40.135'} for GetProductById repository logic.
+2025-03-01 11:53:00 - Getting data base connection at {'2025-03-01 11:51:40.135'}
+2025-03-01 11:53:00 - {'Usp_Get_Product_DetailsById'} getting called at {'2025-03-01 11:51:40.135'}
+2025-03-01 11:53:23 - Data base connection closed at {'2025-03-01 11:51:40.135'} for GetProductById repository logic.
+2025-03-01 11:53:23 - GetProductById, Repository operation execution process completed at {'2025-03-01 11:51:40.135'} for the product Id 1000
+2025-03-01 11:53:23 - GetProductById, Bussiness operation execution process completed at {'2025-03-01 11:51:40.135'} for product Id 1000
+2025-03-01 11:53:25 - GetProductById, API execution process completed at {'2025-03-01 11:51:40.135'} with status {'False'} of product Id 1000
+2025-03-01 11:54:09 - GetProductById, API execution process started at {'2025-03-01 11:54:09.499'} for the product Id is 500
+2025-03-01 11:54:10 - GetProductById, Bussiness operation execution process started at {'2025-03-01 11:54:09.499'}  for product Id 500
+2025-03-01 11:54:11 - GetProductById, Repository operation execution process started at {'2025-03-01 11:54:09.499'} for the product Id 500
+2025-03-01 11:54:12 - Checking Product Id, Product Id must be greater than zero at {'2025-03-01 11:54:09.499'}
+2025-03-01 11:54:13 - Data base connection open at {'2025-03-01 11:54:09.499'} for GetProductById repository logic.
+2025-03-01 11:54:13 - Getting data base connection at {'2025-03-01 11:54:09.499'}
+2025-03-01 11:54:13 - {'Usp_Get_Product_DetailsById'} getting called at {'2025-03-01 11:54:09.499'}
+2025-03-01 11:54:42 - Data base connection closed at {'2025-03-01 11:54:09.499'} for GetProductById repository logic.
+2025-03-01 11:54:42 - GetProductById, Repository operation execution process completed at {'2025-03-01 11:54:09.499'} for the product Id 500
+2025-03-01 11:54:42 - GetProductById, Bussiness operation execution process completed at {'2025-03-01 11:54:09.499'} for product Id 500
+2025-03-01 11:54:44 - GetProductById, API execution process completed at {'2025-03-01 11:54:09.499'} with status {'False'} of product Id 500
+2025-03-01 11:55:18 - GetProductById, API execution process started at {'2025-03-01 11:54:09.499'} for the product Id is 84
+2025-03-01 11:55:20 - GetProductById, Bussiness operation execution process started at {'2025-03-01 11:54:09.499'}  for product Id 84
+2025-03-01 11:55:20 - GetProductById, Repository operation execution process started at {'2025-03-01 11:54:09.499'} for the product Id 84
+2025-03-01 11:55:21 - Checking Product Id, Product Id must be greater than zero at {'2025-03-01 11:54:09.499'}
+2025-03-01 11:55:22 - Data base connection open at {'2025-03-01 11:54:09.499'} for GetProductById repository logic.
+2025-03-01 11:55:22 - Getting data base connection at {'2025-03-01 11:54:09.499'}
+2025-03-01 11:55:23 - {'Usp_Get_Product_DetailsById'} getting called at {'2025-03-01 11:54:09.499'}
+2025-03-01 11:55:31 - Data base connection closed at {'2025-03-01 11:54:09.499'} for GetProductById repository logic.
+2025-03-01 11:55:31 - GetProductById, Repository operation execution process completed at {'2025-03-01 11:54:09.499'} for the product Id 84
+2025-03-01 11:55:33 - GetProductById, Bussiness operation execution process completed at {'2025-03-01 11:54:09.499'} for product Id 84
+2025-03-01 11:55:47 - GetProductById, API execution process completed at {'2025-03-01 11:54:09.499'} with status {'True'} of product Id 84
