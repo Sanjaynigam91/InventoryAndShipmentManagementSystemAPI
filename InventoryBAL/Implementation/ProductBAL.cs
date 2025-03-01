@@ -33,7 +33,7 @@ namespace InventoryBAL.Implementation
             }
             catch (Exception ex)
             {
-                productLoggers.LogInformation("{'" + ex + "'}, " + ConstantResources.ExceptionWhileDeleteProductBAL + productId);
+                productLoggers.LogError("{'" + ex + "'}, " + ConstantResources.ExceptionWhileDeleteProductBAL + productId);
             }
             productLoggers.LogInformation(ConstantResources.DeleteProductBALComplete + productId);
             return response;
@@ -52,7 +52,7 @@ namespace InventoryBAL.Implementation
             }
             catch (Exception ex)
             {
-                productLoggers.LogInformation("{'" + ex + "'}, " + ConstantResources.ExceptionWhileGettingAllProductsBAL);
+                productLoggers.LogError("{'" + ex + "'}, " + ConstantResources.ExceptionWhileGettingAllProductsBAL);
             }
             productLoggers.LogInformation(ConstantResources.GetAllProductsBALComplete);
             return response;
@@ -71,7 +71,7 @@ namespace InventoryBAL.Implementation
             }
             catch (Exception ex)
             {
-                productLoggers.LogInformation("{'" + ex + "'}, " + ConstantResources.ExceptionGetAllShipmentsBAL);
+                productLoggers.LogError("{'" + ex + "'}, " + ConstantResources.ExceptionGetAllShipmentsBAL);
             }
             productLoggers.LogInformation(ConstantResources.GetAllShipmentsBAComplete);
             return response;
@@ -92,7 +92,7 @@ namespace InventoryBAL.Implementation
             }
             catch (Exception ex)
             {
-                productLoggers.LogInformation("{'" + ex + "'}, " + ConstantResources.ExceptionWhileGettingProductById + productId + " at {'" + ConstantResources.timeStamp + "'}");
+                productLoggers.LogError("{'" + ex + "'}, " + ConstantResources.ExceptionWhileGettingProductById + productId + " at {'" + ConstantResources.timeStamp + "'}");
             }
             productLoggers.LogInformation(ConstantResources.GetProductByIdBALComplete + productId);
             return response;
@@ -112,7 +112,7 @@ namespace InventoryBAL.Implementation
             }
             catch (Exception ex)
             {
-                productLoggers.LogInformation("{'" + ex + "'}, " + ConstantResources.ExceptionAssignToShipmentBAL + shipmentRequest);
+                productLoggers.LogError("{'" + ex + "'}, " + ConstantResources.ExceptionAssignToShipmentBAL + shipmentRequest);
 
             }
             productLoggers.LogInformation(ConstantResources.AssignToShipmentBALComplete);
@@ -134,7 +134,7 @@ namespace InventoryBAL.Implementation
             }
             catch (Exception ex)
             {
-                productLoggers.LogInformation("{'" + ex + "'}, " + ConstantResources.SaveProductDetailsBALException + productRequest);
+                productLoggers.LogError("{'" + ex + "'}, " + ConstantResources.SaveProductDetailsBALException + productRequest);
             }
             productLoggers.LogInformation(ConstantResources.SaveProductDetailsBALComplete);
             return response;
@@ -154,7 +154,7 @@ namespace InventoryBAL.Implementation
             }
             catch (Exception ex)
             {
-                productLoggers.LogInformation("{'" + ex + "'}, " + ConstantResources.UpdateProductDetailsBALException + productRequest.ProductId);
+                productLoggers.LogError("{'" + ex + "'}, " + ConstantResources.UpdateProductDetailsBALException + productRequest.ProductId);
             }
             productLoggers.LogInformation(ConstantResources.UpdateProductDetailsBALComplete);
             return response;

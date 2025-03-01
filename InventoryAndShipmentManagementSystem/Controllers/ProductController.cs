@@ -40,13 +40,13 @@ namespace InventoryAndShipmentManagementSystem.Controllers
                 }
                 else
                 {
-                    productLoggers.LogInformation(ConstantResources.AddNewProductComplete + result.Status);
+                    productLoggers.LogWarning(ConstantResources.AddNewProductComplete + result.Status);
                     return BadRequest(result);
                 }
             }
             catch (Exception ex)
             {
-                productLoggers.LogInformation(ex.Message + "," + " at {'" + ConstantResources.timeStamp + "'}");
+                productLoggers.LogError(ex.Message + "," + " at {'" + ConstantResources.timeStamp + "'}");
                 return BadRequest(ex.Message);
             }
         }
@@ -71,13 +71,13 @@ namespace InventoryAndShipmentManagementSystem.Controllers
                 }
                 else
                 {
-                    productLoggers.LogInformation(ConstantResources.UpdateProductAPIComplete + result.Status);
+                    productLoggers.LogWarning(ConstantResources.UpdateProductAPIComplete + result.Status);
                     return BadRequest(result);
                 }
             }
             catch (Exception ex)
             {
-                productLoggers.LogInformation(ex.Message + "," + " at {'" + ConstantResources.timeStamp + "'}");
+                productLoggers.LogError(ex.Message + "," + " at {'" + ConstantResources.timeStamp + "'}");
                 return BadRequest(ex.Message);
             }
 
@@ -103,20 +103,20 @@ namespace InventoryAndShipmentManagementSystem.Controllers
                 }
                 else if (!result.Status && result.StatusCode == (int)HttpStatusCode.BadRequest)
                 {
-                    productLoggers.LogInformation(ConstantResources.GetProductByIdAPIComplete + ConstantResources.WithStatus +
+                    productLoggers.LogWarning(ConstantResources.GetProductByIdAPIComplete + ConstantResources.WithStatus +
                          "{'" + result.Status + "'}" + ConstantResources.OfProductId + productId);
                     return BadRequest(result);
                 }
                 else
                 {
-                    productLoggers.LogInformation(ConstantResources.GetProductByIdAPIComplete + ConstantResources.WithStatus +
+                    productLoggers.LogError(ConstantResources.GetProductByIdAPIComplete + ConstantResources.WithStatus +
                          "{'" + result.Status + "'}" + ConstantResources.OfProductId + productId);
                     return NotFound(result);
                 }
             }
             catch (Exception ex)
             {
-                productLoggers.LogInformation(ex.Message + "," + " at {'" + ConstantResources.timeStamp + "'}");
+                productLoggers.LogError(ex.Message + "," + " at {'" + ConstantResources.timeStamp + "'}");
                 return BadRequest(ex.Message);
             }
 
@@ -140,18 +140,18 @@ namespace InventoryAndShipmentManagementSystem.Controllers
                 }
                 else if (!result.Status && result.StatusCode == (int)HttpStatusCode.BadRequest)
                 {
-                    productLoggers.LogInformation(ConstantResources.GetAllProductsAPIComplete + ConstantResources.WithStatus + result.Status);
+                    productLoggers.LogWarning(ConstantResources.GetAllProductsAPIComplete + ConstantResources.WithStatus + result.Status);
                     return BadRequest(result);
                 }
                 else
                 {
-                    productLoggers.LogInformation(ConstantResources.GetAllProductsAPIComplete + ConstantResources.WithStatus + result.Status);
+                    productLoggers.LogError(ConstantResources.GetAllProductsAPIComplete + ConstantResources.WithStatus + result.Status);
                     return NotFound(result);
                 }
             }
             catch (Exception ex)
             {
-                productLoggers.LogInformation(ex.Message + "," + " at {'" + ConstantResources.timeStamp + "'}");
+                productLoggers.LogError(ex.Message + "," + " at {'" + ConstantResources.timeStamp + "'}");
                 return BadRequest(ex.Message);
             }
         }
@@ -175,13 +175,13 @@ namespace InventoryAndShipmentManagementSystem.Controllers
                 }
                 else
                 {
-                    productLoggers.LogInformation(ConstantResources.DeleteProductAPIComplete + result.Status + ConstantResources.ForProductId + productId);
+                    productLoggers.LogWarning(ConstantResources.DeleteProductAPIComplete + result.Status + ConstantResources.ForProductId + productId);
                     return BadRequest(result);
                 }
             }
             catch (Exception ex)
             {
-                productLoggers.LogInformation(ex.Message + "," + " at {'" + ConstantResources.timeStamp + "'}");
+                productLoggers.LogError(ex.Message + "," + " at {'" + ConstantResources.timeStamp + "'}");
                 return BadRequest(ex.Message);
             }
         }
@@ -207,13 +207,13 @@ namespace InventoryAndShipmentManagementSystem.Controllers
                 }
                 else
                 {
-                    productLoggers.LogInformation(ConstantResources.AssignToShipmentAPIComplete + result.Status);
+                    productLoggers.LogWarning(ConstantResources.AssignToShipmentAPIComplete + result.Status);
                     return BadRequest(result);
                 }
             }
             catch (Exception ex)
             {
-                productLoggers.LogInformation(ex.Message + "," + " at {'" + ConstantResources.timeStamp + "'}");
+                productLoggers.LogError(ex.Message + "," + " at {'" + ConstantResources.timeStamp + "'}");
                 return BadRequest(ex.Message);
             }
 
@@ -237,18 +237,18 @@ namespace InventoryAndShipmentManagementSystem.Controllers
                 }
                 else if (!result.Status && result.StatusCode == (int)HttpStatusCode.BadRequest)
                 {
-                    productLoggers.LogInformation(ConstantResources.GetAllShipmentsAPIComplete + ConstantResources.WithStatus + result.Status);
+                    productLoggers.LogWarning(ConstantResources.GetAllShipmentsAPIComplete + ConstantResources.WithStatus + result.Status);
                     return BadRequest(result);
                 }
                 else
                 {
-                    productLoggers.LogInformation(ConstantResources.GetAllShipmentsAPIComplete + ConstantResources.WithStatus + result.Status);
+                    productLoggers.LogError(ConstantResources.GetAllShipmentsAPIComplete + ConstantResources.WithStatus + result.Status);
                     return NotFound(result);
                 }
             }
             catch (Exception ex)
             {
-                productLoggers.LogInformation(ex.Message + "," + " at {'" + ConstantResources.timeStamp + "'}");
+                productLoggers.LogError(ex.Message + "," + " at {'" + ConstantResources.timeStamp + "'}");
                 return BadRequest(ex.Message);
             }
 

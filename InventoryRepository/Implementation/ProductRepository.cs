@@ -105,7 +105,7 @@ namespace InventoryRepository.Implementation
                 response.Status = false;
                 response.ResponseMessage = "{'" + ex + "'}, " + ConstantResources.ExceptionWhileDeleteProductRepo + productId;
                 response.Data = string.Empty;
-                productLoggers.LogInformation("{'" + ex + "'}, " + ConstantResources.ExceptionWhileDeleteProductRepo + productId);
+                productLoggers.LogError("{'" + ex + "'}, " + ConstantResources.ExceptionWhileDeleteProductRepo + productId);
             }
             finally
             {
@@ -170,7 +170,7 @@ namespace InventoryRepository.Implementation
             }
             catch (Exception ex)
             {
-                productLoggers.LogInformation("{'" + ex + "'}, " + ConstantResources.ExceptionWhileGettingAllProductsInRepo);
+                productLoggers.LogError("{'" + ex + "'}, " + ConstantResources.ExceptionWhileGettingAllProductsInRepo);
                 allProducts.StatusCode = (int)HttpStatusCode.BadRequest;
                 allProducts.Status = false;
                 allProducts.ResponseMessage = "{'" + ex + "'}, " + ConstantResources.ExceptionWhileGettingAllProductsInRepo;
@@ -246,7 +246,7 @@ namespace InventoryRepository.Implementation
             }
             catch (Exception ex)
             {
-                productLoggers.LogInformation("{'" + ex + "'}, " + ConstantResources.ExceptionWhileGettingProductByIdInRepo + productId + ConstantResources.GetProductByIdMethodAt);
+                productLoggers.LogError("{'" + ex + "'}, " + ConstantResources.ExceptionWhileGettingProductByIdInRepo + productId + ConstantResources.GetProductByIdMethodAt);
                 response.StatusCode = (int)HttpStatusCode.BadRequest;
                 response.Status = false;
                 response.ResponseMessage = "{'" + ex + "'}, " + ConstantResources.ExceptionWhileGettingProductByIdInRepo + productId + ConstantResources.GetProductByIdMethodAt;
@@ -346,7 +346,7 @@ namespace InventoryRepository.Implementation
                 response.Status = false;
                 response.ResponseMessage = "{'" + ex + "'}, " + " " + ConstantResources.ExecptionOnSavingProduct;
                 response.Data = string.Empty;
-                productLoggers.LogInformation("{'" + ex + "'}, " + " " + ConstantResources.ExecptionOnSavingProduct);
+                productLoggers.LogError("{'" + ex + "'}, " + " " + ConstantResources.ExecptionOnSavingProduct);
 
             }
             finally
@@ -451,7 +451,7 @@ namespace InventoryRepository.Implementation
                 response.Status = false;
                 response.ResponseMessage = "{'" + ex + "'}, " + ConstantResources.ExceptionWhileUpdatingProductDetails;
                 response.Data = string.Empty;
-                productLoggers.LogInformation("{'" + ex + "'}, " + ConstantResources.ExceptionWhileUpdatingProductDetails);
+                productLoggers.LogError("{'" + ex + "'}, " + ConstantResources.ExceptionWhileUpdatingProductDetails);
             }
             finally
             {
@@ -547,7 +547,7 @@ namespace InventoryRepository.Implementation
                 response.Status = false;
                 response.ResponseMessage = ex.Message;
                 response.Data = string.Empty;
-                productLoggers.LogInformation("{'" + ex + "'}, " + ConstantResources.ExceptionAssignToShipmentRepo + shipmentRequest.ProductId);
+                productLoggers.LogError("{'" + ex + "'}, " + ConstantResources.ExceptionAssignToShipmentRepo + shipmentRequest.ProductId);
 
             }
             finally
@@ -615,7 +615,7 @@ namespace InventoryRepository.Implementation
                 shipmentResponse.StatusCode = (int)HttpStatusCode.BadRequest;
                 shipmentResponse.Status = true;
                 shipmentResponse.ResponseMessage = "{'" + ex + "'}," + ConstantResources.ExceptionGetAllShipmentsRepo;
-                productLoggers.LogInformation("{'" + ex + "'}," + ConstantResources.ExceptionGetAllShipmentsRepo);
+                productLoggers.LogError("{'" + ex + "'}," + ConstantResources.ExceptionGetAllShipmentsRepo);
 
             }
             finally
