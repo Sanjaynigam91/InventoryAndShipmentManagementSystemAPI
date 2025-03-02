@@ -2,7 +2,6 @@
 using InventoryRepository.Implementation;
 using InventoryRepository.Interface;
 using InventoryUtility;
-using InventoryUtility.Interface;
 using LISCareDataAccess.IInventoryDbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

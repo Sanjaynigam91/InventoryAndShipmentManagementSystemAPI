@@ -3,7 +3,7 @@ using InventoryDTO;
 using InventoryRepository.Interface;
 using InventoryUtility;
 using InventoryUtility.Interface;
-using Microsoft.Extensions.Configuration;
+
 
 
 namespace InventoryBAL.Implementation
