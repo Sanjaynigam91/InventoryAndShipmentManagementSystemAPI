@@ -72,6 +72,11 @@ namespace InventoryUtility
         public readonly static string Success = "Success";
         public readonly static string InvaidUser = "Invalid User";
         public readonly static string InValidShipmentRequest = "Invalid shipment request";
+        public readonly static string ProductSaveResponseMsg = "Product details has been added successfully!";
+        public readonly static string ProductUpdateResponseMsg = "Product details has been updated successfully!";
+        public readonly static string ProductDeleteResponseMsg = "Product details has been deleted successfully!";
+        public readonly static string NoProductFoundResponseMsg = "This product is not belong to our records!";
+        public readonly static string ProductShipedResponse = "Product assigned to shipment successfully!";
         #endregion
 
         #region Logging Information
