@@ -173,3 +173,13 @@
 2025-03-02 13:34:50 - UpdateProductDetails, Repository operation execution process completed at 2025-03-02 13:34:36.365 with status code 404
 2025-03-02 13:34:50 - UpdateProductDetails, Business operation execution process completed at 2025-03-02 13:34:36.365
 2025-03-02 13:34:50 - UpdateProduct, API execution process completed at 2025-03-02 13:34:36.365 with status  False
+2025-03-02 16:03:34 - GetAllProducts, API execution process started at 2025-03-02 16:03:34.023
+2025-03-02 16:03:34 - GetAllProducts,Business operation execution process started at 2025-03-02 16:03:34.023
+2025-03-02 16:03:36 - GetAllProducts, Repository operation execution process started at 2025-03-02 16:03:34.023
+2025-03-02 16:03:37 - Data base connection open at 2025-03-02 16:03:34.023 for GetAllProducts repository logic.
+2025-03-02 16:03:37 - Getting data base connection at 2025-03-02 16:03:34.023
+2025-03-02 16:03:37 - {'Usp_GetAllProducts'} getting called at {'2025-03-02 16:03:34.023'}
+2025-03-02 16:03:37 - Data base connection closed at 2025-03-02 16:03:34.023 for GetAllProducts repository logic.
+2025-03-02 16:03:37 - GetAllProducts, Repository operation execution process completed at 2025-03-02 16:03:34.023 with total product count13
+2025-03-02 16:03:37 - GetAllProducts,Business operation execution process completed at 2025-03-02 16:03:34.023
+2025-03-02 16:03:37 - GetAllProducts, API execution process completed at 2025-03-02 16:03:34.023 with status True
