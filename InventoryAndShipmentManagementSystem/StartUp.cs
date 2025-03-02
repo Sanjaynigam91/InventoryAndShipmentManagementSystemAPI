@@ -4,7 +4,7 @@ using InventoryRepository.Implementation;
 using InventoryRepository.Interface;
 using InventoryUtility;
 using InventoryUtility.Interface;
-using LISCareDataAccess.InventoryDbContext;
+using LISCareDataAccess.IInventoryDbContext;
 using Microsoft.EntityFrameworkCore;
 
 namespace InventoryAndShipmentManagementSystem

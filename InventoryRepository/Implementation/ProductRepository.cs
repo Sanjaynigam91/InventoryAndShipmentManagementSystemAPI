@@ -2,12 +2,12 @@
 using System.Data.Common;
 using System.Data;
 using System.Net;
-using LISCareDataAccess.InventoryDbContext;
 using InventoryDTO;
 using InventoryUtility;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Data.SqlClient;
 using InventoryUtility.Interface;
+using LISCareDataAccess.IInventoryDbContext;
 
 namespace InventoryRepository.Implementation
 {
@@ -83,7 +83,7 @@ namespace InventoryRepository.Implementation
                     }
                     else
                     {
-                        response.StatusCode = (int)HttpStatusCode.BadRequest;
+                        response.StatusCode = (int)HttpStatusCode.NotFound;
                         response.Status = false;
                         response.ResponseMessage = parameterModel.ErrorMessage;
                         response.Data = string.Empty;
@@ -162,6 +162,7 @@ namespace InventoryRepository.Implementation
                 }
                 else
                 {
+                    allProducts.Data = response;
                     allProducts.StatusCode = (int)HttpStatusCode.NotFound;
                     allProducts.Status = false;
                     allProducts.ResponseMessage = ConstantResources.NoProductsFound;
@@ -239,7 +240,7 @@ namespace InventoryRepository.Implementation
                 else
                 {
                     productLoggers.LogInformation(ConstantResources.ProductIdGreaterThanZero + productId);
-                    response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    response.StatusCode = (int)HttpStatusCode.NotFound;
                     response.Status = false;
                     response.ResponseMessage = ConstantResources.ProductIdGreaterThanZero + productId;
                 }
@@ -428,7 +429,7 @@ namespace InventoryRepository.Implementation
                         }
                         else
                         {
-                            response.StatusCode = (int)HttpStatusCode.BadRequest;
+                            response.StatusCode = (int)HttpStatusCode.NotFound;
                             response.Status = false;
                             response.ResponseMessage = parameterModel.ErrorMessage;
                             response.Data = string.Empty;

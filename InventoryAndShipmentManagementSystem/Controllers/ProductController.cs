@@ -69,10 +69,15 @@ namespace InventoryAndShipmentManagementSystem.Controllers
                     productLoggers.LogInformation(ConstantResources.UpdateProductAPIComplete + result.Status);
                     return Ok(result);
                 }
-                else
+                else if (!result.Status && result.StatusCode == (int)HttpStatusCode.BadRequest)
                 {
                     productLoggers.LogWarning(ConstantResources.UpdateProductAPIComplete + result.Status);
                     return BadRequest(result);
+                }
+                else
+                {
+                    productLoggers.LogError(ConstantResources.UpdateProductAPIComplete + result.Status);
+                    return NotFound(result);
                 }
             }
             catch (Exception ex)
@@ -167,16 +172,21 @@ namespace InventoryAndShipmentManagementSystem.Controllers
             try
             {
                 productLoggers.LogInformation(ConstantResources.DeleteProductAPIStart + productId);
-                var result =await products.DeleteProductDetails(productId);
+                var result = await products.DeleteProductDetails(productId);
                 if (result.Status && result.StatusCode == (int)HttpStatusCode.OK)
                 {
                     productLoggers.LogInformation(ConstantResources.DeleteProductAPIComplete + result.Status + ConstantResources.ForProductId + productId);
                     return Ok(result);
                 }
-                else
+                else if(!result.Status && result.StatusCode == (int)HttpStatusCode.BadRequest)
                 {
                     productLoggers.LogWarning(ConstantResources.DeleteProductAPIComplete + result.Status + ConstantResources.ForProductId + productId);
                     return BadRequest(result);
+                }
+                else
+                {
+                    productLoggers.LogError(ConstantResources.DeleteProductAPIComplete + result.Status + ConstantResources.ForProductId + productId);
+                    return NotFound(result);
                 }
             }
             catch (Exception ex)
@@ -199,7 +209,7 @@ namespace InventoryAndShipmentManagementSystem.Controllers
             try
             {
                 productLoggers.LogInformation(ConstantResources.AssignToShipmentAPIStart);
-                var result =await products.ProductAssignToShipment(shipmentRequest);
+                var result = await products.ProductAssignToShipment(shipmentRequest);
                 if (result.Status && result.StatusCode == (int)HttpStatusCode.OK)
                 {
                     productLoggers.LogInformation(ConstantResources.AssignToShipmentAPIComplete + result.Status);
