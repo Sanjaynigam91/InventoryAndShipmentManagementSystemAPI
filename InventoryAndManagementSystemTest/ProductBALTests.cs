@@ -121,5 +121,94 @@ namespace InventoryAndManagementSystemTest
             mockProductRepo.Verify(repo => repo.GetAllProducts(), Times.Once);
         }
         #endregion
+
+        #region Unit Test Case for Get Product By Id
+        /// <summary>
+        /// Get Product By Id Valid ProductId Returns Product
+        /// </summary>
+        /// <returns></returns>
+        [Test]
+        public async Task GetProductByIdValidProductIdReturnsProduct()
+        {
+            // Arrange: Setup the mock logger and repository to return the mock data
+            int productId = 3;
+            mockProductRepo.Setup(repo => repo.GetProductById(productId)).ReturnsAsync(new ProductModel());
+            var productResult = await productRepository.GetProductById(productId);
+            mockProductRepo.Setup(repo => repo.GetProductById(productId)).ReturnsAsync(productResult);
+
+            // Act: Call the method to test
+            var result = await productBAL.GetProductById(productId);
+
+            // Assert: Verify that the result matches the expected output
+            Assert.That(result, Is.Not.Null);
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Status, Is.EqualTo(true));
+                Assert.That(result.StatusCode, Is.EqualTo((int)HttpStatusCode.OK));
+                Assert.That(result.ResponseMessage, Is.EqualTo(ConstantResources.Success));
+                Assert.That(result.Data, Is.Not.Null);
+                Assert.That(result.Data.ProductId, Is.EqualTo(3));
+                Assert.That(result.Data.ProductName, Is.EqualTo("Paper"));
+                Assert.That(result.Data.Quantity, Is.EqualTo(100));
+                Assert.That(result.Data.Price, Is.EqualTo(10));
+                Assert.That(result.Data.CreatedBy, Is.EqualTo("Sanjay Nigam"));
+            });
+            mockProductRepo.Verify(repo => repo.GetProductById(productId), Times.Once);
+        }
+        /// <summary>
+        /// Get Product By Id Invalid ProductId Returns NotFound
+        /// </summary>
+        /// <returns></returns>
+        [Test]
+        public async Task GetProductByIdInvalidProductIdReturnsNotFound()
+        {
+            // Arrange: Setup the mock logger and repository to return the mock data
+            int productId = -1;
+            mockProductRepo.Setup(repo => repo.GetProductById(productId)).ReturnsAsync(new ProductModel());
+            var productResult = await productRepository.GetProductById(productId);
+            mockProductRepo.Setup(repo => repo.GetProductById(productId)).ReturnsAsync(productResult);
+
+            // Act: Call the method to test
+            var result = await productBAL.GetProductById(productId);
+
+            // Assert: Verify that the result matches the expected output
+            Assert.That(result, Is.Not.Null);
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Status, Is.EqualTo(false));
+                Assert.That(result.StatusCode, Is.EqualTo((int)HttpStatusCode.NotFound));
+                Assert.That(result.ResponseMessage, Is.EqualTo(ConstantResources.ProductIdGreaterThanZero + productId));
+                Assert.That(result.Data, Is.Null);
+            });
+            mockProductRepo.Verify(repo => repo.GetProductById(productId), Times.Once);
+        }
+        /// <summary>
+        /// Get Product By Id Product Not Found Returns Not Found
+        /// </summary>
+        /// <returns></returns>
+        [Test]
+        public async Task GetProductByIdProductNotFoundReturnsNotFound()
+        {
+            // Arrange: Setup the mock logger and repository to return the mock data
+            int productId = 1000;
+            mockProductRepo.Setup(repo => repo.GetProductById(productId)).ReturnsAsync(new ProductModel());
+            var productResult = await productRepository.GetProductById(productId);
+            mockProductRepo.Setup(repo => repo.GetProductById(productId)).ReturnsAsync(productResult);
+
+            // Act: Call the method to test
+            var result = await productBAL.GetProductById(productId);
+
+            // Assert: Verify that the result matches the expected output
+            Assert.That(result, Is.Not.Null);
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Status, Is.EqualTo(false));
+                Assert.That(result.StatusCode, Is.EqualTo((int)HttpStatusCode.NotFound));
+                Assert.That(result.ResponseMessage, Is.EqualTo(ConstantResources.NoProductFound + " which is " + productId));
+                Assert.That(result.Data, Is.Null);
+            });
+            mockProductRepo.Verify(repo => repo.GetProductById(productId), Times.Once);
+        }
+        #endregion
     }
 }
