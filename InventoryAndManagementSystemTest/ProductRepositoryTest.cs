@@ -206,7 +206,7 @@ namespace InventoryAndShipmentManagementTest
 
         #region Unit Test Case for Delete Product Details
         /// <summary>
-        /// Update Product Details No Product Found Returns Not Found
+        /// Delete Product Details NoProduct Found Returns Not Found
         /// </summary>
         /// <returns></returns>
         [Test]
@@ -484,7 +484,7 @@ namespace InventoryAndShipmentManagementTest
             });
         }
         /// <summary>
-        /// Get All Products Returns Products When Products Exist
+        /// Get All Shipment Details Returns Shipments When Shipments Exist
         /// </summary>
         /// <returns></returns>
         [Test]

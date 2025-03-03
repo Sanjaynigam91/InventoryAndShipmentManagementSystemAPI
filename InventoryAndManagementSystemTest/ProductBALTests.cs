@@ -61,6 +61,88 @@ namespace InventoryAndManagementSystemTest
             productBAL = new ProductBAL(mockProductRepo.Object, mockLogger.Object);
         }
 
+        #region Unit Test Case for Delete Product Details
+        /// <summary>
+        /// Delete Product Details No Product Found Returns Not Found
+        /// </summary>
+        /// <returns></returns>
+        [Test]
+        public async Task DeleteProductDetailsNoProductFoundReturnsNotFound()
+        {
+            // Arrange: Setup the mock repository to return the mock data
+            int productId = 200;
+            mockProductRepo.Setup(repo => repo.DeleteProductDetails(productId)).ReturnsAsync(new APIResponseModel<string> { StatusCode = (int)HttpStatusCode.NotFound });
+            var productDeleteResult = await productRepository.DeleteProductDetails(productId);
+            mockProductRepo.Setup(repo => repo.DeleteProductDetails(productId)).ReturnsAsync(productDeleteResult);
+
+            // Act
+            var result = await productBAL.DeleteProductDetails(productId);
+
+            // Assert
+            Assert.That(result, Is.Not.Null);
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Status, Is.False);
+                Assert.That(result.StatusCode, Is.EqualTo((int)HttpStatusCode.NotFound));
+                Assert.That(result.ResponseMessage, Is.EqualTo(ConstantResources.NoProductFoundResponseMsg));
+                Assert.That(result.Data, Is.EqualTo(string.Empty));
+            });
+            mockProductRepo.Verify(repo => repo.DeleteProductDetails(productId), Times.Once);
+        }
+        /// <summary>
+        /// Delete Product Details Invalid ProductId Returns BadRequest
+        /// </summary>
+        /// <returns></returns>
+        [Test]
+        public async Task DeleteProductDetailsInvalidProductIdReturnsBadRequest()
+        {
+            // Arrange: Setup the mock repository to return the mock data
+            int productId = -1;
+            mockProductRepo.Setup(repo => repo.DeleteProductDetails(productId)).ReturnsAsync(new APIResponseModel<string> { StatusCode = (int)HttpStatusCode.BadRequest });
+            var productDeleteResult = await productRepository.DeleteProductDetails(productId);
+            mockProductRepo.Setup(repo => repo.DeleteProductDetails(productId)).ReturnsAsync(productDeleteResult);
+
+            // Act
+            var result = await productBAL.DeleteProductDetails(productId);
+
+            // Assert
+            Assert.That(result, Is.Not.Null);
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Status, Is.False);
+                Assert.That(result.StatusCode, Is.EqualTo((int)HttpStatusCode.BadRequest));
+                Assert.That(result.ResponseMessage, Is.EqualTo(ConstantResources.ProductIdGreaterThanZero + productId));
+            });
+            mockProductRepo.Verify(repo => repo.DeleteProductDetails(productId), Times.Once);
+        }
+        /// <summary>
+        /// Delete Product Details Valid ProductId Returns Success Response
+        /// </summary>
+        /// <returns></returns>
+        [Test]
+        public async Task DeleteProductDetailsValidProductIdReturnsSuccessResponse()
+        {
+            // Arrange
+            int productId = 22;
+            mockProductRepo.Setup(repo => repo.DeleteProductDetails(productId)).ReturnsAsync(new APIResponseModel<string> { StatusCode = (int)HttpStatusCode.OK });
+            var productDeleteResult = await productRepository.DeleteProductDetails(productId);
+            mockProductRepo.Setup(repo => repo.DeleteProductDetails(productId)).ReturnsAsync(productDeleteResult);
+
+            // Act
+            var result = await productBAL.DeleteProductDetails(productId);
+           
+            // Assert
+            Assert.That(result, Is.Not.Null);
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Status, Is.True);
+                Assert.That(result.StatusCode, Is.EqualTo((int)HttpStatusCode.OK));
+                Assert.That(result.ResponseMessage, Is.EqualTo(ConstantResources.ProductDeleteResponseMsg));
+                Assert.That(result.Data, Is.EqualTo(string.Empty));
+            });
+            mockProductRepo.Verify(repo => repo.DeleteProductDetails(productId), Times.Once);
+        }
+        #endregion
 
         #region Unit Test Case GetAllProducts
         /// <summary>
@@ -208,6 +290,119 @@ namespace InventoryAndManagementSystemTest
                 Assert.That(result.Data, Is.Null);
             });
             mockProductRepo.Verify(repo => repo.GetProductById(productId), Times.Once);
+        }
+        #endregion
+
+        #region Unit Test Case for Shipment Module
+        /// <summary>
+        /// Get All Shipment Details Returns Not Found When No Shipments Exist
+        /// </summary>
+        /// <returns></returns>
+        [Test]
+        public async Task GetAllShipmentDetailsReturnsNotFoundWhenNoShipmentsExist()
+        {
+            // Arrange: Setup the mock logger and repository to return the mock data
+            mockProductRepo.Setup(repo => repo.GetAllShipmentDetails()).ReturnsAsync(new ProductShipmentResponse());
+            var productShipments = await productRepository.GetAllShipmentDetails();
+            mockProductRepo.Setup(repo => repo.GetAllShipmentDetails()).ReturnsAsync(productShipments);
+
+            // Act: Call the method to test
+            var result = await productBAL.GetAllShipmentDetails();
+
+            Assert.That(result, Is.Not.Null);
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Data.Count, Is.EqualTo(0));
+                Assert.That(result.Status, Is.False);
+                Assert.That(result.StatusCode, Is.EqualTo((int)HttpStatusCode.NotFound));
+                Assert.That(result.ResponseMessage, Is.EqualTo(ConstantResources.NoShipmetFound));
+            });
+
+            mockProductRepo.Verify(repo => repo.GetAllShipmentDetails(), Times.Once);
+        }
+        /// <summary>
+        /// Product Assign To Shipment Should Return BadRequest When Product Request is Invalid
+        /// </summary>
+        /// <returns></returns>
+        [Test]
+        public async Task ProductAssignToShipmentShouldReturnBadRequestWhenProductRequestIsInvalid()
+        {
+            // Arrange
+            var shipmentRequest = new ShipmentRequest { ShipmentName = "", ProductId = 0, Quantity = 0 };
+            mockProductRepo.Setup(repo => repo.ProductAssignToShipment(shipmentRequest)).ReturnsAsync(new APIResponseModel<string> { StatusCode = (int)HttpStatusCode.BadRequest });
+            var productShipments = await productRepository.ProductAssignToShipment(shipmentRequest);
+            mockProductRepo.Setup(repo => repo.ProductAssignToShipment(shipmentRequest)).ReturnsAsync(productShipments);
+
+            // Act
+            var result = await productBAL.ProductAssignToShipment(shipmentRequest);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Status, Is.EqualTo(false));
+                Assert.That(result.StatusCode, Is.EqualTo((int)HttpStatusCode.BadRequest));
+                Assert.That(result.ResponseMessage, Is.EqualTo(ConstantResources.InValidShipmentRequest));
+                Assert.That(result.Data, Is.EqualTo(string.Empty));
+            });
+            mockProductRepo.Verify(repo => repo.ProductAssignToShipment(shipmentRequest), Times.Once);
+        }
+        /// <summary>
+        /// Product Assign To Shipment Should Return Success When Shipment Request Is Valid
+        /// </summary>
+        /// <returns></returns>
+        [Test]
+        public async Task ProductAssignToShipmentShouldReturnSuccessWhenShipmentRequestIsValid()
+        {
+            // Arrange
+            var shipmentRequest = new ShipmentRequest { ShipmentName = "Air", ProductId = 4, Quantity = 10 };
+            // Arrange: Setup the mock repository to return the mock data
+            mockProductRepo.Setup(repo => repo.ProductAssignToShipment(shipmentRequest)).ReturnsAsync(new APIResponseModel<string> { StatusCode = (int)HttpStatusCode.OK });
+            var productShipments = await productRepository.ProductAssignToShipment(shipmentRequest);
+            mockProductRepo.Setup(repo => repo.ProductAssignToShipment(shipmentRequest)).ReturnsAsync(productShipments);
+
+            // Act
+            var result = await productBAL.ProductAssignToShipment(shipmentRequest);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Status, Is.EqualTo(true));
+                Assert.That(result.StatusCode, Is.EqualTo((int)HttpStatusCode.OK));
+                Assert.That(result.ResponseMessage, Is.EqualTo(ConstantResources.ProductShipedResponse));
+                Assert.That(result.Data, Is.EqualTo(string.Empty));
+            });
+            mockProductRepo.Verify(repo => repo.ProductAssignToShipment(shipmentRequest), Times.Once);
+        }
+        /// <summary>
+        /// Get All Shipment Details Returns Shipments When Shipments Exist
+        /// </summary>
+        /// <returns></returns>
+        [Test]
+        public async Task GetAllShipmentDetailsReturnsShipmentsWhenShipmentsExist()
+        {
+            // Arrange: Setup the mock logger and repository to return the mock data
+            mockProductRepo.Setup(repo => repo.GetAllShipmentDetails()).ReturnsAsync(new ProductShipmentResponse());
+            var productShipments = await productRepository.GetAllShipmentDetails();
+            mockProductRepo.Setup(repo => repo.GetAllShipmentDetails()).ReturnsAsync(productShipments);
+
+
+            // Act: Call the method to test
+            var result = await productBAL.GetAllShipmentDetails();
+
+            // Assert: Verify that the result matches the expected output
+            Assert.That(result, Is.Not.Null);
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Status, Is.EqualTo(true));
+                Assert.That(result.StatusCode, Is.EqualTo((int)HttpStatusCode.OK));
+                Assert.That(result.ResponseMessage, Is.EqualTo(ConstantResources.Success));
+                Assert.That(result.Data.Count, Is.GreaterThan(0));
+                Assert.That(result.Data[0].ProductId, Is.EqualTo(4));
+                Assert.That(result.Data[0].ShipmentId, Is.EqualTo(1));
+                Assert.That(result.Data[0].ShipmentName, Is.EqualTo("Air"));
+                Assert.That(result.Data[0].Quantity, Is.EqualTo(100));
+            });
+            mockProductRepo.Verify(repo => repo.GetAllShipmentDetails(), Times.Once);
         }
         #endregion
     }
