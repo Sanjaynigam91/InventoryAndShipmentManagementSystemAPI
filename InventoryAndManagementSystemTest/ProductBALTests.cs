@@ -61,6 +61,170 @@ namespace InventoryAndManagementSystemTest
             productBAL = new ProductBAL(mockProductRepo.Object, mockLogger.Object);
         }
 
+        #region Unit Test Case for Save Product Details
+        /// <summary>
+        /// Save Product Details Should Return BadRequest When Product Request is Invalid
+        /// </summary>
+        /// <returns></returns>
+        [Test]
+        public async Task SaveProductDetailsShouldReturnBadRequestWhenProductRequestIsInvalid()
+        {
+            // Arrange
+            var productRequest = new ProductRequest { ProductName = "", Price = 0, Quantity = 0 };
+            // Arrange: Setup the mock repository to return the mock data
+            mockProductRepo.Setup(repo => repo.SaveProductDetails(productRequest)).ReturnsAsync(new APIResponseModel<string> { StatusCode = (int)HttpStatusCode.BadRequest });
+            var productSaveResponse = await productRepository.SaveProductDetails(productRequest);
+            mockProductRepo.Setup(repo => repo.SaveProductDetails(productRequest)).ReturnsAsync(productSaveResponse);
+            // Act
+            var result = await productBAL.SaveProductDetails(productRequest);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Status, Is.EqualTo(false));
+                Assert.That(result.StatusCode, Is.EqualTo((int)HttpStatusCode.BadRequest));
+                Assert.That(result.ResponseMessage, Is.EqualTo(ConstantResources.InValidRequest));
+                Assert.That(result.Data, Is.EqualTo(string.Empty));
+            });
+        }
+        /// <summary>
+        /// Save ProductDetails Should Return Success When Product Request Is Valid
+        /// </summary>
+        /// <returns></returns>
+        [Test]
+        public async Task SaveProductDetailsShouldReturnSuccessWhenProductRequestIsValid()
+        {
+            // Arrange
+            var productRequest = new ProductRequest { ProductName = "Bat", Price = 1000, Quantity = 100, CreatedDate = DateTime.Now, CreatedBy = "Sanjay Nigam" };
+            // Arrange: Setup the mock repository to return the mock data
+            mockProductRepo.Setup(repo => repo.SaveProductDetails(productRequest)).ReturnsAsync(new APIResponseModel<string> { StatusCode = (int)HttpStatusCode.OK });
+            var productSaveResponse = await productRepository.SaveProductDetails(productRequest);
+            mockProductRepo.Setup(repo => repo.SaveProductDetails(productRequest)).ReturnsAsync(productSaveResponse);
+            // Act
+            var result = await productBAL.SaveProductDetails(productRequest);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Status, Is.EqualTo(true));
+                Assert.That(result.StatusCode, Is.EqualTo((int)HttpStatusCode.OK));
+                Assert.That(result.ResponseMessage, Is.EqualTo(ConstantResources.ProductSaveResponseMsg));
+                Assert.That(result.Data, Is.EqualTo(string.Empty));
+            });
+        }
+        #endregion
+
+        #region Unit Test Case for Update Product Details
+        /// <summary>
+        /// Update Product Details No Product Found Returns Not Found
+        /// </summary>
+        /// <returns></returns>
+        [Test]
+        public async Task UpdateProductDetailsNoProductFoundReturnsNotFound()
+        {
+            // Arrange
+            var productRequest = new ProductRequest
+            {
+                ProductId = 200,
+                ProductName = "No Product found test",
+                Quantity = 10,
+                Price = 5,
+                CreatedBy = "TestUser"
+            };
+
+            // Arrange: Setup the mock repository to return the mock data
+            mockProductRepo.Setup(repo => repo.UpdateProductDetails(productRequest)).ReturnsAsync(new APIResponseModel<string> { StatusCode = (int)HttpStatusCode.NotFound });
+            var productUpdateResponse = await productRepository.UpdateProductDetails(productRequest);
+            mockProductRepo.Setup(repo => repo.UpdateProductDetails(productRequest)).ReturnsAsync(productUpdateResponse);
+
+            // Act
+            var result = await productBAL.UpdateProductDetails(productRequest);
+
+            // Assert
+            Assert.That(result, Is.Not.Null);
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Status, Is.False);
+                Assert.That(result.StatusCode, Is.EqualTo((int)HttpStatusCode.NotFound));
+                Assert.That(result.ResponseMessage, Is.EqualTo(ConstantResources.NoProductFoundResponseMsg));
+                Assert.That(result.Data, Is.EqualTo(string.Empty));
+            });
+            mockProductRepo.Verify(repo => repo.UpdateProductDetails(productRequest), Times.Once);
+        }
+        /// <summary>
+        /// Update Product Details Invalid ProductId Returns BadRequest
+        /// </summary>
+        /// <returns></returns>
+        [Test]
+        public async Task UpdateProductDetailsInvalidProductIdReturnsBadRequest()
+        {
+            // Arrange
+            var productRequest = new ProductRequest
+            {
+                ProductId = 0,
+                ProductName = "Invalid Product",
+                Quantity = 0,
+                Price = 0,
+                CreatedBy = "TestUser"
+            };
+
+            // Arrange: Setup the mock repository to return the mock data
+            // Arrange: Setup the mock repository to return the mock data
+            mockProductRepo.Setup(repo => repo.UpdateProductDetails(productRequest)).ReturnsAsync(new APIResponseModel<string> { StatusCode = (int)HttpStatusCode.BadRequest });
+            var productUpdateResponse = await productRepository.UpdateProductDetails(productRequest);
+            mockProductRepo.Setup(repo => repo.UpdateProductDetails(productRequest)).ReturnsAsync(productUpdateResponse);
+
+            // Act
+            var result = await productBAL.UpdateProductDetails(productRequest);
+
+            // Assert
+            Assert.That(result, Is.Not.Null);
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Status, Is.False);
+                Assert.That(result.StatusCode, Is.EqualTo((int)HttpStatusCode.BadRequest));
+                Assert.That(result.ResponseMessage, Is.EqualTo(ConstantResources.InValidProductId));
+            });
+            mockProductRepo.Verify(repo => repo.UpdateProductDetails(productRequest), Times.Once);
+        }
+        /// <summary>
+        /// Update Product Details Valid ProductId Returns Success Response
+        /// </summary>
+        /// <returns></returns>
+        [Test]
+        public async Task UpdateProductDetailsValidProductIdReturnsSuccessResponse()
+        {
+            // Arrange
+            var productRequest = new ProductRequest
+            {
+                ProductId = 11,
+                ProductName = "Water Bottle",
+                Quantity = 500,
+                Price = 40,
+                CreatedBy = "Sanjay Nigam"
+            };
+
+            // Arrange: Setup the mock repository to return the mock data
+            mockProductRepo.Setup(repo => repo.UpdateProductDetails(productRequest)).ReturnsAsync(new APIResponseModel<string> { StatusCode = (int)HttpStatusCode.OK });
+            var productUpdateResponse = await productRepository.UpdateProductDetails(productRequest);
+            mockProductRepo.Setup(repo => repo.UpdateProductDetails(productRequest)).ReturnsAsync(productUpdateResponse);
+
+            // Act
+            var result = await productBAL.UpdateProductDetails(productRequest);
+
+            // Assert
+            Assert.That(result, Is.Not.Null);
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Status, Is.True);
+                Assert.That(result.StatusCode, Is.EqualTo((int)HttpStatusCode.OK));
+                Assert.That(result.ResponseMessage, Is.EqualTo(ConstantResources.ProductUpdateResponseMsg));
+                Assert.That(result.Data, Is.EqualTo(string.Empty));
+            });
+            mockProductRepo.Verify(repo => repo.UpdateProductDetails(productRequest), Times.Once);
+        }
+        #endregion
+
         #region Unit Test Case for Delete Product Details
         /// <summary>
         /// Delete Product Details No Product Found Returns Not Found
@@ -130,7 +294,7 @@ namespace InventoryAndManagementSystemTest
 
             // Act
             var result = await productBAL.DeleteProductDetails(productId);
-           
+
             // Assert
             Assert.That(result, Is.Not.Null);
             Assert.Multiple(() =>
