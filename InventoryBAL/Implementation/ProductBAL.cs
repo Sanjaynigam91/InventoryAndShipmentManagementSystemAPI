@@ -2,7 +2,8 @@
 using InventoryDTO;
 using InventoryRepository.Interface;
 using InventoryUtility;
-using Microsoft.Extensions.Configuration;
+using InventoryUtility.Interface;
+
 
 
 namespace InventoryBAL.Implementation
@@ -10,72 +11,69 @@ namespace InventoryBAL.Implementation
     public class ProductBAL : IProduct
     {
         private readonly IProductRepository productRepo;
-        private readonly ProductLogger productLogger;
+        private readonly IProductLoggers productLoggers;
 
-        public ProductBAL(IProductRepository productRepository)
+        public ProductBAL(IProductRepository productRepository, IProductLoggers productLogger)
         {
             productRepo = productRepository;
-            productLogger = new ProductLogger();
+            productLoggers = productLogger;
         }
         /// <summary>
         /// Used to Delete Product Details
         /// </summary>
         /// <param name="productId"></param>
         /// <returns></returns>
-        public APIResponseModel<object> DeleteProductDetails(int productId)
+        public async Task<APIResponseModel<string>> DeleteProductDetails(int productId)
         {
-            productLogger.LogInformation("DeleteProduct, Bussiness operation execution process started at {'" + DateTime.Now + "'} for product Id {'" + productId + "'}");
-            var response = new APIResponseModel<object>();
+            productLoggers.LogInformation(ConstantResources.DeleteProductBALStart + productId);
+            var response = new APIResponseModel<string>();
             try
             {
-                response = productRepo.DeleteProductDetails(productId);
+                response = await productRepo.DeleteProductDetails(productId);
             }
             catch (Exception ex)
             {
-                productLogger.LogInformation("{'" + ex + "'},An error occurred in business operation of DeleteProductDetails while deleting product with product Id {'" + productId + "'}");
-                throw;
+                productLoggers.LogError("{'" + ex + "'}, " + ConstantResources.ExceptionWhileDeleteProductBAL + productId);
             }
-            productLogger.LogInformation("DeleteProduct, Bussiness operation execution process completed at {'" + DateTime.Now + "'} for product Id {'" + productId + "'}");
+            productLoggers.LogInformation(ConstantResources.DeleteProductBALComplete + productId);
             return response;
         }
         /// <summary>
         /// Used to Get All Products
         /// </summary>
         /// <returns></returns>
-        public List<ProductResponse> GetAllProducts()
+        public async Task<ProductDataResponse> GetAllProducts()
         {
-            productLogger.LogInformation("GetAllProducts,Bussiness operation execution process started at {'" + DateTime.Now + "'}");
-            var response = new List<ProductResponse>();
+            productLoggers.LogInformation(ConstantResources.GetAllProductsBALStart);
+            var response = new ProductDataResponse();
             try
             {
-                response = productRepo.GetAllProducts();
+                response = await productRepo.GetAllProducts();
             }
             catch (Exception ex)
             {
-                productLogger.LogInformation("{'" + ex + "'},An error occurred in business operation of GetAllProducts while fetching all products at {'" + DateTime.Now + "'}");
-                throw;
+                productLoggers.LogError("{'" + ex + "'}, " + ConstantResources.ExceptionWhileGettingAllProductsBAL);
             }
-            productLogger.LogInformation("GetAllProducts,Bussiness operation execution process completed at {'" + DateTime.Now + "'}");
+            productLoggers.LogInformation(ConstantResources.GetAllProductsBALComplete);
             return response;
         }
         /// <summary>
         /// Used to Get All Shipments 
         /// </summary>
         /// <returns></returns>
-        public List<ProductShipmentResponse> GetAllShipmentDetails()
+        public async Task<ProductShipmentResponse> GetAllShipmentDetails()
         {
-            productLogger.LogInformation("GetAllShipmentDetails,Bussiness operation execution process started at {'" + DateTime.Now + "'}");
-            var response = new List<ProductShipmentResponse>();
+            productLoggers.LogInformation(ConstantResources.GetAllShipmentsBALStart);
+            var response = new ProductShipmentResponse();
             try
             {
-                response = productRepo.GetAllShipmentDetails();
+                response = await productRepo.GetAllShipmentDetails();
             }
             catch (Exception ex)
             {
-                productLogger.LogInformation("{'" + ex + "'},An error occurred in business operation of GetAllShipmentDetails while fetching all shipment details at {'" + DateTime.Now + "'}");
-                throw;
+                productLoggers.LogError("{'" + ex + "'}, " + ConstantResources.ExceptionGetAllShipmentsBAL);
             }
-            productLogger.LogInformation("GetAllShipmentDetails,Bussiness operation execution process completed at {'" + DateTime.Now + "'}");
+            productLoggers.LogInformation(ConstantResources.GetAllShipmentsBAComplete);
             return response;
         }
 
@@ -84,20 +82,19 @@ namespace InventoryBAL.Implementation
         /// </summary>
         /// <param name="productId"></param>
         /// <returns></returns>
-        public ProductResponse GetProductById(int productId)
+        public async Task<ProductModel> GetProductById(int productId)
         {
-            productLogger.LogInformation("GetProductById, Bussiness operation execution process started at {'" + DateTime.Now + "'} for product Id {'" + productId + "'}");
-            var response = new ProductResponse();
+            productLoggers.LogInformation(ConstantResources.GetProductByIdBALStart + ConstantResources.ForProductId + productId);
+            var response = new ProductModel();
             try
             {
-                response = productRepo.GetProductById(productId);
+                response = await productRepo.GetProductById(productId);
             }
             catch (Exception ex)
             {
-                productLogger.LogInformation("{'" + ex + "'},An error occurred in business operation of GetProductById while fetching product details by product Id {'" + productId + "'} at {'" + DateTime.Now + "'}");
-                throw;
+                productLoggers.LogError("{'" + ex + "'}, " + ConstantResources.ExceptionWhileGettingProductById + productId + " at {'" + ConstantResources.timeStamp + "'}");
             }
-            productLogger.LogInformation("GetProductById, Bussiness operation execution process completed at {'" + DateTime.Now + "'} for product Id {'" + productId + "'}");
+            productLoggers.LogInformation(ConstantResources.GetProductByIdBALComplete + productId);
             return response;
         }
         /// <summary>
@@ -105,20 +102,20 @@ namespace InventoryBAL.Implementation
         /// </summary>
         /// <param name="shipmentRequest"></param>
         /// <returns></returns>
-        public APIResponseModel<object> ProductAssignToShipment(ShipmentRequest shipmentRequest)
+        public async Task<APIResponseModel<string>> ProductAssignToShipment(ShipmentRequest shipmentRequest)
         {
-            productLogger.LogInformation("ProductAssignToShipment, Bussiness operation execution process started at {'" + DateTime.Now + "'}");
-            var response = new APIResponseModel<object>();
+            productLoggers.LogInformation(ConstantResources.AssignToShipmentBALStart);
+            var response = new APIResponseModel<string>();
             try
             {
-                response = productRepo.ProductAssignToShipment(shipmentRequest);
+                response = await productRepo.ProductAssignToShipment(shipmentRequest);
             }
             catch (Exception ex)
             {
-                productLogger.LogInformation("{'" + ex + "'},An error occurred in business operation of ProductAssignToShipment while saving the product details like {'" + shipmentRequest + "'}");
-                throw;
+                productLoggers.LogError("{'" + ex + "'}, " + ConstantResources.ExceptionAssignToShipmentBAL + shipmentRequest);
+
             }
-            productLogger.LogInformation("ProductAssignToShipment, Bussiness operation execution process completed at {'" + DateTime.Now + "'}");
+            productLoggers.LogInformation(ConstantResources.AssignToShipmentBALComplete);
             return response;
         }
 
@@ -127,20 +124,19 @@ namespace InventoryBAL.Implementation
         /// </summary>
         /// <param name="productRequest"></param>
         /// <returns></returns>
-        public APIResponseModel<object> SaveProductDetails(ProductRequest productRequest)
+        public async Task<APIResponseModel<string>> SaveProductDetails(ProductRequest productRequest)
         {
-            productLogger.LogInformation("SaveProductDetails, Bussiness operation execution process started at {'" + DateTime.Now + "'}");
-            var response = new APIResponseModel<object>();
+            productLoggers.LogInformation(ConstantResources.SaveProductDetailsBALStart);
+            var response = new APIResponseModel<string>();
             try
             {
-                response = productRepo.SaveProductDetails(productRequest);
+                response = await productRepo.SaveProductDetails(productRequest);
             }
             catch (Exception ex)
             {
-                productLogger.LogInformation("{'" + ex + "'},An error occurred in business operation of SaveProductDetails while saving the product details like {'" + productRequest + "'}");
-                throw;
+                productLoggers.LogError("{'" + ex + "'}, " + ConstantResources.SaveProductDetailsBALException + productRequest);
             }
-            productLogger.LogInformation("SaveProductDetails, Bussiness operation execution process completed at {'" + DateTime.Now + "'}");
+            productLoggers.LogInformation(ConstantResources.SaveProductDetailsBALComplete);
             return response;
         }
         /// <summary>
@@ -148,20 +144,19 @@ namespace InventoryBAL.Implementation
         /// </summary>
         /// <param name="productRequest"></param>
         /// <returns></returns>
-        public APIResponseModel<object> UpdateProductDetails(ProductRequest productRequest)
+        public async Task<APIResponseModel<string>> UpdateProductDetails(ProductRequest productRequest)
         {
-            productLogger.LogInformation("UpdateProductDetails, Bussiness operation execution process started at {'" + DateTime.Now + "'}");
-            var response = new APIResponseModel<object>();
+            productLoggers.LogInformation(ConstantResources.UpdateProductDetailsBALStart);
+            var response = new APIResponseModel<string>();
             try
             {
-                response = productRepo.UpdateProductDetails(productRequest);
+                response = await productRepo.UpdateProductDetails(productRequest);
             }
             catch (Exception ex)
             {
-                productLogger.LogInformation("{'" + ex + "'},An error occurred in business operation of UpdateProductDetails while updateing the product details of the product Id {'" + productRequest.ProductId + "'}");
-                throw;
+                productLoggers.LogError("{'" + ex + "'}, " + ConstantResources.UpdateProductDetailsBALException + productRequest.ProductId);
             }
-            productLogger.LogInformation("UpdateProductDetails, Bussiness operation execution process completed at {'" + DateTime.Now + "'}");
+            productLoggers.LogInformation(ConstantResources.UpdateProductDetailsBALComplete);
             return response;
         }
     }

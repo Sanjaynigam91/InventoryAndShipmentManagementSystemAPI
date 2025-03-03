@@ -1,0 +1,102 @@
+[
+  {
+    "ContainingType": "InventoryAndShipmentManagementSystem.Controllers.ProductController",
+    "Method": "CreateNewProduct",
+    "RelativePath": "api/AddNewProduct",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "productRequest",
+        "Type": "InventoryDTO.ProductRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "InventoryAndShipmentManagementSystem.Controllers.ProductController",
+    "Method": "ProductAssignToShipment",
+    "RelativePath": "api/AssignToShipment",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "shipmentRequest",
+        "Type": "InventoryDTO.ShipmentRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "InventoryAndShipmentManagementSystem.Controllers.ProductController",
+    "Method": "DeleteProduct",
+    "RelativePath": "api/DeleteProduct",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "productId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "InventoryAndShipmentManagementSystem.Controllers.ProductController",
+    "Method": "GetAllProducts",
+    "RelativePath": "api/GetAllProducts",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "InventoryAndShipmentManagementSystem.Controllers.ProductController",
+    "Method": "GetAllShipments",
+    "RelativePath": "api/GetAllShipments",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "InventoryAndShipmentManagementSystem.Controllers.ProductController",
+    "Method": "GetProductById",
+    "RelativePath": "api/GetProductById",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "productId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "InventoryAndShipmentManagementSystem.Controllers.ProductController",
+    "Method": "UpdateProduct",
+    "RelativePath": "api/UpdateProduct",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "productRequest",
+        "Type": "InventoryDTO.ProductRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

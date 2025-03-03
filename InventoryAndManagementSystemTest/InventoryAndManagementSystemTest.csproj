@@ -25,6 +25,7 @@
     <ProjectReference Include="..\InventoryBAL\InventoryBAL.csproj" />
     <ProjectReference Include="..\InventoryDAL\InventoryDAL.csproj" />
     <ProjectReference Include="..\InventoryRepository\InventoryRepository.csproj" />
+    <ProjectReference Include="..\InventoryUtility\InventoryUtility.csproj" />
   </ItemGroup>
 
 </Project>

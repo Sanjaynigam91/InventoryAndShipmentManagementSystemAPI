@@ -1,7 +1,9 @@
 ﻿using InventoryBAL.Interface;
 using InventoryDTO;
 using InventoryUtility;
+using InventoryUtility.Interface;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 
 namespace InventoryAndShipmentManagementSystem.Controllers
@@ -10,12 +12,12 @@ namespace InventoryAndShipmentManagementSystem.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        private IProduct products;
-        private readonly ProductLogger productLogger;
-        public ProductController(IProduct product)
+        private readonly IProduct products;
+        private readonly IProductLoggers productLoggers;
+        public ProductController(IProduct product, IProductLoggers productLogger)
         {
             products = product;
-            productLogger = new ProductLogger();
+            productLoggers = productLogger;
         }
         /// <summary>
         /// API for to create new product
@@ -25,30 +27,28 @@ namespace InventoryAndShipmentManagementSystem.Controllers
 
         [HttpPost]
         [Route(ConstantResources.AddNewProduct)]
-        public IActionResult CreateNewProduct(ProductRequest productRequest)
+        public async Task<IActionResult> CreateNewProduct(ProductRequest productRequest)
         {
-            productLogger.LogInformation("AddNewProduct, API execution process started at {'" + DateTime.Now + "'}");
-            APIResponseModel<object> responseModel = new APIResponseModel<object>();
-            var result = products.SaveProductDetails(productRequest);
-            if (result.Status && result.StatusCode == 200)
+            try
             {
-                responseModel.Status = true;
-                responseModel.StatusCode = 200;
-                responseModel.ResponseMessage = result.ResponseMessage;
-                responseModel.Data = string.Empty;
-                productLogger.LogInformation("AddNewProduct, API execution process completed at {'" + DateTime.Now + "'} with status {'" + responseModel.Status + "'}");
-                return Ok(responseModel);
+                productLoggers.LogInformation(ConstantResources.AddNewProductStart);
+                var result = await products.SaveProductDetails(productRequest);
+                if (result.Status && result.StatusCode == (int)HttpStatusCode.OK)
+                {
+                    productLoggers.LogInformation(ConstantResources.AddNewProductComplete + result.Status);
+                    return Ok(result);
+                }
+                else
+                {
+                    productLoggers.LogWarning(ConstantResources.AddNewProductComplete + result.Status);
+                    return BadRequest(result);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                responseModel.Status = false;
-                responseModel.StatusCode = 400;
-                responseModel.ResponseMessage = "No Record found!";
-                responseModel.Data = result;
-                productLogger.LogInformation("AddNewProduct, API execution process completed at {'" + DateTime.Now + "'} with status {'" + responseModel.Status + "'}");
-                return NotFound(responseModel);
+                productLoggers.LogError(ex.Message + "," + " at {'" + ConstantResources.timeStamp + "'}");
+                return BadRequest(ex.Message);
             }
-
         }
         /// <summary>
         /// API for to update product details
@@ -58,131 +58,142 @@ namespace InventoryAndShipmentManagementSystem.Controllers
 
         [HttpPut]
         [Route(ConstantResources.UpdateProduct)]
-        public IActionResult UpdateProduct(ProductRequest productRequest)
+        public async Task<IActionResult> UpdateProduct(ProductRequest productRequest)
         {
-            productLogger.LogInformation("UpdateProduct, API execution process started at {'" + DateTime.Now + "'} of the product Id {'" + productRequest.ProductId + "'}");
-            APIResponseModel<object> responseModel = new APIResponseModel<object>();
-            var result = products.UpdateProductDetails(productRequest);
-            if (result.Status && result.StatusCode == 200)
+            try
             {
-                responseModel.Status = true;
-                responseModel.StatusCode = 200;
-                responseModel.ResponseMessage = result.ResponseMessage;
-                responseModel.Data = string.Empty;
-                productLogger.LogInformation("UpdateProduct, API execution process completed at {'" + DateTime.Now + "'} with status {'" + responseModel.Status + "'}");
-                return Ok(responseModel);
+                productLoggers.LogInformation(ConstantResources.UpdateProductAPIStart + productRequest.ProductId);
+                var result = await products.UpdateProductDetails(productRequest);
+                if (result.Status && result.StatusCode == (int)HttpStatusCode.OK)
+                {
+                    productLoggers.LogInformation(ConstantResources.UpdateProductAPIComplete + result.Status);
+                    return Ok(result);
+                }
+                else if (!result.Status && result.StatusCode == (int)HttpStatusCode.BadRequest)
+                {
+                    productLoggers.LogWarning(ConstantResources.UpdateProductAPIComplete + result.Status);
+                    return BadRequest(result);
+                }
+                else
+                {
+                    productLoggers.LogError(ConstantResources.UpdateProductAPIComplete + result.Status);
+                    return NotFound(result);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                responseModel.Status = false;
-                responseModel.StatusCode = 400;
-                responseModel.ResponseMessage = "No Record found!";
-                responseModel.Data = result;
-                productLogger.LogInformation("UpdateProduct, API execution process completed at {'" + DateTime.Now + "'} with status {'" + responseModel.Status + "'}");
-                return NotFound(responseModel);
+                productLoggers.LogError(ex.Message + "," + " at {'" + ConstantResources.timeStamp + "'}");
+                return BadRequest(ex.Message);
             }
 
         }
         /// <summary>
         /// Used to get Product Details By Id
         /// </summary>
-        /// <param name="partnerId"></param>
+        /// <param name="productId"></param>
         /// <returns></returns>
         [HttpGet]
         [Route(ConstantResources.GetProductById)]
-        public IActionResult GetProductById(int productId)
+        public async Task<IActionResult> GetProductById(int productId)
         {
-            productLogger.LogInformation("GetProductById, API execution process started at {'" + DateTime.Now + "'} for the product Id {'" + productId + "'}");
-            APIResponseModel<object> responseModel = new APIResponseModel<object>();
-            var result = products.GetProductById(productId);
-            if (result != null)
+            try
             {
-                responseModel.Status = true;
-                responseModel.StatusCode = 200;
-                responseModel.ResponseMessage = ConstantResources.Success;
-                responseModel.Data = result;
-                productLogger.LogInformation("GetProductById, API execution process completed at {'" + DateTime.Now + "'} " +
-                    "with status {'" + responseModel + "'} of product Id {'" + productId + "'}");
-                return Ok(responseModel);
+                productLoggers.LogInformation(ConstantResources.GetProductByIdAPIStart + productId);
+                var result = await products.GetProductById(productId);
+                if (result.Status && result.StatusCode == (int)HttpStatusCode.OK)
+                {
+                    productLoggers.LogInformation(ConstantResources.GetProductByIdAPIComplete + ConstantResources.WithStatus +
+                        "{'" + result.Status + "'}" + ConstantResources.OfProductId + productId);
+                    return Ok(result);
+                }
+                else if (!result.Status && result.StatusCode == (int)HttpStatusCode.BadRequest)
+                {
+                    productLoggers.LogWarning(ConstantResources.GetProductByIdAPIComplete + ConstantResources.WithStatus +
+                         "{'" + result.Status + "'}" + ConstantResources.OfProductId + productId);
+                    return BadRequest(result);
+                }
+                else
+                {
+                    productLoggers.LogError(ConstantResources.GetProductByIdAPIComplete + ConstantResources.WithStatus +
+                         "{'" + result.Status + "'}" + ConstantResources.OfProductId + productId);
+                    return NotFound(result);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                responseModel.Status = false;
-                responseModel.StatusCode = 400;
-                responseModel.ResponseMessage = "No Record found!";
-                responseModel.Data = result;
-                productLogger.LogInformation("GetProductById, API execution process completed at {'" + DateTime.Now + "'} " +
-                    "with status {'" + responseModel + "'} of product Id {'" + productId + "'}");
-                return NotFound(responseModel);
+                productLoggers.LogError(ex.Message + "," + " at {'" + ConstantResources.timeStamp + "'}");
+                return BadRequest(ex.Message);
             }
 
         }
         /// <summary>
         /// Used to get All Product Details
         /// </summary>
-        /// <param name="partnerId"></param>
         /// <returns></returns>
         [HttpGet]
         [Route(ConstantResources.GetAllProducts)]
-        public IActionResult GetAllProducts()
+        public async Task<IActionResult> GetAllProducts()
         {
-
-            productLogger.LogInformation("GetAllProducts, API execution process started at {'" + DateTime.Now + "'}");
-            APIResponseModel<object> responseModel = new APIResponseModel<object>();
-            var result = products.GetAllProducts();
-            if (result.Count > 0)
+            try
             {
-                responseModel.Status = true;
-                responseModel.StatusCode = 200;
-                responseModel.ResponseMessage = ConstantResources.Success;
-                responseModel.Data = result;
-                productLogger.LogInformation("GetAllProducts, API execution process completed at {'" + DateTime.Now + "'} " +
-                   "with status {'" + responseModel.Status + "'}");
-                return Ok(responseModel);
+                productLoggers.LogInformation(ConstantResources.GetAllProductsAPIStart);
+                var result = await products.GetAllProducts();
+                if (result.Status && result.StatusCode == (int)HttpStatusCode.OK)
+                {
+                    productLoggers.LogInformation(ConstantResources.GetAllProductsAPIComplete + ConstantResources.WithStatus + result.Status);
+                    return Ok(result);
+                }
+                else if (!result.Status && result.StatusCode == (int)HttpStatusCode.BadRequest)
+                {
+                    productLoggers.LogWarning(ConstantResources.GetAllProductsAPIComplete + ConstantResources.WithStatus + result.Status);
+                    return BadRequest(result);
+                }
+                else
+                {
+                    productLoggers.LogError(ConstantResources.GetAllProductsAPIComplete + ConstantResources.WithStatus + result.Status);
+                    return NotFound(result);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                responseModel.Status = false;
-                responseModel.StatusCode = 400;
-                responseModel.ResponseMessage = "No Record found!";
-                responseModel.Data = result;
-                productLogger.LogInformation("GetAllProducts, API execution process completed at {'" + DateTime.Now + "'} " +
-                   "with status {'" + responseModel.Status + "'}");
-                return NotFound(responseModel);
+                productLoggers.LogError(ex.Message + "," + " at {'" + ConstantResources.timeStamp + "'}");
+                return BadRequest(ex.Message);
             }
-
         }
         /// <summary>
-        /// API for to create new product
+        /// API for to Delete the product details
         /// </summary>
-        /// <param name="productRequest"></param>
+        /// <param name="productId"></param>
         /// <returns></returns>
         [HttpDelete]
         [Route(ConstantResources.DeleteProduct)]
-        public IActionResult DeleteProduct(int productId)
+        public async Task<IActionResult> DeleteProduct(int productId)
         {
-            productLogger.LogInformation("DeleteProduct, API execution process started at {'" + DateTime.Now + "'} of the product Id {'" + productId + "'}");
-            APIResponseModel<object> responseModel = new APIResponseModel<object>();
-            var result = products.DeleteProductDetails(productId);
-            if (result.Status && result.StatusCode == 200)
+            try
             {
-                responseModel.Status = true;
-                responseModel.StatusCode = 200;
-                responseModel.ResponseMessage = result.ResponseMessage;
-                responseModel.Data = string.Empty;
-                productLogger.LogInformation("DeleteProduct, API execution process completed at {'" + DateTime.Now + "'} with status {'" + responseModel.Status + "'} for product Id {'"+ productId + "'}");
-                return Ok(responseModel);
+                productLoggers.LogInformation(ConstantResources.DeleteProductAPIStart + productId);
+                var result = await products.DeleteProductDetails(productId);
+                if (result.Status && result.StatusCode == (int)HttpStatusCode.OK)
+                {
+                    productLoggers.LogInformation(ConstantResources.DeleteProductAPIComplete + result.Status + ConstantResources.ForProductId + productId);
+                    return Ok(result);
+                }
+                else if(!result.Status && result.StatusCode == (int)HttpStatusCode.BadRequest)
+                {
+                    productLoggers.LogWarning(ConstantResources.DeleteProductAPIComplete + result.Status + ConstantResources.ForProductId + productId);
+                    return BadRequest(result);
+                }
+                else
+                {
+                    productLoggers.LogError(ConstantResources.DeleteProductAPIComplete + result.Status + ConstantResources.ForProductId + productId);
+                    return NotFound(result);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                responseModel.Status = false;
-                responseModel.StatusCode = 400;
-                responseModel.ResponseMessage = "No Record found!";
-                responseModel.Data = result;
-                productLogger.LogInformation("DeleteProduct, API execution process completed at {'" + DateTime.Now + "'} with status {'" + responseModel.Status + "'} for product Id {'"+ productId + "'}");
-                return NotFound(responseModel);
+                productLoggers.LogError(ex.Message + "," + " at {'" + ConstantResources.timeStamp + "'}");
+                return BadRequest(ex.Message);
             }
-
         }
 
         /// <summary>
@@ -193,64 +204,62 @@ namespace InventoryAndShipmentManagementSystem.Controllers
 
         [HttpPost]
         [Route(ConstantResources.AssignToShipment)]
-        public IActionResult ProductAssignToShipment(ShipmentRequest shipmentRequest)
+        public async Task<IActionResult> ProductAssignToShipment(ShipmentRequest shipmentRequest)
         {
-            productLogger.LogInformation("AssignToShipment, API execution process started at {'" + DateTime.Now + "'}");
-            APIResponseModel<object> responseModel = new APIResponseModel<object>();
-            var result = products.ProductAssignToShipment(shipmentRequest);
-            if (result.Status && result.StatusCode == 200)
+            try
             {
-                responseModel.Status = true;
-                responseModel.StatusCode = 200;
-                responseModel.ResponseMessage = result.ResponseMessage;
-                responseModel.Data = string.Empty;
-                productLogger.LogInformation("AssignToShipment, API execution process completed at {'" + DateTime.Now + "'} with status {'" + responseModel.Status + "'}");
-                return Ok(responseModel);
+                productLoggers.LogInformation(ConstantResources.AssignToShipmentAPIStart);
+                var result = await products.ProductAssignToShipment(shipmentRequest);
+                if (result.Status && result.StatusCode == (int)HttpStatusCode.OK)
+                {
+                    productLoggers.LogInformation(ConstantResources.AssignToShipmentAPIComplete + result.Status);
+                    return Ok(result);
+                }
+                else
+                {
+                    productLoggers.LogWarning(ConstantResources.AssignToShipmentAPIComplete + result.Status);
+                    return BadRequest(result);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                responseModel.Status = false;
-                responseModel.StatusCode = 400;
-                responseModel.ResponseMessage = "No Record found!";
-                responseModel.Data = result;
-                productLogger.LogInformation("AssignToShipment, API execution process completed at {'" + DateTime.Now + "'} with status {'" + responseModel.Status + "'}");
-                return NotFound(responseModel);
+                productLoggers.LogError(ex.Message + "," + " at {'" + ConstantResources.timeStamp + "'}");
+                return BadRequest(ex.Message);
             }
 
         }
-
         /// <summary>
         /// Used to get All Product Details
         /// </summary>
-        /// <param name="partnerId"></param>
         /// <returns></returns>
         [HttpGet]
         [Route(ConstantResources.GetAllShipments)]
-        public IActionResult GetAllShipments()
+        public async Task<IActionResult> GetAllShipments()
         {
-
-            productLogger.LogInformation("GetAllShipments, API execution process started at {'" + DateTime.Now + "'}");
-            APIResponseModel<object> responseModel = new APIResponseModel<object>();
-            var result = products.GetAllShipmentDetails();
-            if (result.Count > 0)
+            try
             {
-                responseModel.Status = true;
-                responseModel.StatusCode = 200;
-                responseModel.ResponseMessage = ConstantResources.Success;
-                responseModel.Data = result;
-                productLogger.LogInformation("GetAllShipments, API execution process completed at {'" + DateTime.Now + "'} " +
-                   "with status {'" + responseModel.Status + "'}");
-                return Ok(responseModel);
+                productLoggers.LogInformation(ConstantResources.GetAllShipmentsAPIStart);
+                var result = await products.GetAllShipmentDetails();
+                if (result.Status && result.StatusCode == (int)HttpStatusCode.OK)
+                {
+                    productLoggers.LogInformation(ConstantResources.GetAllShipmentsAPIComplete + ConstantResources.WithStatus + result.Status);
+                    return Ok(result);
+                }
+                else if (!result.Status && result.StatusCode == (int)HttpStatusCode.BadRequest)
+                {
+                    productLoggers.LogWarning(ConstantResources.GetAllShipmentsAPIComplete + ConstantResources.WithStatus + result.Status);
+                    return BadRequest(result);
+                }
+                else
+                {
+                    productLoggers.LogError(ConstantResources.GetAllShipmentsAPIComplete + ConstantResources.WithStatus + result.Status);
+                    return NotFound(result);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                responseModel.Status = false;
-                responseModel.StatusCode = 400;
-                responseModel.ResponseMessage = "No Record found!";
-                responseModel.Data = result;
-                productLogger.LogInformation("GetAllShipments, API execution process completed at {'" + DateTime.Now + "'} " +
-                   "with status {'" + responseModel.Status + "'}");
-                return NotFound(responseModel);
+                productLoggers.LogError(ex.Message + "," + " at {'" + ConstantResources.timeStamp + "'}");
+                return BadRequest(ex.Message);
             }
 
         }

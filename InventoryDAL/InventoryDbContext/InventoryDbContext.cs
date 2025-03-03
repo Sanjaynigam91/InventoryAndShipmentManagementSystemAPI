@@ -2,7 +2,7 @@
 using System;
 using System.Data.SqlClient;
 
-namespace LISCareDataAccess.InventoryDbContext
+namespace LISCareDataAccess.IInventoryDbContext
 {
     public class InventoryDbContext : DbContext
     {
